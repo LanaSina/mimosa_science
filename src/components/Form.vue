@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <p><label>Question:</label> <input v-model="question"></p>
-    <p><label>Hypothisis:</label> <input placeholder="required"></p>
+    <p><label>Hypothesis:</label> <input placeholder="required"></p>
     <h2>Experiment</h2>
     <p><label>Method:</label> <textarea></textarea></p>
     <p><label>Result:</label> <textarea></textarea></p>
