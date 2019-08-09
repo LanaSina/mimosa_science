@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <router-link to="/">Home</router-link>
-    <Form question='aaa'/>
+    <Form question= "ets"/>
   </div>
 </template>
 
