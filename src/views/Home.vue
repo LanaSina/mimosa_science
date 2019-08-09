@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <router-link :to="{ name: 'question', params: {id: 'new'} }">New Question and Hypothisis</router-link>
+    <router-link :to="{ name: 'question', params: {id: 'new'} }">New Question and Hypothesis</router-link>
     <QuestionList />
   </div>
 </template>
