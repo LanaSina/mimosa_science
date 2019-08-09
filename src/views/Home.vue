@@ -8,7 +8,6 @@
 <script>
 // @ is an alias to /src
 import QuestionList from '@/components/QuestionList.vue'
-import Form from '@/components/Form.vue'
 
 export default {
   name: 'home',
