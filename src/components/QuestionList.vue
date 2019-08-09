@@ -7,7 +7,7 @@
         </router-link>
       </h1>
       <template v-for="h in q.hypos">
-        <h2>Hypothisis: {{ h.title }} </h2>
+        <h2>Hypothesis: {{ h.title }} </h2>
         <ul>
           <template v-for="e in h.experiments">
             <li> {{e.title}} </li>
