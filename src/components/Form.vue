@@ -1,12 +1,58 @@
 <template>
-  <div class="hello">
-    <p><label>Question:</label> <input v-model="question"></p>
-    <p><label>Hypothesis:</label> <input placeholder="required"></p>
-    <h2>Experiment</h2>
-    <p><label>Method:</label> <textarea></textarea></p>
-    <p><label>Result:</label> <textarea></textarea></p>
+  <b-container fluid>
+    
+    <p>
+      <b-row>
+        <b-col sm="2">
+          <label>Question:</label>
+        </b-col>
+        <b-col sm="10">
+          <b-form-input v-model="question" placeholder="required"></b-form-input>
+        </b-col>
+      </b-row>
+    </p>
+
+    <p>
+      <b-row>
+        <b-col sm="2">
+          <label>Hypothesis:</label>
+        </b-col>
+        <b-col sm="10">
+          <b-form-input placeholder="required"></b-form-input>
+        </b-col>
+      </b-row>
+    </p>
+
+    <b-row>
+      <h2>Experiment</h2>
+    </b-row>
+
+    <p>
+      <b-row>
+        <b-col sm="2">
+          <label>Method:</label>
+        </b-col>
+        <b-col sm="10">
+          <b-form-textarea rows="6"></b-form-textarea>
+        </b-col>
+      </b-row>
+    </p>
+
+    <p>
+      <b-row>
+        <b-col sm="2">
+          <label>Result:</label>
+        </b-col>
+        <b-col sm="10">
+          <b-form-textarea rows="4"></b-form-textarea>
+        </b-col>
+      </b-row>
+    </p>
+
     <router-link to="/">Submit</router-link>
-  </div>
+
+</b-container>
+
 </template>
 
 <script>
@@ -33,5 +79,8 @@ li {
 }
 a {
   color: #42b983;
+}
+textarea {
+  rows: 3
 }
 </style>
