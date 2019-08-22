@@ -6,6 +6,7 @@
           Question: {{ q.title }}
         </router-link>
       </h1>
+      <p>{{ q.summary }}</p>
       <template v-for="h in q.hypotheses">
         <h2>
           <router-link :to="{ name: 'hypothesis', params: {id: idx} }">
