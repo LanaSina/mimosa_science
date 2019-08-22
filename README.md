@@ -3,6 +3,7 @@
 ## Project setup
 ```
 npm install
+npm install --save firebase vuefire
 ```
 
 ### Compiles and hot-reloads for development
@@ -33,6 +34,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 npm run build
 firebase login
-firebase init
+# firebase init
 firebase deploy
 ```
