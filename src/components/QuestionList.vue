@@ -7,20 +7,7 @@
         </router-link>
       </h1>
       <p>{{ q.summary }}</p>
-      <template v-for="h in q.hypotheses">
-        <h2>
-          <router-link :to="{ name: 'hypothesis', params: {id: idx} }">
-            Hypothesis: {{ h.title }}
-          </router-link>
-        </h2>
-        <ul>
-          <template v-for="e in h.experiments">
-            <li> {{e.title}} </li>
-            result:
-            <p> {{e.result}} </p>
-          </template>
-        </ul>
-      </template>
+      <HypothesesList v-bind:question='q' />
     </div>
   </div>
 </template>
@@ -28,10 +15,13 @@
 <script>
 
 import db from '@/plugins/firebase';
-
+import HypothesesList from '@/components/HypothesesList.vue'
 
 export default {
   name: 'app',
+  components: {
+    HypothesesList
+  },
   data: () => ({
     questions: []
   }),
