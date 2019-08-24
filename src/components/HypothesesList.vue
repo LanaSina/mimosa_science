@@ -2,7 +2,9 @@
   <div>
     <template v-for="(h, index) in hypotheses">
       <h3>
-        Hypothesis {{index+1}}: {{ h.title }}
+        <router-link :to="{ name: 'hypothesis', params: {id: h.id} }">
+          Hypothesis {{index+1}}: {{ h.title }}
+        </router-link>
       </h3>
       <p> {{h.summary}} </p>
     </template>
