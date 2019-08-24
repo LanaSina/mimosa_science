@@ -7,7 +7,7 @@
         </router-link>
       </h1>
       <p>{{ q.summary }}</p>
-      <HypothesesList v-bind:question='q' />
+      <HypothesesList v-bind:question='q'/>
     </div>
   </div>
 </template>

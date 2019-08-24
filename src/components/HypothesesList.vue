@@ -7,6 +7,7 @@
         </router-link>
       </h3>
       <p> {{h.summary}} </p>
+      <ExperimentsList v-bind:question='question' v-bind:hypothesis='h'/>
     </template>
   </div>
 </template>
@@ -14,9 +15,13 @@
 
 <script>
 import db from '@/plugins/firebase';
+import ExperimentsList from '@/components/ExperimentsList.vue'
 
 export default {
   name: 'HypothesesList',
+  components: {
+    ExperimentsList
+  },
   props: ['question'],
   data: () => ({
     hypotheses: [],
