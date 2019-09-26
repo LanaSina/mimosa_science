@@ -2,7 +2,7 @@
   <div id="app">
     <div id="question" v-for="(q, idx) in questions">
       <h1>
-        <router-link :to="{ name: 'question', params: {id: idx} }">
+        <router-link :to="{ name: 'question', params: {id: q.id} }">
           Question: {{ q.title }}
         </router-link>
       </h1>
