@@ -23,12 +23,36 @@ export default {
     HypothesesList
   },
   data: () => ({
-    questions: []
+    questions: [],
   }),
   firestore: {
-    questions: db.collection('questions'),
+
+   },
+  methods: {
+    
   },
+  created(){
+    let questionsRef = db.collection('questions');
+      questionsRef = questionsRef.where('hidden', '==', false).get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          } 
+          snapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data());
+            let question = doc.data();
+            question.id = doc.id;
+            this.questions.push(question)
+
+          });
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
+        });
+  }
 }
+
 </script>
 
 <style>

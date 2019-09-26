@@ -37,3 +37,7 @@ firebase login
 # firebase init
 firebase deploy
 ```
+
+## Modify database
+
+https://console.firebase.google.com/u/0/project/mimoza-441ee/database
