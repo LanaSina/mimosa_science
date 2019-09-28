@@ -44,7 +44,6 @@ export default {
 	    if (!doc.exists) {
 	      console.log('No such document!');
 	    } else {
-	      console.log('Document data:', doc.data());
 	      let question = doc.data();
 	      question.id = doc.id;
 	      this.questionArray.push(question);

@@ -40,11 +40,9 @@ export default {
             return;
           } 
           snapshot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data());
             let question = doc.data();
             question.id = doc.id;
             this.questions.push(question)
-
           });
         })
         .catch(err => {
