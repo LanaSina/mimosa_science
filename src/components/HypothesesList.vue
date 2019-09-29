@@ -7,7 +7,9 @@
         </router-link>
       </h3>
       <p> {{h.summary}} </p>
-      <b-button block variant="primary" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
+      <p>
+        <b-button block variant="primary" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
+      </p>
       <p v-if="show_sub[index]">
         hello
       </p>
@@ -29,13 +31,16 @@ export default {
   props: ['question'],
   data: () => ({
     hypotheses: [],
-    show_sub:[],
+    show_sub: [],
+    sub_contents: [],
   }),
   created() {
 
+    //get hypotheses for this question
     let hypRef = db.collection('questions')
       .doc(this.question.id)
-      .collection('hypotheses');
+      .collection('hypotheses')
+      .where('parent', '==', '');
     hypRef.get()
       .then(snapshot => {
           if (snapshot.empty) {
@@ -48,6 +53,7 @@ export default {
             this.hypotheses.push(hyp);
           });
           this.show_sub = new Array(this.hypotheses.length).fill(false);
+          this.sub_contents = new Array(this.hypotheses.length).fill([]);
         })
         .catch(err => {
           console.log('Error getting documents', err);
@@ -56,7 +62,31 @@ export default {
   },
   methods: {
     changeShowSub: function (index) {
-      this.$set(this.show_sub, index, !this.show_sub[index]);
+      //get the sub-hypotheses titles
+    let subRef = db.collection('questions')
+      .doc(this.question.id)
+      .collection('hypotheses');
+    subRef.where('parent', '==', this.hypotheses[index].id).get()
+      .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          } 
+          let sub_hypotheses = []
+          snapshot.forEach(doc => {
+            let hyp = doc.data();
+            hyp.id = doc.id;
+            sub_hypotheses.push(hyp);
+          });
+          
+          this.$set(this.sub_contents, index, sub_hypotheses);
+
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
+        });
+
+        this.$set(this.show_sub, index, !this.show_sub[index]);
     }
   },
 }
