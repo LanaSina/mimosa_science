@@ -6,7 +6,7 @@
           Hypothesis {{index+1}}: {{ h.title }}
         </router-link>
       </h3>
-      <p> {{h.summary}} </p>
+      <p v-html="h.summary"> </p>
       <p>
         <b-button block variant="primary" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
       </p>

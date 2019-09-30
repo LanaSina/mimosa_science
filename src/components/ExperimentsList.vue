@@ -1,18 +1,14 @@
 <template>
-  <div>
+  <div v-if="experiments.length>0">
     <template v-for="(e, index) in experiments">
       <h4>
           Experiment {{index+1}}: 
-          <p>
-            {{ e.summary }}
-          </p>
-          <p>
-            {{ e.methods }}
-          </p>
-          <p>
-            {{ e.result }}
-          </p>
       </h4>
+      <p>
+        {{ e.summary }}
+      </p>
+      <p v-html="e.methods"> </p>
+      <p v-html="e.result"> </p>
     </template>
   </div>
 </template>
