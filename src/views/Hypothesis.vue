@@ -12,15 +12,20 @@
 
 		<p v-if="hypothesis" v-html="hypothesis.summary"> </p>
 		<p>
-			<b-button block variant="primary" @click="changeShowSub()">Show sub-hypotheses</b-button>
+			<b-button block variant="primary" @click="changeShowSub()" >Show sub-hypotheses</b-button>
 		</p>
-		<span v-if="show_sub">
-			Sub-hypotheses:
-		</span>
-		<div id="sub_hypothesis" v-if="show_sub" v-for="(sh, idx) in sub_contents">
-			<router-link :to="{ name: 'hypothesis', params: {id: sh.id} }">
-				{{ sh.title }}
-			</router-link>
+		<div v-if="show_sub">
+			<span v-if="sub_contents.length>0">
+				Sub-hypotheses:
+			</span>
+			<span v-else ="sub_contents.length>0">
+				No sub-hypotheses.
+			</span>
+			<div id="sub_hypothesis" v-for="(sh, idx) in sub_contents">
+				<router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:q_id} }">
+					{{ sh.title }}
+				</router-link>
+			</div>
 		</div>
 
 		<ExperimentsList v-if="hypothesis && question" v-bind:question='question' v-bind:hypothesis='hypothesis'/>
@@ -50,24 +55,41 @@ export default {
 		sub_contents: [],
 	}),
 	created() {
-		this.id = this.$route.params['id'];
-		this.q_id = this.$route.params['q_id']
+		this.setVariables();
+	},
+	watch: {
+		'$route' (to, from) {
+      if (to.params.id !== from.params.id) {
 
+    		//clear variables
+    		this.clearVariables();
 
-		
-
-		this.$bind('hypothesis',
-			db.collection('questions')
-			.doc(this.q_id)
-			.collection('hypotheses')
-			.doc(this.id));
-
-		this.$bind('question',
-			db.collection('questions')
-			.doc(this.q_id));
-
+        //update
+        this.setVariables();
+      }
+   }
 	},
 	methods: {
+		clearVariables () {
+			this.question = null;
+			this.hypothesis = null;
+			this.show_sub = false;
+			this.sub_contents = [];
+		},
+		setVariables () {
+			this.id = this.$route.params['id'];
+			this.q_id = this.$route.params['q_id']
+
+			this.$bind('hypothesis',
+				db.collection('questions')
+				.doc(this.q_id)
+				.collection('hypotheses')
+				.doc(this.id));
+
+			this.$bind('question',
+				db.collection('questions')
+				.doc(this.q_id));
+		},
     changeShowSub: function () {
       //get the sub-hypotheses titles
     let subRef = db.collection('questions')

@@ -14,7 +14,7 @@
         Sub-hypotheses:
       </span>
         <div id="sub_hypothesis" v-if="show_sub[index]" v-for="(sh, idx) in sub_contents[index]">
-          <router-link :to="{ name: 'hypothesis', params: {id: sh.id} }">
+          <router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:question.id} }">
             {{ sh.title }}
           </router-link>
         </div>

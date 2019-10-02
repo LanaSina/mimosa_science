@@ -18,7 +18,7 @@
 
 <script>
 import Form from '@/components/Form.vue'
-import db from '@/plugins/firebase';
+import db from '@/plugins/firebase'
 import ExperimentsList from '@/components/ExperimentsList.vue'
 import HypothesesList from '@/components/HypothesesList.vue'
 
@@ -30,7 +30,6 @@ export default {
     ExperimentsList,
     HypothesesList,
   },
-  // props: ['question'],
   data: () => ({
     hypotheses: [],
     questionArray: [],
@@ -58,8 +57,6 @@ export default {
       db.collection('questions')
         .doc(this.$route.params['id'])
         .collection('hypotheses'));
-
-
   }
 }
 </script>
