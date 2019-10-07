@@ -41,3 +41,7 @@ firebase deploy
 ## Modify database
 
 https://console.firebase.google.com/u/0/project/mimoza-441ee/database
+
+## External modules documentation
+
+Wysiwg https://github.com/chmln/vue-wysiwyg

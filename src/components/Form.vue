@@ -7,7 +7,8 @@
           <label>Question:</label>
         </b-col>
         <b-col sm="10">
-          <b-form-input v-model="question" placeholder="required"></b-form-input>
+          <b-form-input type="text" v-if='question' :disabled=true v-model='this.question.title'></b-form-input>
+          <b-form-input v-else placeholder="required"></b-form-input>
         </b-col>
       </b-row>
     </p>
@@ -18,7 +19,8 @@
           <label>Hypothesis:</label>
         </b-col>
         <b-col sm="10">
-          <b-form-input placeholder="required"></b-form-input>
+          <b-form-input type="text" v-if='hypothesis' :disabled=true v-model='this.hypothesis.title'></b-form-input>
+          <b-form-input v-else placeholder="required"></b-form-input>
         </b-col>
       </b-row>
     </p>
@@ -33,7 +35,7 @@
           <label>Methods:</label>
         </b-col>
         <b-col sm="10">
-          <wysiwyg v-model="myHTML" />
+          <wysiwyg />
         </b-col>
       </b-row>
     </p>
@@ -44,7 +46,7 @@
           <label>Result:</label>
         </b-col>
         <b-col sm="10">
-          <wysiwyg v-model="myHTML" />
+          <wysiwyg />
         </b-col>
       </b-row>
     </p>
@@ -57,10 +59,15 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'InputForm',
   props: {
-    question: String
-  }
+    question: {
+        type: Object
+    },
+    hypothesis: {
+        type: Object
+    },
+  },  
 }
 </script>
 
