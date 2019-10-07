@@ -30,10 +30,10 @@
     <p>
       <b-row>
         <b-col sm="2">
-          <label>Method:</label>
+          <label>Methods:</label>
         </b-col>
         <b-col sm="10">
-          <b-form-textarea rows="6"></b-form-textarea>
+          <wysiwyg v-model="myHTML" />
         </b-col>
       </b-row>
     </p>
@@ -44,7 +44,7 @@
           <label>Result:</label>
         </b-col>
         <b-col sm="10">
-          <b-form-textarea rows="4"></b-form-textarea>
+          <wysiwyg v-model="myHTML" />
         </b-col>
       </b-row>
     </p>
