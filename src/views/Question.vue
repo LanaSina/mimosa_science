@@ -2,19 +2,27 @@
   <div class="home">
     <router-link to="/">Home</router-link>
 
-    <div id="question">
+    <div>
 
-      <h1>
-            Question: {{ question.title }}
-      </h1>
-      <p>{{ question.summary }}</p>
-      <HypothesesList v-bind:question='question'/>
+      <div v-if="question" id="question">
+        <h1>
+              Question: {{ question.title }}
+        </h1>
+        <p>{{ question.summary }}</p>
+        <HypothesesList v-bind:question='question'/>
+
+        <Form v-bind:question='question'/>
+
+      </div>
+
+      <div v-else>
+        <Form/>
+      </div>
 
     </div>
-
-    <Form v-bind:question='question'/>
-  
+    
   </div>
+
 </template>
 
 <script>

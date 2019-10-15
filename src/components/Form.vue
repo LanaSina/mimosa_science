@@ -1,24 +1,29 @@
 <template>
   <b-container fluid>
-    
+
+  <b-form @submit="onSubmit" @reset="onReset" v-if="show">
     <p>
       <b-row>
-        <b-col sm="2">
-          <label>Question:</label>
+        <b-col sm="3">
+          <h2>
+            <label>Question*:</label>
+          </h2>
         </b-col>
-        <b-col sm="10">
-          <b-form-input type="text" v-if='question' :disabled=true v-model='this.question.title'></b-form-input>
-          <b-form-input v-else placeholder="required"></b-form-input>
+        <b-col sm="8">
+          <b-form-input v-if='question' id="f_question" type="text" :disabled=true v-model='form_data.test'></b-form-input>
+          <b-form-input v-else id="f_question" type="text" placeholder="required" v-model='form_data.test'></b-form-input>
         </b-col>
       </b-row>
     </p>
 
     <p>
       <b-row>
-        <b-col sm="2">
-          <label>Hypothesis:</label>
+        <b-col sm="3">
+          <h2>
+            <label>Hypothesis*:</label>
+          </h2>
         </b-col>
-        <b-col sm="10">
+        <b-col sm="8">
           <b-form-input type="text" v-if='hypothesis' :disabled=true v-model='this.hypothesis.title'></b-form-input>
           <b-form-input v-else placeholder="required"></b-form-input>
         </b-col>
@@ -31,10 +36,12 @@
 
     <p>
       <b-row>
-        <b-col sm="2">
-          <label>Methods:</label>
+        <b-col sm="3">
+          <h3>
+            <label>Methods:</label>
+          </h3>
         </b-col>
-        <b-col sm="10">
+        <b-col sm="8">
           <wysiwyg />
         </b-col>
       </b-row>
@@ -42,22 +49,29 @@
 
     <p>
       <b-row>
-        <b-col sm="2">
-          <label>Result:</label>
+        <b-col sm="3">
+          <h3>
+            <label>Result:</label>
+          </h3>
         </b-col>
-        <b-col sm="10">
+        <b-col sm="8">
           <wysiwyg />
         </b-col>
       </b-row>
     </p>
 
-    <router-link to="/">Submit</router-link>
+    <b-button type="submit" variant="primary">Submit</b-button>
+    <b-button type="reset" variant="danger">Reset</b-button>
+ </b-form>
 
 </b-container>
 
 </template>
 
 <script>
+import db from '@/plugins/firebase';
+
+
 export default {
   name: 'InputForm',
   props: {
@@ -67,7 +81,32 @@ export default {
     hypothesis: {
         type: Object
     },
-  },  
+  },
+  data: () => ({
+      show: true,
+      form_data: {
+        test: '',
+      },
+  }),
+  methods: {
+    onSubmit(evt) {
+        // this.form_data.question_title = this.test
+        // this.form_data.hypothesis = " h a "
+        evt.preventDefault()
+        alert(JSON.stringify(this.form_data))
+      },
+    onReset(evt) {
+      evt.preventDefault()
+      // Reset our form values
+      // this.form_data.question_title = ''
+      //this.form.f_hypothesis = ''
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
+    }
+  },
 }
 </script>
 
