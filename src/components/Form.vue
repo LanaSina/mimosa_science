@@ -1,70 +1,80 @@
 <template>
+
   <b-container fluid>
 
-  <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-    <p>
-      <b-row>
-        <b-col sm="3">
-          <h2>
-            <label>Question*:</label>
-          </h2>
-        </b-col>
-        <b-col sm="8">
-          <b-form-input v-if='question' id="f_question" type="text" :disabled=true v-model='form_data.test'></b-form-input>
-          <b-form-input v-else id="f_question" type="text" placeholder="required" v-model='form_data.test'></b-form-input>
-        </b-col>
-      </b-row>
-    </p>
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
-    <p>
-      <b-row>
-        <b-col sm="3">
-          <h2>
-            <label>Hypothesis*:</label>
-          </h2>
-        </b-col>
-        <b-col sm="8">
-          <b-form-input type="text" v-if='hypothesis' :disabled=true v-model='this.hypothesis.title'></b-form-input>
-          <b-form-input v-else placeholder="required"></b-form-input>
-        </b-col>
-      </b-row>
-    </p>
+      <b-form-group id="question-global" label="Question" label-cols-lg="3">
 
-    <b-row>
-      <h2>Experiment</h2>
-    </b-row>
+        <b-form-group id="question-title" label="Question summary*:" label-for="question_title" label-cols-sm="3">
 
-    <p>
-      <b-row>
-        <b-col sm="3">
-          <h3>
-            <label>Methods:</label>
-          </h3>
-        </b-col>
-        <b-col sm="8">
-          <wysiwyg />
-        </b-col>
-      </b-row>
-    </p>
+          <b-form-input v-if='question' id="question_title" type="text" :disabled=true v-model='this.question.title'></b-form-input>
+          <b-form-input v-else id="f_question_title" type="text" placeholder="required" v-model='question_data.title'></b-form-input>
 
-    <p>
-      <b-row>
-        <b-col sm="3">
-          <h3>
-            <label>Result:</label>
-          </h3>
-        </b-col>
-        <b-col sm="8">
-          <wysiwyg />
-        </b-col>
-      </b-row>
-    </p>
+        </b-form-group>
 
-    <b-button type="submit" variant="primary">Submit</b-button>
-    <b-button type="reset" variant="danger">Reset</b-button>
- </b-form>
+        <b-form-group id="question-title" label="Question details:"
+          label-for="question_summary" label-cols-sm="3"
+          description="Add some details to explain your question if you want."
+        >
 
-</b-container>
+          <b-form-input v-if='question' id="question_summary" type="text" :disabled=true v-model='this.question.summary'></b-form-input>
+          <b-form-input v-else id="f_question_summary" type="text" v-model='question_data.summary'></b-form-input>
+
+        </b-form-group>
+
+      </b-form-group>
+
+
+      <b-form-group id="hypothesis-global" label="Hypothesis" label-cols-lg="3">
+
+        <b-form-group id="hypothesis" label="Hypothesis*:" label-for="hypothesis_title" label-cols-sm="3">
+
+          <b-form-input v-if='hypothesis' id='hypothesis_title' type="text" :disabled=true v-model='this.hypothesis.title'></b-form-input>
+          <b-form-input v-else id='hypothesis_title' type="text" placeholder="required" v-model='form_data.hypothesis_title'></b-form-input>
+
+        </b-form-group>
+
+      </b-form-group>
+
+
+        <b-row>
+          <h2>Experiment</h2>
+        </b-row>
+
+        <p>
+          <b-row>
+            <b-col sm="3">
+              <h3>
+                <label>Methods:</label>
+              </h3>
+            </b-col>
+            <b-col sm="8">
+              <wysiwyg />
+            </b-col>
+          </b-row>
+        </p>
+
+        <p>
+          <b-row>
+            <b-col sm="3">
+              <h3>
+                <label>Result:</label>
+              </h3>
+            </b-col>
+            <b-col sm="8">
+              <wysiwyg />
+            </b-col>
+          </b-row>
+        </p>
+
+        <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="reset" variant="danger">Reset</b-button>
+
+      </b-form>
+
+    </b-container>
+
 
 </template>
 
@@ -85,20 +95,34 @@ export default {
   data: () => ({
       show: true,
       form_data: {
-        test: '',
+        hypothesis_title: '',
+        hypothesis_summary: '',
       },
+      question_data: {
+        title: '',
+        summary: '',
+        hidden: false,
+      }
   }),
   methods: {
     onSubmit(evt) {
-        // this.form_data.question_title = this.test
-        // this.form_data.hypothesis = " h a "
         evt.preventDefault()
-        alert(JSON.stringify(this.form_data))
+        if(this.question != null){
+          this.question_data.title = this.question.title
+        }
+          // Add a new document with a generated id.
+          let addQuestion = db.collection('questions').add(this.question_data)
+            .then(ref => {
+              alert(JSON.stringify(this.question_data))
+              console.log('Added document with ID: ', ref.id);
+            });
+        
+        
       },
     onReset(evt) {
       evt.preventDefault()
-      // Reset our form values
-      // this.form_data.question_title = ''
+      // Reset form values
+      this.form_data.question_title = ''
       //this.form.f_hypothesis = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
