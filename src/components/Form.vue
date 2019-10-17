@@ -37,36 +37,17 @@
 
       </b-form-group>
 
+      <b-form-group id="experiment_global" label="Experiment" label-cols-lg="3" >
 
-        <b-row>
-          <h2>Experiment</h2>
-        </b-row>
+        <b-form-group id="methods" label="Methods:" label-for="experiment_methods" label-cols-sm="3">
+          <wysiwyg id="experiment_methods" v-model='experiment_data.methods' description="Describe how you performed the experiment to test this hypothesis." />
+        </b-form-group>
 
-        <p>
-          <b-row>
-            <b-col sm="3">
-              <h3>
-                <label>Methods:</label>
-              </h3>
-            </b-col>
-            <b-col sm="8">
-              <wysiwyg />
-            </b-col>
-          </b-row>
-        </p>
+        <b-form-group id="results" label="Results:" label-for="experiment_results" label-cols-sm="3">
+           <wysiwyg id="experiment_results" v-model='experiment_data.results'  description="What were the results of the experiment, and did the results support / go against the hypothesis?" />
+        </b-form-group>
 
-        <p>
-          <b-row>
-            <b-col sm="3">
-              <h3>
-                <label>Result:</label>
-              </h3>
-            </b-col>
-            <b-col sm="8">
-              <wysiwyg />
-            </b-col>
-          </b-row>
-        </p>
+      </b-form-group>
 
         <b-button type="submit" variant="primary">Submit</b-button>
         <b-button type="reset" variant="danger">Reset</b-button>
@@ -102,7 +83,11 @@ export default {
         title: '',
         summary: '',
         hidden: false,
-      }
+      },
+      experiment_data: {
+        methods: '',
+        reuslts: '',
+      },
   }),
   methods: {
     onSubmit(evt) {
@@ -115,14 +100,14 @@ export default {
             .then(ref => {
               alert(JSON.stringify(this.question_data))
               console.log('Added document with ID: ', ref.id);
+              this.$router.push('/')
             });
-        
         
       },
     onReset(evt) {
       evt.preventDefault()
       // Reset form values
-      this.form_data.question_title = ''
+      this.question_data.title = ''
       //this.form.f_hypothesis = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
