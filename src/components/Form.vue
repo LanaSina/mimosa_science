@@ -4,16 +4,16 @@
 
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
-      <b-form-group id="question-global" label="Question" label-cols-lg="3">
+      <b-form-group id="question_global" label="Question" label-cols-lg="3">
 
-        <b-form-group id="question-title" label="Question summary*:" label-for="question_title" label-cols-sm="3">
+        <b-form-group id="question_title_group" label="Question summary*:" label-for="question_title" label-cols-sm="3">
 
           <b-form-input v-if='question' id="question_title" type="text" :disabled=true v-model='this.question.title'></b-form-input>
-          <b-form-input v-else id="f_question_title" type="text" placeholder="required" v-model='question_data.title'></b-form-input>
+          <b-form-input v-else id="question_title" type="text" placeholder="required" v-model='question_data.title'></b-form-input>
 
         </b-form-group>
 
-        <b-form-group id="question-title" label="Question details:"
+        <b-form-group id="question_title" label="Details:"
           label-for="question_summary" label-cols-sm="3"
           description="Add some details to explain your question if you want."
         >
@@ -28,10 +28,19 @@
 
       <b-form-group id="hypothesis-global" label="Hypothesis" label-cols-lg="3">
 
-        <b-form-group id="hypothesis" label="Hypothesis*:" label-for="hypothesis_title" label-cols-sm="3">
+        <b-form-group id="hypothesis_title_group" label="Hypothesis*:" label-for="hypothesis_title" label-cols-sm="3">
 
           <b-form-input v-if='hypothesis' id='hypothesis_title' type="text" :disabled=true v-model='this.hypothesis.title'></b-form-input>
-          <b-form-input v-else id='hypothesis_title' type="text" placeholder="required" v-model='form_data.hypothesis_title'></b-form-input>
+          <b-form-input v-else id='hypothesis_title' type="text" placeholder="required" v-model='hypothesis_data.hypothesis_title'></b-form-input>
+
+        </b-form-group>
+
+        <b-form-group id="hypothesis_summary_group" label="Details:"  
+            label-for="hypothesis_summary" label-cols-sm="3"
+            description="Add some details to explain your hypothesis if you want."
+          >
+            <b-form-input v-if='hypothesis' id='hypothesis_summary' type="text" :disabled=true v-model='this.hypothesis.summary'></b-form-input>
+            <b-form-input v-else id='hypothesis_summary' type="text" placeholder="required" v-model='hypothesis_data.hypothesis_summary' ></b-form-input>
 
         </b-form-group>
 
@@ -39,12 +48,16 @@
 
       <b-form-group id="experiment_global" label="Experiment" label-cols-lg="3" >
 
-        <b-form-group id="methods" label="Methods:" label-for="experiment_methods" label-cols-sm="3">
-          <wysiwyg id="experiment_methods" v-model='experiment_data.methods' description="Describe how you performed the experiment to test this hypothesis." />
+        <b-form-group id="methods" label="Methods:" label-for="experiment_methods"
+         label-cols-sm="3" description="Describe how you performed the experiment to test this hypothesis." 
+         >
+          <wysiwyg id="experiment_methods" v-model='experiment_data.methods'/>
         </b-form-group>
 
-        <b-form-group id="results" label="Results:" label-for="experiment_results" label-cols-sm="3">
-           <wysiwyg id="experiment_results" v-model='experiment_data.results'  description="What were the results of the experiment, and did the results support / go against the hypothesis?" />
+        <b-form-group id="results" label="Results:" label-for="experiment_results"
+         label-cols-sm="3" description="What were the results of the experiment, and did the results support / go against the hypothesis?" 
+         >
+           <wysiwyg id="experiment_results" v-model='experiment_data.results'/>
         </b-form-group>
 
       </b-form-group>
@@ -75,7 +88,7 @@ export default {
   },
   data: () => ({
       show: true,
-      form_data: {
+      hypothesis_data: {
         hypothesis_title: '',
         hypothesis_summary: '',
       },
@@ -86,7 +99,7 @@ export default {
       },
       experiment_data: {
         methods: '',
-        reuslts: '',
+        results: '',
       },
   }),
   methods: {
@@ -94,14 +107,18 @@ export default {
         evt.preventDefault()
         if(this.question != null){
           this.question_data.title = this.question.title
-        }
-          // Add a new document with a generated id.
+        } else {
+
           let addQuestion = db.collection('questions').add(this.question_data)
             .then(ref => {
               alert(JSON.stringify(this.question_data))
+
+              //add hypothesis
+              if(this.hypothesis_data)
               console.log('Added document with ID: ', ref.id);
               this.$router.push('/')
             });
+        }
         
       },
     onReset(evt) {
