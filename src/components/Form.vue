@@ -31,7 +31,7 @@
         <b-form-group id="hypothesis_title_group" label="Hypothesis*:" label-for="hypothesis_title" label-cols-sm="3">
 
           <b-form-input v-if='hypothesis' id='hypothesis_title' type="text" :disabled=true v-model='this.hypothesis.title'></b-form-input>
-          <b-form-input v-else id='hypothesis_title' type="text" placeholder="required" v-model='hypothesis_data.hypothesis_title'></b-form-input>
+          <b-form-input v-else id='hypothesis_title' type="text" placeholder="required" v-model='hypothesis_data.title'></b-form-input>
 
         </b-form-group>
 
@@ -40,7 +40,7 @@
             description="Add some details to explain your hypothesis if you want."
           >
             <b-form-input v-if='hypothesis' id='hypothesis_summary' type="text" :disabled=true v-model='this.hypothesis.summary'></b-form-input>
-            <b-form-input v-else id='hypothesis_summary' type="text" placeholder="required" v-model='hypothesis_data.hypothesis_summary' ></b-form-input>
+            <b-form-input v-else id='hypothesis_summary' type="text" placeholder="required" v-model='hypothesis_data.summary' ></b-form-input>
 
         </b-form-group>
 
@@ -69,7 +69,6 @@
 
     </b-container>
 
-
 </template>
 
 <script>
@@ -89,8 +88,9 @@ export default {
   data: () => ({
       show: true,
       hypothesis_data: {
-        hypothesis_title: '',
-        hypothesis_summary: '',
+        title: '',
+        summary: '',
+        parent: '',
       },
       question_data: {
         title: '',
@@ -111,12 +111,19 @@ export default {
 
           let addQuestion = db.collection('questions').add(this.question_data)
             .then(ref => {
-              alert(JSON.stringify(this.question_data))
+              console.log('Added question with ID: ', ref.id);
 
               //add hypothesis
-              if(this.hypothesis_data)
-              console.log('Added document with ID: ', ref.id);
-              this.$router.push('/')
+              if(this.hypothesis_data.title){
+                  let addHypothesis = db.collection('questions').doc(ref.id)
+                                      .collection('hypotheses').add(this.hypothesis_data)
+                    .then(ref => {
+                      console.log('Added hypothesis with ID: ', ref.id);
+                      this.$router.push('/');
+                    });
+              } else {
+                this.$router.push('/');
+              }
             });
         }
         
