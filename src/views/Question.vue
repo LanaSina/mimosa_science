@@ -11,6 +11,9 @@
         <p>{{ question.summary }}</p>
         <HypothesesList v-bind:question='question'/>
 
+        <h2> Add your proposed hypothesis here: </h2>
+        <br/>
+
         <Form v-bind:question='question'/>
 
       </div>

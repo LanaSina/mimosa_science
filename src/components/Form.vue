@@ -105,42 +105,58 @@ export default {
   }),
   methods: {
     onSubmit(evt) {
-        evt.preventDefault()
-        if(this.question != null){
-          this.question_data.title = this.question.title
-        } else {
-
-          let add_question = db.collection('questions').add(this.question_data)
-            .then(ref => {
-              console.log('Added question with ID: ', ref.id);
-              let q_id = ref.id;
-
-              //add hypothesis
-              if(this.hypothesis_data.title){
-                  let add_hypothesis = db.collection('questions').doc(ref.id)
-                                      .collection('hypotheses').add(this.hypothesis_data)
-                    .then(ref => {
-                      console.log('Added hypothesis with ID: ', ref.id);
-                      let h_id = ref.id;
-
-                      //add experiment
-                      if(this.experiment_data.methods){
-                        let add_experiment = db.collection('questions').doc(q_id)
-                                      .collection('hypotheses').doc(h_id)
-                                      .collection('experiments').add(this.experiment_data)
-                          .then(ref => {
-                            console.log('Added experiment with ID: ', ref.id);
-                          });
-                      }
-                      this.$router.push('/');
-                    });
-              } else {
-                this.$router.push('/');
-              }
-            });
+      evt.preventDefault()
+      if(this.question != null){
+        //the question already exists
+        if(this.hypothesis != null){
+          //the hyp also exists
+          //add experiment
+          if(this.experiment_data.methods){
+            this.addExperimentToHypothesis(this.question.id, this.hypothesis.id, this.experiment_data);
+          }
+        } else if(this.hypothesis_data.title) {
+          this.addHypothesisToQuestion(this.question.id, this.hypothesis_data, this.experiment_data)
         }
         
-      },
+      } else {
+
+        let add_question = db.collection('questions').add(this.question_data)
+          .then(ref => {
+            console.log('Added question with ID: ', ref.id);
+            let q_id = ref.id;
+
+            //add hypothesis
+            if(this.hypothesis_data.title){
+              this.addHypothesisToQuestion(q_id, this.hypothesis_data, this.experiment_data)
+            } else {
+              this.$router.push('/');
+            }
+          });
+      }    
+    },
+    addHypothesisToQuestion(q_id, h_data, e_data){
+      let add_hypothesis = db.collection('questions').doc(q_id).collection('hypotheses').add(h_data)
+        .then(ref => {
+          console.log('Added hypothesis with ID: ', ref.id);
+          let h_id = ref.id;
+
+          //add experiment
+          if(e_data.methods){
+            this.addExperimentToHypothesis(q_id, h_id, e_data);
+          } else {
+            this.$router.push('/');
+          }
+        });
+    },
+    addExperimentToHypothesis(q_id, h_id, e_data){
+      let add_experiment = db.collection('questions').doc(q_id)
+                    .collection('hypotheses').doc(h_id)
+                    .collection('experiments').add(e_data)
+        .then(ref => {
+          console.log('Added experiment with ID: ', ref.id);
+          this.$router.push('/');
+        });
+    },
     onReset(evt) {
       evt.preventDefault()
       // Reset form values
