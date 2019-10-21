@@ -31,7 +31,6 @@
 <script>
 import Form from '@/components/Form.vue'
 import db from '@/plugins/firebase'
-import ExperimentsList from '@/components/ExperimentsList.vue'
 import HypothesesList from '@/components/HypothesesList.vue'
 
 
@@ -39,7 +38,6 @@ export default {
   name: 'home',
   components: {
     Form,
-    ExperimentsList,
     HypothesesList,
   },
   data: () => ({
