@@ -46,6 +46,7 @@
 
       </b-form-group>
 
+
       <b-form-group id="experiment_global" label="Experiment" label-cols-lg="3" >
 
         <b-form-group id="methods" label="Methods:" label-for="experiment_methods"
@@ -109,16 +110,28 @@ export default {
           this.question_data.title = this.question.title
         } else {
 
-          let addQuestion = db.collection('questions').add(this.question_data)
+          let add_question = db.collection('questions').add(this.question_data)
             .then(ref => {
               console.log('Added question with ID: ', ref.id);
+              let q_id = ref.id;
 
               //add hypothesis
               if(this.hypothesis_data.title){
-                  let addHypothesis = db.collection('questions').doc(ref.id)
+                  let add_hypothesis = db.collection('questions').doc(ref.id)
                                       .collection('hypotheses').add(this.hypothesis_data)
                     .then(ref => {
                       console.log('Added hypothesis with ID: ', ref.id);
+                      let h_id = ref.id;
+
+                      //add experiment
+                      if(this.experiment_data.methods){
+                        let add_experiment = db.collection('questions').doc(q_id)
+                                      .collection('hypotheses').doc(h_id)
+                                      .collection('experiments').add(this.experiment_data)
+                          .then(ref => {
+                            console.log('Added experiment with ID: ', ref.id);
+                          });
+                      }
                       this.$router.push('/');
                     });
               } else {
