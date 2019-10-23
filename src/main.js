@@ -9,6 +9,10 @@ Vue.use(BootstrapVue)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import wysiwyg from "vue-wysiwyg";
+Vue.use(wysiwyg, {});
+import 'vue-wysiwyg/dist/vueWysiwyg.css';
+
 new Vue({
   router,
   render: h => h(App)

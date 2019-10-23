@@ -30,6 +30,16 @@ export default new Router({
       path: '/hypothesis/:id',
       name: 'hypothesis',
       component: () => import(/* webpackChunkName: "question" */ './views/Hypothesis.vue')
-    }
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import(/* webpackChunkName: "question" */ './views/Signup.vue')
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import(/* webpackChunkName: "question" */ './views/Logout.vue')
+    },
   ]
 })
