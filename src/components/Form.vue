@@ -2,7 +2,7 @@
 
   <b-container fluid>
 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show && signed_in">
 
       <b-form-group id="question_global" label="Question" label-cols-lg="3">
 
@@ -74,7 +74,8 @@
 
 <script>
 import db from '@/plugins/firebase';
-
+const firebase = require('firebase/app');
+require('firebase/auth');
 
 export default {
   name: 'InputForm',
@@ -87,6 +88,8 @@ export default {
     },
   },
   data: () => ({
+      signed_in: false,
+      //not quite sure why but this var is recommended in the doc
       show: true,
       hypothesis_data: {
         title: '',
@@ -103,6 +106,27 @@ export default {
         results: '',
       },
   }),
+  created() {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        // var displayName = user.displayName;
+        // var email = user.email;
+        // var emailVerified = user.emailVerified;
+        // var photoURL = user.photoURL;
+        // var isAnonymous = user.isAnonymous;
+        // var uid = user.uid;
+        // var providerData = user.providerData;
+        // ...
+
+        //display form
+        this.signed_in = true;
+      } else {
+        // User is signed out.
+        this.signed_in = false;
+      }
+    });
+  },
   methods: {
     onSubmit(evt) {
       evt.preventDefault()

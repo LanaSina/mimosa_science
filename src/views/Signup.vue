@@ -10,7 +10,7 @@
         <b-button type="submit" variant="primary">Authenticate</b-button> 
       </b-form>
 
-      <h2> Sign in using your email address </h2>
+      <h2> Sign up using your email address </h2>
 
       <b-form @submit="onSubmitEmail" v-if="show">
 
@@ -69,6 +69,8 @@ export default {
   methods: {
     onSubmitEmail(evt) {
       evt.preventDefault()
+      var navigate = this.$router;
+
       if(this.password!=this.password_confirm){
         password_confirm = false;
       } else {
@@ -84,12 +86,12 @@ export default {
         });
 
         alert("User created!");
-        this.$router.push('/');
+        navigate.push('/');
       }
     },
     onSubmitGoogle(evt) {
       evt.preventDefault()
-
+      var navigate = this.$router;
       var provider = new firebase.auth.GoogleAuthProvider();
 
       firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -97,7 +99,7 @@ export default {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        this.$router.push('/');
+        navigate.push('/');
         // ...
       }).catch(function(error) {
         // Handle Errors here.
@@ -108,7 +110,8 @@ export default {
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
 
-        let error_str = error_code.concat(': ', error_message);
+        var error_str = "Error ";
+        error_str = error_str.concat(error_code, ': ', error_message);
         alert(error_str);
         // ...
       });
