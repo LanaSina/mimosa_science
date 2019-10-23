@@ -106,30 +106,23 @@ export default {
         results: '',
       },
   }),
-  created() {
-    firebase.auth().onAuthStateChanged(function(user) {
+  mounted: function() {
+    firebase.auth().onAuthStateChanged( this.onUserLogin );
+  },
+  methods: {
+    onUserLogin: function( user ) {
       if (user) {
-        // User is signed in.
-        // var displayName = user.displayName;
-        // var email = user.email;
-        // var emailVerified = user.emailVerified;
-        // var photoURL = user.photoURL;
-        // var isAnonymous = user.isAnonymous;
-        // var uid = user.uid;
-        // var providerData = user.providerData;
-        // ...
-
         //display form
         this.signed_in = true;
       } else {
         // User is signed out.
         this.signed_in = false;
       }
-    });
-  },
-  methods: {
+    },
     onSubmit(evt) {
       evt.preventDefault()
+      var navigate = this.$router;
+
       if(this.question != null){
         //the question already exists
         if(this.hypothesis != null){
@@ -153,7 +146,7 @@ export default {
             if(this.hypothesis_data.title){
               this.addHypothesisToQuestion(q_id, this.hypothesis_data, this.experiment_data)
             } else {
-              this.$router.push('/');
+              navigate.push('/');
             }
           });
       }    
