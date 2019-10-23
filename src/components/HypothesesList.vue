@@ -10,14 +10,19 @@
       <p>
         <b-button block variant="primary" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
       </p>
-      <span v-if="show_sub[index]">
-        Sub-hypotheses:
-      </span>
-        <div id="sub_hypothesis" v-if="show_sub[index]" v-for="(sh, idx) in sub_contents[index]">
-          <router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:question.id} }">
+      <div v-if="show_sub[index]">
+        <span v-if="sub_contents[index].length">
+          Sub-hypotheses:
+        </span>
+        <span v-else>
+          No sub-hypotheses.
+        </span>
+        <div id="sub_hypothesis" v-for="(sh, idx) in sub_contents[index]">
+          <router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:question_id} }">
             {{ sh.title }}
           </router-link>
         </div>
+      </div>
       <ExperimentsList v-bind:question='question' v-bind:hypothesis='h'/>
     </template>
   </div>
