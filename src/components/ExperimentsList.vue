@@ -8,7 +8,7 @@
         {{ e.summary }}
       </p>
       <p v-html="e.methods"> </p>
-      <p v-html="e.result"> </p>
+      <p v-html="e.results"> </p>
     </template>
   </div>
 </template>
