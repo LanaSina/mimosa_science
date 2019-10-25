@@ -7,16 +7,17 @@
         </router-link>
       </h3>
       <p v-html="h.summary"> </p>
-      <p class="text-center">
-        <b-button variant="primary" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
+      <p class="text">
+        <b-button variant="info" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
       </p>
       <div v-if="show_sub[index]">
-        <span v-if="sub_contents[index].length">
+        <div v-if="sub_contents[index].length">
           Sub-hypotheses:
-        </span>
-        <span v-else>
+        </div>
+        <div v-else>
           No sub-hypotheses.
-        </span>
+          <br/>
+        </div>
         <div id="sub_hypothesis" v-for="(sh, idx) in sub_contents[index]">
           <router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:question_id} }">
             {{ sh.title }}
