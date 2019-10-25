@@ -9,7 +9,7 @@
         <b-form-group id="question_title_group" label="Question summary*:" label-for="question_title" label-cols-sm="3">
 
           <b-form-input v-if='question' id="question_title" type="text" :disabled=true v-model='this.question.title'></b-form-input>
-          <b-form-input v-else id="question_title" type="text" placeholder="required" v-model='question_data.title'></b-form-input>
+          <b-form-input v-else id="question_title" type="text" placeholder="required" v-model='question_data.title' required></b-form-input>
 
         </b-form-group>
 
@@ -31,7 +31,7 @@
         <b-form-group id="hypothesis_title_group" label="Hypothesis*:" label-for="hypothesis_title" label-cols-sm="3">
 
           <b-form-input v-if='hypothesis' id='hypothesis_title' type="text" :disabled=true v-model='this.hypothesis.title'></b-form-input>
-          <b-form-input v-else id='hypothesis_title' type="text" placeholder="required" v-model='hypothesis_data.title'></b-form-input>
+          <b-form-input v-else id='hypothesis_title' type="text" placeholder="required" v-model='hypothesis_data.title' required></b-form-input>
 
         </b-form-group>
 
@@ -40,7 +40,7 @@
             description="Add some details to explain your hypothesis if you want."
           >
             <b-form-input v-if='hypothesis' id='hypothesis_summary' type="text" :disabled=true v-model='this.hypothesis.summary'></b-form-input>
-            <b-form-input v-else id='hypothesis_summary' type="text" placeholder="required" v-model='hypothesis_data.summary' ></b-form-input>
+            <b-form-input v-else id='hypothesis_summary' type="text" v-model='hypothesis_data.summary' ></b-form-input>
 
         </b-form-group>
 
