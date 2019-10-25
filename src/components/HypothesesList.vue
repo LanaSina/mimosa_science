@@ -7,8 +7,8 @@
         </router-link>
       </h3>
       <p v-html="h.summary"> </p>
-      <p>
-        <b-button block variant="primary" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
+      <p class="text-center">
+        <b-button variant="primary" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
       </p>
       <div v-if="show_sub[index]">
         <span v-if="sub_contents[index].length">
