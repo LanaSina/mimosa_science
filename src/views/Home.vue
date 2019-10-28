@@ -2,9 +2,9 @@
   <div class="home">
     <router-link :to="{ name: 'question', params: {id: 'new'} }">New Question and Hypothesis</router-link>
 
-    <router-link :to="{ name: 'signup'}">Login</router-link>
+    <router-link :to="{ name: 'login'}">Login</router-link>
 
-    <router-link :to="{ name: 'signup'}">Signup</router-link>
+    <router-link :to="{ name: 'register'}">Signup</router-link>
 
     <router-link :to="{ name: 'logout'}">Logout</router-link>
 

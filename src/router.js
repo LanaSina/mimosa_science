@@ -1,45 +1,50 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home'
+import Login from './views/Login'
+import Logout from './views/Logout'
+import Register from './views/Register'
+import Question from './views/Question'
+import Hypothesis from './views/Hypothesis'
+
 
 Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    },
-    {
-      path: '/question/:id',
-      name: 'question',
-      component: () => import(/* webpackChunkName: "question" */ './views/Question.vue')
-    },
-     {
-      path: '/hypothesis/:id',
-      name: 'hypothesis',
-      component: () => import(/* webpackChunkName: "question" */ './views/Hypothesis.vue')
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: () => import(/* webpackChunkName: "question" */ './views/Signup.vue')
-    },
-    {
-      path: '/logout',
-      name: 'logout',
-      component: () => import(/* webpackChunkName: "question" */ './views/Logout.vue')
-    },
-  ]
-})
+const router = new Router({
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/logout',
+            name: 'logout',
+            component: Logout
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register
+        },
+        {
+            path: '/question/:id',
+            name: 'question',
+            component: Question
+        },
+        {
+            path: '/hypothesis/:id',
+            name: 'hypothesis',
+            component: Hypothesis
+        }
+    ]
+});
+
+export default router
