@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from "./router";
+import store from './store';
 import * as firebase from 'firebase';
 
 import 'firebase/firestore';
@@ -35,8 +36,12 @@ var firebaseConfig = {
 
 export const db = firebase.initializeApp(firebaseConfig).firestore();
 
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
+});
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
