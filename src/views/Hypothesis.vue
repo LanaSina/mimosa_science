@@ -37,7 +37,7 @@
 
 <script>
 import Form from '@/components/Form.vue'
-import db from '@/plugins/firebase';
+import {db} from '../main';
 import ExperimentsList from '@/components/ExperimentsList.vue'
 
 export default {
