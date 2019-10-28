@@ -15,25 +15,23 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto"></ul>
-
 			<ul class="navbar-nav ml-auto">
-			<template v-if="user.loggedIn">
-				<!-- <div class="nav-item">{{user.data.displayName}}</div> -->
-				<li class="nav-item">
-				<router-link :to="{ name: 'question', params: {id: 'new'} }" class="nav-link">New Question and Hypothesis</router-link>
-				</li>
-				<li class="nav-item">
-				<a class="nav-link" @click.prevent="signOut">Sign out</a>
-				</li>
-			</template>
-			<template v-else>
-				<li class="nav-item">
-				<router-link to="login" class="nav-link">Login</router-link>
-				</li>
-				<li class="nav-item">
-				<router-link to="register" class="nav-link">Register</router-link>
-				</li>
-			</template>
+				<template v-if="user.loggedIn">
+					<li class="nav-item">
+					<router-link :to="{ name: 'question', params: {id: 'new'}}" class="nav-link">New Question and Hypothesis</router-link>
+					</li>
+					<li class="nav-item">
+					<router-link to="logout" class="nav-link"> Sign out </router-link>
+					</li>
+				</template>
+				<template v-else>
+					<li class="nav-item">
+					<router-link to="login" class="nav-link">Login</router-link>
+					</li>
+					<li class="nav-item">
+					<router-link to="register" class="nav-link">Register</router-link>
+					</li>
+				</template>
 			</ul>
 		</div>
 		</div>
