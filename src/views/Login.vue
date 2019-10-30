@@ -59,7 +59,7 @@
                     </a> -->
                 
                 <b-form @submit="onSubmitGoogle">
-                    <b-button type="submit" variant="primary">Signup using Google</b-button> 
+                    <b-button type="submit" variant="primary fa fa-google-plus">Signup using Google</b-button> 
                 </b-form>
                 </p>
             </div>
