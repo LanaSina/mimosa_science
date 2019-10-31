@@ -121,28 +121,28 @@ export default {
     };
   },
   methods: {
-	  submit() {
-			if (this.form.password != this.form.confirm_password) {
-				this.error = "The passwords are not the same!";
-			} else {
-				firebase
-					.auth()
-					.createUserWithEmailAndPassword(this.form.email, this.form.password)
-					.then(data => {
-					data.user
-						.updateProfile({
-						displayName: this.form.name
-						});
-						this.$router.replace({name: "home"});
-						// .then(() => {});
-					})
-					.catch(err => {
-					this.error = err.message;
-					});
-			}
-		},
-		
-		onSubmitGoogle(evt) {
+    submit() {
+      if (this.form.password != this.form.confirm_password) {
+        this.error = "The passwords are not the same!";
+      } else {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.form.email, this.form.password)
+          .then(data => {
+          data.user
+            .updateProfile({
+            displayName: this.form.name
+            });
+            this.$router.replace({name: "home"});
+            // .then(() => {});
+          })
+          .catch(err => {
+          this.error = err.message;
+          });
+      }
+    },
+    
+    onSubmitGoogle(evt) {
             evt.preventDefault()
             var navigate = this.$router;
             var provider = new firebase.auth.GoogleAuthProvider();
