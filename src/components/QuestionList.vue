@@ -14,7 +14,7 @@
 
 <script>
 
-import db from '@/plugins/firebase';
+import {db} from '../main';
 import HypothesesList from '@/components/HypothesesList.vue'
 
 export default {

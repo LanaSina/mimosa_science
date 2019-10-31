@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import db from '@/plugins/firebase';
+import {db} from '../main';
 const firebase = require('firebase/app');
 require('firebase/auth');
 

@@ -3,7 +3,7 @@
 ## Project setup
 ```
 npm install
-npm install --save firebase vuefire
+npm install --save firebase vuefire vuex
 ```
 
 ### Compiles and hot-reloads for development
