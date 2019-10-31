@@ -8,7 +8,7 @@
 			<b-collapse id="nav-collapse" is-nav>
 				<template v-if="user.loggedIn">
 					<b-navbar-nav>
-						<b-nav-item to="/question/new"> New Questions & Hypotheses </b-nav-item>
+						<b-nav-item to="/question/new"> New Question & Hypothese </b-nav-item>
 						<b-nav-item to="/">Questions</b-nav-item>
 						<b-nav-item to="/">Hypotheses</b-nav-item>
 					</b-navbar-nav>
