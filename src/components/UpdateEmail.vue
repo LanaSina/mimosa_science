@@ -3,27 +3,12 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">Update your personal information</div>
+          <div class="card-header">Update your email address</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
             <form action="#" @submit.prevent="submit">
-              <!-- <div class="form-group row">
-                <label for="name" class="col-md-4 col-form-label text-md-right">Name*</label>
-                <div class="col-md-6">
-                  <input
-                    id="name"
-                    type="name"
-                    class="form-control"
-                    name="name"
-                    value
-                    required
-                    autofocus
-                    v-model="form.name"
-                  />
-                </div>
-              </div> -->
               <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Email*</label>
+                <label for="email" class="col-md-4 col-form-label text-md-right">New Email*</label>
 
                 <div class="col-md-6">
                   <input
@@ -38,40 +23,6 @@
                   />
                 </div>
               </div>
-
-              <!-- <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password*</label>
-
-                <div class="col-md-6">
-                  <input
-                    id="password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                    v-model="form.password"
-                  />
-                </div>
-              </div> -->
-
-              <!-- <div class="form-group row">
-                <label
-                  for="confirm_password"
-                  class="col-md-4 col-form-label text-md-right"
-                >Confirm password*</label>
-
-                <div class="col-md-6">
-                  <input
-                    id="confirm_password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                    v-model="form.confirm_password"
-                  />
-                </div>
-              </div> -->
-
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
                   <button type="submit" class="btn btn-primary">Update Email</button>
@@ -91,32 +42,40 @@ import firebase from "firebase";
 
 export default {
     computed: {
-    // map `this.user` to `this.$store.getters.user`
-    ...mapGetters({
-      user: "user"
-    })
-  },
+		// map `this.user` to `this.$store.getters.user`
+		...mapGetters({
+			user: "user"
+		})
+	},
 
-  data() {
-    return {
-      form: {
-        email: ""
-      },
-      error: null
-    };
-  },
-  methods: {
-    submit() {
-        var user = firebase.auth().currentUser;
-        user.updateEmail(this.form.email).then(function() {
-          // Update successful.
-          this.$router.push("/logout");
-          // this.$router.push("/login");
-        }).catch(function(error) {
-          // An error happened.
-        });
+	data() {
+		return {
+			form: {
+				email: ""
+			},
+			error: null
+		};
+	},
+	methods: {
+		submit() {
+			var user = firebase.auth().currentUser;
+			user.updateEmail(this.form.email).then(data => {
+				// Update successful
+				firebase.auth().signOut().then(d => {
+					// Sign-out successful.
+					this.$router.replace({name: "login"});
+					console.log('User Logged Out!');
+				}).catch(e => {
+				// An error happened.
+					console.log(e);
+					this.error = e.message;
+				});
+				
+			}).catch(err => {
+				this.error = err.message;
+			});
 		},
-  }
+	}
 };
 </script>
 
