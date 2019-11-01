@@ -128,7 +128,17 @@ export default {
                     // This gives you a Google Access Token. You can use it to access the Google API.
                     var token = result.credential.accessToken;
                     // The signed-in user info.
-                    var user = result.user;
+					var user = result.user;
+					if (result.additionalUserInfo.isNewUser) {
+						user.sendEmailVerification().then(d => {
+							// Email sent
+							console.log("Email sent");
+						}).catch(e => {
+							// An error happened.
+							console.log(e.message);
+						});
+						firebase.auth().signOut();
+					}
                     navigate.push('/');
                 // ...
                 })
