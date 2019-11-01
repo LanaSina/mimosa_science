@@ -32,7 +32,9 @@
 						<template v-slot:button-content>
 							<em class="fa fa-user">Profile</em>
 						</template>
-						<b-dropdown-item to="/">My account</b-dropdown-item>
+						<b-dropdown-item to="/updateProfile">Update Profile</b-dropdown-item>
+						<b-dropdown-item to="/updateEmail">Update Email</b-dropdown-item>
+						<b-dropdown-item to="/updatePassword">Update Password</b-dropdown-item>
 						<b-dropdown-item to="/logout">Sign Out</b-dropdown-item>
 						</b-nav-item-dropdown>
 					</b-navbar-nav>

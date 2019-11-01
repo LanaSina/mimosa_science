@@ -6,6 +6,9 @@ import Logout from './views/Logout'
 import Register from './views/Register'
 import Question from './views/Question'
 import Hypothesis from './views/Hypothesis'
+import UpdateProfile from './components/UpdateProfile'
+import UpdatePassword from './components/UpdatePassword'
+import UpdateEmail from './components/UpdateEmail'
 
 
 Vue.use(Router)
@@ -43,6 +46,21 @@ const router = new Router({
             path: '/hypothesis/:id',
             name: 'hypothesis',
             component: Hypothesis
+        },
+        {
+            path: '/updateProfile',
+            name: '/updateProfile',
+            component: UpdateProfile
+        },
+        {
+            path: '/updatePassword',
+            name: '/updatePassword',
+            component: UpdatePassword
+        },
+        {
+            path: '/updateEmail',
+            name: '/updateEmail',
+            component: UpdateEmail
         }
     ]
 });
