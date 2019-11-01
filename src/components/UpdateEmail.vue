@@ -61,6 +61,14 @@ export default {
 			var user = firebase.auth().currentUser;
 			user.updateEmail(this.form.email).then(data => {
 				// Update successful
+				if (!user.emailVerified) {
+					user.sendEmailVerification().then(function() {
+					// Email sent.
+					}).catch(function(error) {
+					// An error happened.
+					});
+				}	
+
 				firebase.auth().signOut().then(d => {
 					// Sign-out successful.
 					this.$router.replace({name: "login"});

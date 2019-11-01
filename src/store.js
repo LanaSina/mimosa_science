@@ -30,7 +30,7 @@ export default new Vuex.Store({
 
             if (user) {
                 commit("SET_USER", {
-                    displayName: user.displayName, // ??? Don't know the properties of a user.
+                    displayName: user.displayName, 
                     email: user.email,
                     uid: user.uid,
                     emailVerified: user.emailVerified,
