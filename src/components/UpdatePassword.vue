@@ -57,35 +57,45 @@ import firebase from "firebase";
 
 export default {
     computed: {
-    // map `this.user` to `this.$store.getters.user`
-    ...mapGetters({
-      user: "user"
-    })
-  },
-
-  data() {
-    return {
-      form: {
-        new_password1: "",
-        new_password2: ""
-      },
-      error: null
-    };
-  },
-  methods: {
-    submit() {
-        var user = firebase.auth().currentUser;
-        if (this.form.new_password1 != this.form.new_password2) {
-            this.error = "The passwords are not the same!";
-        } else {
-            user.updatePassword(this.form.new_password1).then(function() {
-            // Update successful.
-            }).catch(function(error) {
-                this.error = error;
-            });
-        }
+        // map `this.user` to `this.$store.getters.user`
+        ...mapGetters({
+        user: "user"
+        })
     },
-  }
+
+    data() {
+        return {
+            form: {
+                new_password1: "",
+                new_password2: ""
+            },
+            error: null
+        };
+    },
+    methods: {
+        submit() {
+            var user = firebase.auth().currentUser;
+            if (this.form.new_password1 != this.form.new_password2) {
+                this.error = "The passwords are not the same!";
+            } else {
+                user.updatePassword(this.form.new_password1).then(data => {
+                    // Update successful
+                    firebase.auth().signOut().then(d => {
+                        // Sign-out successful.
+                        this.$router.replace({name: "login"});
+                        console.log('User Logged Out!');
+                    }).catch(e => {
+                    // An error happened.
+                        console.log(e);
+                        this.error = e.message;
+                    });
+                    
+                }).catch(err => {
+                    this.error = err.message;
+                });
+            }
+        },
+    }
 };
 </script>
 
