@@ -7,27 +7,42 @@
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
             <form action="#" @submit.prevent="submit">
+                
+                <div class="form-group row">
+                    <label for="new_password1" class="col-md-4 col-form-label text-md-right">New Password*</label>
 
-              <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">Password*</label>
-
-                <div class="col-md-6">
-                  <input
-                    id="password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                    v-model="form.password"
-                  />
+                    <div class="col-md-6">
+                        <input
+                            id="new_password1"
+                            type="password"
+                            class="form-control"
+                            name="password"
+                            required
+                            v-model="form.new_password1"
+                        />
+                    </div>
                 </div>
-              </div>
 
-              <div class="form-group row mb-0">
-                <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">Update password</button>
+                <div class="form-group row">
+                    <label for="new_password2" class="col-md-4 col-form-label text-md-right">Retype Password*</label>
+
+                    <div class="col-md-6">
+                        <input
+                            id="new_password2"
+                            type="password"
+                            class="form-control"
+                            name="password"
+                            required
+                            v-model="form.new_password2"
+                        />
+                    </div>
                 </div>
-              </div>
+
+                <div class="form-group row mb-0">
+                    <div class="col-md-8 offset-md-4">
+                        <button type="submit" class="btn btn-primary">Update password</button>
+                    </div>
+                </div>
             </form>
           </div>
         </div>
@@ -51,10 +66,8 @@ export default {
   data() {
     return {
       form: {
-        // name: "",
-        // email: "",
-        password: ""
-        // confirm_password: ""
+        new_password1: "",
+        new_password2: ""
       },
       error: null
     };
@@ -62,13 +75,16 @@ export default {
   methods: {
     submit() {
         var user = firebase.auth().currentUser;
-
-        user.updatePassword(this.form.password).then(function() {
-        // Update successful.
-        }).catch(function(error) {
-        // An error happened.
-        });
-		},
+        if (this.form.new_password1 != this.form.new_password2) {
+            this.error = "The passwords are not the same!";
+        } else {
+            user.updatePassword(this.form.new_password1).then(function() {
+            // Update successful.
+            }).catch(function(error) {
+                this.error = error;
+            });
+        }
+    },
   }
 };
 </script>
