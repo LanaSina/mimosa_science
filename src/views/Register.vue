@@ -109,67 +109,78 @@
 <script>
 import firebase from "firebase";
 export default {
-  data() {
-    return {
-      form: {
-        name: "",
-        email: "",
-        password: "",
-        confirm_password: ""
-      },
-      error: null
-    };
-  },
-  methods: {
-    submit() {
-      if (this.form.password != this.form.confirm_password) {
-        this.error = "The passwords are not the same!";
-      } else {
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.form.email, this.form.password)
-          .then(data => {
-          data.user
-            .updateProfile({
-            displayName: this.form.name
-            });
-            this.$router.replace({name: "home"});
-            // .then(() => {});
-          })
-          .catch(err => {
-          this.error = err.message;
-          });
-      }
-    },
+	data() {
+		return {
+			form: {
+				name: "",
+				email: "",
+				password: "",
+				confirm_password: ""
+			},
+			error: null
+		};
+	},
+	methods: {
+		submit() {
+			if (this.form.password != this.form.confirm_password) {
+				this.error = "The passwords are not the same!";
+			} else {
+				firebase
+				.auth()
+				.createUserWithEmailAndPassword(this.form.email, this.form.password)
+				.then(data => {
+					data.user.updateProfile({ displayName: this.form.name });
+					data.user.sendEmailVerification().then(d => {
+						console.log("Email sent");
+					}).catch(e => {
+						console.log(e.message);
+					});
+					firebase.auth().signOut();
+					this.$router.replace({name: "login"});
+					// .then(() => {});
+				})
+				.catch(err => {
+					this.error = err.message;
+				});
+			}
+		},
     
-    onSubmitGoogle(evt) {
-            evt.preventDefault()
-            var navigate = this.$router;
-            var provider = new firebase.auth.GoogleAuthProvider();
+		onSubmitGoogle(evt) {
+			evt.preventDefault()
+			var navigate = this.$router;
+			var provider = new firebase.auth.GoogleAuthProvider();
 
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                navigate.push('/');
-                // ...
-            }).catch(function(error) {
-                // Handle Errors here.
-                var error_code = error.code;
-                var error_message = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
+			firebase.auth().signInWithPopup(provider).then(function(result) {
+				// This gives you a Google Access Token. You can use it to access the Google API.
+				var token = result.credential.accessToken;
+				// The signed-in user info.
+				var user = result.user;
+				if (result.additionalUserInfo.isNewUser) {
+					user.sendEmailVerification().then(d => {
+						console.log("Email sent");
+					}).catch(e => {
+						console.log(e.message);
+					});
+					firebase.auth().signOut();
+				}
+				navigate.push('/login');
+				// ...
+			}).catch(function(error) {
+				// Handle Errors here.
+				var error_code = error.code;
+				var error_message = error.message;
+				// The email of the user's account used.
+				var email = error.email;
+				// The firebase.auth.AuthCredential type that was used.
+				var credential = error.credential;
 
-                var error_str = "Error ";
-                error_str = error_str.concat(error_code, ': ', error_message);
-                alert(error_str);
-                // ...
-            });
-        }
-  }
+				var error_str = "Error ";
+				error_str = error_str.concat(error_code, ': ', error_message);
+				alert(error_str);
+				// ...
+			});
+		}
+	}
 };
 </script>
 
