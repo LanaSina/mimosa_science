@@ -6,7 +6,7 @@ import Logout from './views/Logout'
 import Register from './views/Register'
 import Question from './views/Question'
 import Hypothesis from './views/Hypothesis'
-import UpdateProfile from './components/UpdateProfile'
+//import UpdateProfile from './components/UpdateProfile'
 import UpdatePassword from './components/UpdatePassword'
 import UpdateEmail from './components/UpdateEmail'
 
@@ -47,11 +47,11 @@ const router = new Router({
             name: 'hypothesis',
             component: Hypothesis
         },
-        {
-            path: '/updateProfile',
-            name: '/updateProfile',
-            component: UpdateProfile
-        },
+        // {
+        //     path: '/updateProfile',
+        //     name: '/updateProfile',
+        //     component: UpdateProfile
+        // },
         {
             path: '/updatePassword',
             name: '/updatePassword',
