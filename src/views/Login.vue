@@ -6,6 +6,7 @@
           <div class="card-header">Login</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
+			<div v-if="verify" class="alert alert-warning">{{verify}}</div>
             <form action="#" @submit.prevent="submit">
               <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
@@ -85,21 +86,36 @@ export default {
                 email: "",
                 password: ""
             },
-            error: null
+			error: null,
+			verify: null
         };
     },
     methods: {
         submit() {
+			// var user = firebase.auth().currentUser;
             firebase
                 .auth()
                 .signInWithEmailAndPassword(this.form.email, this.form.password)
                 .then(data => {
-                    this.$router.replace({name: "home"});
+					if (data.user.emailVerified) {
+						this.$router.replace({name: "home"});
+					} else {
+						this.verify = "Before you can login, you must active your account with the link sent to your email address. If you did not receive this email, please check your junk/spam folder. Any account not verified after a period of 7 days will be permanently removed from the website. If you entered an incorrect email address, you will need to register again with a valid email address.";
+						//  Click here to resend the activation email.";
+						data.user.sendEmailVerification().then(d => {
+							// Email sent
+							console.log("Email sent");
+						}).catch(e => {
+							// An error happened.
+							console.log(e.message);
+						});
+						firebase.auth().signOut();
+					}
                 })
                 .catch(err => {
                     this.error = err.message;
-                });
-        },
+				});
+		},
         onSubmitGoogle(evt) {
             evt.preventDefault()
             var navigate = this.$router;
@@ -112,7 +128,17 @@ export default {
                     // This gives you a Google Access Token. You can use it to access the Google API.
                     var token = result.credential.accessToken;
                     // The signed-in user info.
-                    var user = result.user;
+					var user = result.user;
+					if (result.additionalUserInfo.isNewUser) {
+						user.sendEmailVerification().then(d => {
+							// Email sent
+							console.log("Email sent");
+						}).catch(e => {
+							// An error happened.
+							console.log(e.message);
+						});
+						firebase.auth().signOut();
+					}
                     navigate.push('/');
                 // ...
                 })
