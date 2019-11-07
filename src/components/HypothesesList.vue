@@ -19,7 +19,7 @@
           <br/>
         </div>
         <div id="sub_hypothesis" v-for="(sh, idx) in sub_contents[index]">
-          <router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:question_id} }">
+          <router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:question.id} }">
             {{ sh.title }}
           </router-link>
         </div>
