@@ -47,7 +47,7 @@ export default {
     ExperimentsList,
   },
   data: () => ({
-    id : null,
+    h_id : null,
     q_id : null,
     question: null,
     hypothesis: null,
@@ -59,7 +59,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      if (to.params.id !== from.params.id) {
+      if (to.params.h_id !== from.params.h_id) {
 
         //clear variables
         this.clearVariables();
@@ -77,14 +77,14 @@ export default {
       this.sub_contents = [];
     },
     setVariables () {
-      this.id = this.$route.params['id'];
+      this.h_id = this.$route.params['h_id'];
       this.q_id = this.$route.params['q_id']
 
       this.$bind('hypothesis',
         db.collection('questions')
         .doc(this.q_id)
         .collection('hypotheses')
-        .doc(this.id));
+        .doc(this.h_id));
 
       this.$bind('question',
         db.collection('questions')
@@ -95,7 +95,7 @@ export default {
     let subRef = db.collection('questions')
       .doc(this.q_id)
       .collection('hypotheses');
-    subRef.where('parent', '==', this.id).get()
+    subRef.where('parent', '==', this.h_id).get()
       .then(snapshot => {
           if (snapshot.empty) {
             console.log('No matching documents.');
