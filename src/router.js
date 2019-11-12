@@ -43,7 +43,7 @@ const router = new Router({
             component: Question
         },
         {
-            path: '/hypothesis/:id',
+            path: '/question/:q_id/hypothesis/:h_id',
             name: 'hypothesis',
             component: Hypothesis
         },
