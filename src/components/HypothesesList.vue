@@ -1,12 +1,12 @@
 <template>
   <div>
     <template v-for="(h, index) in hypotheses">
-      <h3>
+      <h2>
         <router-link :to="{ name: 'hypothesis', params: {h_id: h.id, q_id:question.id} }">
-          Hypothesis {{index+1}}: {{ h.title }}
+          Hypothesis: {{ h.title }}
         </router-link>
-      </h3>
-      <p v-html="h.summary"> </p>
+      </h2>
+      <p id="context" v-html="h.summary"> </p>
       <p class="text">
         <b-button variant="info" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
       </p>
@@ -102,3 +102,14 @@ export default {
   },
 }
 </script>
+
+
+<style>
+h2 a:link, h2 a:visited, h2 a:hover, h2 a:active  {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
+  color: black;
+  font-size: 0.65em;
+}
+</style>
+

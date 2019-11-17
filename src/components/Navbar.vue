@@ -1,6 +1,7 @@
 <template>
-	<div>
-		<b-navbar toggleable="lg" type="dark" variant="primary">
+	<div id="navbar-custom">
+		<!--  <b-navbar toggleable="lg" type="dark" variant="primary"> -->
+		<nav class="navbar navbar-custom"> 
 			<b-navbar-brand to="/">Mimosa</b-navbar-brand>
 
 			<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -46,7 +47,8 @@
 					</b-navbar-nav>
 				</template>
 			</b-collapse>
-		</b-navbar>
+		</nav> 
+		<!-- </b-navbar> -->
 	</div>
 </template>
 
@@ -74,3 +76,13 @@ export default {
 	}
 };
 </script>
+
+<style>
+.navbar-custom .navbar-brand, .navbar-custom .navbar-text, 
+.navbar-custom .navbar-nav, .navbar-custom .navbar-toggle { 
+  color: #3973ac;
+  background-color: white;
+  padding-left: 30px;
+  margin-left: -60px;
+}
+</style>
