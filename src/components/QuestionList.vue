@@ -12,12 +12,17 @@
       </div>
       <p id="context">{{ q.summary }}</p>
       <HypothesesList v-bind:question='q'/>
+      <div v-if="show_update[idx]">
+        <button class="btn btn-warning" @click="updateQuestion(q.id)">
+          Update
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
+import firebase from "firebase"
 import {db} from '../main';
 import HypothesesList from '@/components/HypothesesList.vue'
 
@@ -28,6 +33,7 @@ export default {
   },
   data: () => ({
     questions: [],
+    show_update: []
   }),
   firestore: {
 
@@ -43,12 +49,19 @@ export default {
         snapshot.forEach(doc => {
           let question = doc.data();
           question.id = doc.id;
-          this.questions.push(question)
+          this.questions.push(question);
+          this.show_update.push(firebase.auth().currentUser.uid == question.userId);
         });
       })
       .catch(err => {
         console.log('Error getting documents', err);
       });
+  },
+
+  methods: {
+    updateQuestion: function (question_id) {
+      this.$router.push("/question/" +question_id);
+    }
   }
 }
 
