@@ -100,6 +100,7 @@ export default {
         title: '',
         summary: '',
         hidden: false,
+        userId: ''
       },
       experiment_data: {
         methods: '',
@@ -136,7 +137,7 @@ export default {
         }
         
       } else {
-
+        this.question_data.userId = firebase.auth().currentUser.uid;
         let add_question = db.collection('questions').add(this.question_data)
           .then(ref => {
             console.log('Added question with ID: ', ref.id);
