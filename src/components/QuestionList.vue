@@ -5,18 +5,21 @@
         <div id="question-title">
           <h1>
             <router-link :to="{ name: 'question', params: {id: q.id} }">
-              {{ q.title }}
-            </router-link>
+              {{ q.title }} 
+            </router-link> 
+            <button v-if="show_update[idx]" class="btn btn-mini btn-warning" @click="updateQuestion(q.id)" id="updateButton">
+              Update
+            </button>
           </h1>
         </div>
       </div>
       <p id="context">{{ q.summary }}</p>
       <HypothesesList v-bind:question='q'/>
-      <div v-if="show_update[idx]">
-        <button class="btn btn-warning" @click="updateQuestion(q.id)">
+      <!-- <div v-if="show_update[idx]">
+        <button class="btn btn-outline-warning" @click="updateQuestion(q.id)">
           Update
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -60,7 +63,7 @@ export default {
 
   methods: {
     updateQuestion: function (question_id) {
-      this.$router.push("/question/" +question_id);
+      this.$router.push("/updateQuestion/" +question_id);
     }
   }
 }
@@ -86,6 +89,10 @@ h1 a:link, h1 a:visited, h1 a:hover, h1 a:active  {
   padding-top: 15px;
   padding-left: 30px;
   background-size : cover;
+  display: inline-block;
+}
+
+#updateButton {
   display: inline-block;
 }
 </style>

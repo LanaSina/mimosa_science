@@ -9,7 +9,7 @@ import Hypothesis from './views/Hypothesis'
 //import UpdateProfile from './components/UpdateProfile'
 import UpdatePassword from './components/UpdatePassword'
 import UpdateEmail from './components/UpdateEmail'
-
+import UpdateQuestion from './components/UpdateQuestion'
 
 Vue.use(Router)
 
@@ -61,6 +61,11 @@ const router = new Router({
             path: '/updateEmail',
             name: '/updateEmail',
             component: UpdateEmail
+        },
+        {
+            path: '/updateQuestion/:id',
+            name: 'updateQuestion',
+            component: UpdateQuestion
         }
     ]
 });
