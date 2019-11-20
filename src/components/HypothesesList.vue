@@ -5,6 +5,9 @@
         <router-link :to="{ name: 'hypothesis', params: {h_id: h.id, q_id:question.id} }">
           Hypothesis: {{ h.title }}
         </router-link>
+        <button v-if="show_update[index]" class="btn btn-outline-warning" @click="updateHypothesis(question.id, h.id)">
+              <i class="fa fa-edit"></i>
+            </button>
       </h2>
       <p id="context" v-html="h.summary"> </p>
       <p class="text">
@@ -31,6 +34,7 @@
 
 
 <script>
+import firebase from "firebase"
 import {db} from '../main';
 import ExperimentsList from '@/components/ExperimentsList.vue'
 
@@ -44,6 +48,7 @@ export default {
     hypotheses: [],
     show_sub: [],
     sub_contents: [],
+    show_update: []
   }),
   created() {
 
@@ -62,7 +67,7 @@ export default {
             let hyp = doc.data();
             hyp.id = doc.id;
             this.hypotheses.push(hyp);
-            console.log(hyp);
+            this.show_update.push(firebase.auth().currentUser.uid == hyp.userId)
           });
           this.show_sub = new Array(this.hypotheses.length).fill(false);
           this.sub_contents = new Array(this.hypotheses.length).fill([]);
@@ -73,6 +78,10 @@ export default {
 
   },
   methods: {
+    updateHypothesis: function (question_id, hypothesis_id) {
+      console.log("test");
+    },
+
     changeShowSub: function (index) {
       //get the sub-hypotheses titles
     let subRef = db.collection('questions')
