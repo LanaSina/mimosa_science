@@ -95,6 +95,7 @@ export default {
         title: '',
         summary: '',
         parent: '',
+        userId: ''
       },
       question_data: {
         title: '',
@@ -105,6 +106,7 @@ export default {
       experiment_data: {
         methods: '',
         results: '',
+        userId: ''
       },
   }),
   mounted: function() {
@@ -130,9 +132,11 @@ export default {
           //the hyp also exists
           //add experiment
           if(this.experiment_data.methods){
+            this.experiment_data.userId = firebase.auth().currentUser.uid;
             this.addExperimentToHypothesis(this.question.id, this.hypothesis.id, this.experiment_data);
           }
         } else if(this.hypothesis_data.title) {
+          this.hypothesis_data.userId = firebase.auth().currentUser.uid;
           this.addHypothesisToQuestion(this.question.id, this.hypothesis_data, this.experiment_data)
         }
         
@@ -145,6 +149,8 @@ export default {
 
             //add hypothesis
             if(this.hypothesis_data.title){
+              this.hypothesis_data.userId = firebase.auth().currentUser.uid;
+              this.experiment_data.userId = firebase.auth().currentUser.uid;
               this.addHypothesisToQuestion(q_id, this.hypothesis_data, this.experiment_data)
             } else {
               navigate.push('/');

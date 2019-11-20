@@ -62,6 +62,7 @@ export default {
             let hyp = doc.data();
             hyp.id = doc.id;
             this.hypotheses.push(hyp);
+            console.log(hyp);
           });
           this.show_sub = new Array(this.hypotheses.length).fill(false);
           this.sub_contents = new Array(this.hypotheses.length).fill([]);
