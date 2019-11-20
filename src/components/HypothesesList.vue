@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     updateHypothesis: function (question_id, hypothesis_id) {
-      console.log("test");
+      this.$router.push("/updateHypothesis/" + question_id + "/hypothesis/" + hypothesis_id);
     },
 
     changeShowSub: function (index) {
