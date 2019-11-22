@@ -16,6 +16,9 @@
               <div id="experiment" >
                 <h3>
                   {{ e.summary }} This is the title of the experiment
+                  <button v-if="show_up" class="btn      btn-outline-warning" @click="updateExperiment(e.id)">
+                    <i class="fa fa-edit"></i>
+                  </button>
                 </h3>
                 <p>
                   <span id="exp-subheader">Methods: </span>
@@ -36,6 +39,7 @@
 
 
 <script>
+import firebase from "firebase"
 import {db} from '../main';
 
 export default {
@@ -43,6 +47,8 @@ export default {
   props: ['question','hypothesis'],
   data: () => ({
     experiments: [],
+    show_update: [],
+    show_up: true
   }),
   created() {
     this.$bind(
@@ -54,6 +60,44 @@ export default {
         .collection('experiments')
       );
 
+      // let hypRef = db.collection('questions')
+      //   .doc(this.question.id)
+      //   .collection('hypotheses')
+      //   .doc(this.hypothesis.id)
+      //   .collection('experiments');
+      // hypRef.get()
+      //   .then(snapshot => {
+      //     if (snapshot.empty) {
+      //       console.log('No matching documents.');
+      //       return;
+      //     }
+      //     snapshot.forEach(doc => {
+      //       let experiment = doc.data();
+      //       this.show_update.push(firebase.auth().currentUser.uid == experiment.userId);
+      //       this.experiments.push(experiment);
+      //       //console.log(experiment);
+      //     });
+      //     // console.log(this.experiments);
+      //   })
+      //   .catch(err => {
+      //     console.log('error getting the documents', err);
+      // });
+      // this.show_update = new Array(experiments.length).fill(true);
+      // this.experiments.forEach(doc => {
+      //   let exp = doc.data();
+      //   this.show_update.push(true);
+      //   console.log(exp);
+      // });
+
+  },
+  // mounted() {
+  //   this.show_update = new Array(this.experiments.length).fill(true);
+  // },
+
+  methods: {
+    updateExperiment: function (experiment_id) {
+      this.$router.push("/updateExperiment/" + this.question.id + "/hypothesis/" + this.hypothesis.id+ "/experiment/" + experiment_id)
+    }
   }
 }
 </script>

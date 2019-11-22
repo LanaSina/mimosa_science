@@ -11,6 +11,7 @@ import UpdatePassword from './components/UpdatePassword'
 import UpdateEmail from './components/UpdateEmail'
 import UpdateQuestion from './components/UpdateQuestion'
 import UpdateHypothesis from './components/UpdateHypothesis'
+import UpdateExperiment from './components/UpdateExperiment'
 
 Vue.use(Router)
 
@@ -73,6 +74,11 @@ const router = new Router({
             path: '/updateHypothesis/:q_id/hypothesis/:h_id',
             name: 'updateHypothesis',
             component: UpdateHypothesis
+        },
+        {
+            path: '/updateExperiment/:q_id/hypothesis/:h_id/experiment/:e_id',
+            name: 'updateExperiment',
+            component: UpdateExperiment
         }
     ]
 });

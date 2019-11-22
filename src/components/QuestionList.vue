@@ -89,10 +89,10 @@ h1 a:link, h1 a:visited, h1 a:hover, h1 a:active  {
   padding-top: 15px;
   padding-left: 30px;
   background-size : cover;
-  display: inline-block;
+  /* display: inline-block; */
 }
 
-#updateButton {
+/* #updateButton {
   display: inline-block;
-}
+} */
 </style>
