@@ -51,7 +51,7 @@ export default {
     show_update: []
   }),
   created() {
-
+    var user = firebase.auth().currentUser;
     //get hypotheses for this question
     let hypRef = db.collection('questions')
       .doc(this.question.id)
@@ -67,7 +67,9 @@ export default {
             let hyp = doc.data();
             hyp.id = doc.id;
             this.hypotheses.push(hyp);
-            this.show_update.push(firebase.auth().currentUser.uid == hyp.userId)
+            if (user){
+              this.show_update.push(firebase.auth().currentUser.uid == hyp.userId);
+            }
           });
           this.show_sub = new Array(this.hypotheses.length).fill(false);
           this.sub_contents = new Array(this.hypotheses.length).fill([]);

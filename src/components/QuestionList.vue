@@ -26,6 +26,7 @@
 
 <script>
 import firebase from "firebase"
+import { mapGetters } from "vuex"
 import {db} from '../main';
 import HypothesesList from '@/components/HypothesesList.vue'
 
@@ -43,6 +44,7 @@ export default {
    },
   created(){
     let questionsRef = db.collection('questions');
+    var user = firebase.auth().currentUser;
     questionsRef = questionsRef.where('hidden', '==', false).get()
       .then(snapshot => {
         if (snapshot.empty) {
@@ -53,7 +55,10 @@ export default {
           let question = doc.data();
           question.id = doc.id;
           this.questions.push(question);
-          this.show_update.push(firebase.auth().currentUser.uid == question.userId);
+          if (user) {
+            this.show_update.push(user.uid == question.userId);
+          }
+
         });
       })
       .catch(err => {
