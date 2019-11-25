@@ -7,8 +7,8 @@
             <router-link :to="{ name: 'question', params: {id: q.id} }">
               {{ q.title }} 
             </router-link> 
-            <button v-if="show_update[idx]" class="btn btn-mini btn-warning" @click="updateQuestion(q.id)" id="updateButton">
-              Update
+            <button v-if="show_update[idx]" class="btn btn-warning" @click="updateQuestion(q.id)" id="updateButton">
+              <i class="fa fa-edit"></i>
             </button>
           </h1>
         </div>
