@@ -1,5 +1,5 @@
 <template>
-	<div v-if="question" id="question">
+	<div v-if="question && hypothesis && experiment" id="question">
 		<b-container fluid>
 			<b-form @submit.prevent="onUpdate" @reset.prevent="onReset">
 				<b-form-group id="question_global" label="Question" label-cols-lg="3">
@@ -128,7 +128,16 @@ export default {
 			});
 		},
 		onReset() {
-			console.log('reset');
+			this.$bind(
+				'experiment',
+				db.collection('questions')
+					.doc(this.q_id)
+					.collection('hypotheses')
+					.doc(this.h_id)
+					.collection('experiments')
+					.doc(this.e_id)
+			);
+			console.log('reset experiment');
 		}
 	}
 }
