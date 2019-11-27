@@ -33,6 +33,14 @@ export default {
 
    },
   created(){
+    // ORDER BY NOT WORKING, INDEX NEEDED 
+    /*this.$bind(
+      'questions',
+      db.collection('questions')
+      .where('hidden', '==', false)
+      .orderBy('createdAt')
+    )*/
+    
     let questionsRef = db.collection('questions');
     questionsRef = questionsRef.where('hidden', '==', false).get()
       .then(snapshot => {
@@ -49,6 +57,7 @@ export default {
       .catch(err => {
         console.log('Error getting documents', err);
       });
+    
   }
 }
 
