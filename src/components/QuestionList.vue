@@ -33,16 +33,10 @@ export default {
 
    },
   created(){
-    // ORDER BY NOT WORKING, INDEX NEEDED 
-    /*this.$bind(
-      'questions',
-      db.collection('questions')
+    let questionsRef = db.collection('questions')
       .where('hidden', '==', false)
-      .orderBy('createdAt')
-    )*/
-    
-    let questionsRef = db.collection('questions');
-    questionsRef = questionsRef.where('hidden', '==', false).get()
+      .orderBy('createdAt', 'desc')
+      .get()
       .then(snapshot => {
         if (snapshot.empty) {
           console.log('No matching documents.');
