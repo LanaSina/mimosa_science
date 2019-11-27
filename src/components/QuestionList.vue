@@ -33,8 +33,10 @@ export default {
 
    },
   created(){
-    let questionsRef = db.collection('questions');
-    questionsRef = questionsRef.where('hidden', '==', false).get()
+    let questionsRef = db.collection('questions')
+      .where('hidden', '==', false)
+      .orderBy('createdAt', 'desc')
+      .get()
       .then(snapshot => {
         if (snapshot.empty) {
           console.log('No matching documents.');
