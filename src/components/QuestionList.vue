@@ -62,7 +62,7 @@ export default {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  background-color: #3973ac;
+  background-color: #003399;
 }
 h1 a:link, h1 a:visited, h1 a:hover, h1 a:active  {
   font-family: 'Roboto', sans-serif;
