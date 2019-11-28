@@ -108,7 +108,7 @@ export default {
 h2 a:link, h2 a:visited, h2 a:hover, h2 a:active  {
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: bold;
-  color: black;
+  color: #003399;
   font-size: 0.65em;
 }
 </style>
