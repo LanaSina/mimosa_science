@@ -60,12 +60,9 @@ export default {
 
 <style>
 #exp-bg-block{
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  background-color: white;
+  margin-right: -5vw;
+  padding-right: 5vw;
 }
 #experiment {
   padding-left: 30px;
@@ -81,14 +78,14 @@ export default {
   text-align: justify;
 }
 #experiment-list-header {
-  color: #AAAAAA;
+  color: #e6e6e6;
   font-family: 'Courier New', serif;
   font-size: 1.5em;
   padding-top: 10px;
 }
 #experiment-number {
   font-family: 'Impact';
-  color: #AAAAAA;
+  color: #e6e6e6;
   font-size: 4em;
   font-weight: bold;
   text-align: right;

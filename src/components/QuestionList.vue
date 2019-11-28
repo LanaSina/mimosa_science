@@ -58,25 +58,22 @@ export default {
 #q-bg-block{
   width: 100vw;
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
   background-color: #e6f2ff;
   padding-left: 5vw;
+  padding-right: 5vw;
 }
 #q-title-block{
   background-color: #003399;
   margin-left: -5vw;
+  padding-left: 5vw;
+  margin-right: -5vw;
+  padding-right: 5vw;
 }
 h1 a:link, h1 a:visited, h1 a:hover, h1 a:active  {
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   font-size: 0.9em;
   color: white;
-  padding-bottom: 15px;
-  padding-top: 15px;
-  padding-left: 30px;
   background-size : cover;
   display: inline-block;
 }

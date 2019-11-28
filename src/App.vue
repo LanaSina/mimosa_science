@@ -18,8 +18,6 @@ export default {
 
 <style>
 #app {
-  padding-left: 30px;
-  padding-right: 30px;
   font-family: 'Josefin Slab', serif;
 }
 #context {
