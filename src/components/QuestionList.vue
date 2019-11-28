@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="q-bg-block">
     <div v-for="(q, idx) in questions">
-      <div id="q-bg-block">
+      <div id="q-title-block">
         <div id="question-title">
           <h1>
             <router-link :to="{ name: 'question', params: {id: q.id} }">
@@ -62,7 +62,12 @@ export default {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  background-color: #e6f2ff;
+  padding-left: 5vw;
+}
+#q-title-block{
   background-color: #003399;
+  margin-left: -5vw;
 }
 h1 a:link, h1 a:visited, h1 a:hover, h1 a:active  {
   font-family: 'Roboto', sans-serif;
