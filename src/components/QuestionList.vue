@@ -15,11 +15,6 @@
       </div>
       <p id="context">{{ q.summary }}</p>
       <HypothesesList v-bind:question='q'/>
-      <!-- <div v-if="show_update[idx]">
-        <button class="btn btn-outline-warning" @click="updateQuestion(q.id)">
-          Update
-        </button>
-      </div> -->
     </div>
   </div>
 </template>

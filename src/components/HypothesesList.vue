@@ -5,9 +5,9 @@
         <router-link :to="{ name: 'hypothesis', params: {h_id: h.id, q_id:question.id} }">
           Hypothesis: {{ h.title }}
         </router-link>
-        <button v-if="show_update[index]" class="btn btn-outline-warning" @click="updateHypothesis(question.id, h.id)">
+        <!-- <button v-if="show_update[index]" class="btn btn-outline-warning" @click="updateHypothesis(question.id, h.id)">
               <i class="fa fa-edit"></i>
-            </button>
+            </button> -->
       </h2>
       <p id="context" v-html="h.summary"> </p>
       <p class="text">
