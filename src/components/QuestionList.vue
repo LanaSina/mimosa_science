@@ -7,7 +7,7 @@
             <router-link :to="{ name: 'question', params: {id: q.id} }">
               {{ q.title }} 
             </router-link> 
-            <button v-if="show_update[idx]" class="btn btn-warning" @click="updateQuestion(q.id)" id="updateButton">
+            <button v-if="showMyItems" class="btn btn-warning" @click="updateQuestion(q.id)" id="updateButton">
               <i class="fa fa-edit"></i>
             </button>
           </h1>
@@ -32,6 +32,12 @@ import HypothesesList from '@/components/HypothesesList.vue'
 
 export default {
   name: 'app',
+  props: {
+    showMyItems: {
+      type: Boolean
+    }
+  },
+
   components: {
     HypothesesList
   },
@@ -43,27 +49,49 @@ export default {
 
    },
   created(){
-    let questionsRef = db.collection('questions');
-    var user = firebase.auth().currentUser;
-    questionsRef = questionsRef.where('hidden', '==', false).get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          return;
-        } 
-        snapshot.forEach(doc => {
-          let question = doc.data();
-          question.id = doc.id;
-          this.questions.push(question);
-          if (user) {
-            this.show_update.push(user.uid == question.userId);
-          }
+    var questionsRef = db.collection('questions');
+    
+    //console.log(user.uid);
+    if (this.showMyItems) {
+      let user = firebase.auth().currentUser;
+      questionsRef = questionsRef.where('hidden', '==', false)
+        .where('userId', '==', user.uid)
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          } 
+          snapshot.forEach(doc => {
+            let question = doc.data();
+            question.id = doc.id;
+            this.questions.push(question);
+            if (user) {
+              this.show_update.push(user.uid == question.userId);
+            }
 
+          });
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
         });
-      })
-      .catch(err => {
-        console.log('Error getting documents', err);
-      });
+    } else {
+      questionsRef = questionsRef.where('hidden', '==', false).get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          } 
+          snapshot.forEach(doc => {
+            let question = doc.data();
+            question.id = doc.id;
+            this.questions.push(question);
+          });
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
+        });
+    }
   },
 
   methods: {

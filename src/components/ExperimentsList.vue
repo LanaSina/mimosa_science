@@ -16,9 +16,9 @@
               <div id="experiment" >
                 <h3>
                   {{ e.summary }} This is the title of the experiment
-                  <button v-if="show_up" class="btn      btn-outline-warning" @click="updateExperiment(e.id)">
+                  <!-- <button v-if="show_up" class="btn      btn-outline-warning" @click="updateExperiment(e.id)">
                     <i class="fa fa-edit"></i>
-                  </button>
+                  </button> -->
                 </h3>
                 <p>
                   <span id="exp-subheader">Methods: </span>

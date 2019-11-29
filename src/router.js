@@ -12,6 +12,7 @@ import UpdateEmail from './components/UpdateEmail'
 import UpdateQuestion from './components/UpdateQuestion'
 import UpdateHypothesis from './components/UpdateHypothesis'
 import UpdateExperiment from './components/UpdateExperiment'
+import UserItemList from './components/UserItemList'
 
 Vue.use(Router)
 
@@ -79,6 +80,11 @@ const router = new Router({
             path: '/updateExperiment/:q_id/hypothesis/:h_id/experiment/:e_id',
             name: 'updateExperiment',
             component: UpdateExperiment
+        },
+        {
+            path: '/userItemList',
+            name: 'userItemList',
+            component: UserItemList
         }
     ]
 });
