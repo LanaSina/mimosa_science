@@ -22,8 +22,8 @@
             <b-card-text>
               {{h.summary}}
             </b-card-text>
-            <b-button href="#" variant="primary" @click="readQuestion(q.id)">Read more</b-button>
-            <b-button href="#" variant="warning" @click="updateQuestion(q.id)">Update</b-button>
+            <b-button href="#" variant="primary" @click="readQuestion(questions_id[idx])">Read more</b-button>
+            <b-button href="#" variant="warning" @click="updateHypothesis(questions_id[idx], h.id)">Update</b-button>
           </b-card>
         </div>
       </b-tab>
@@ -51,6 +51,7 @@ export default {
 
   data: () => ({
     questions: [],
+    questions_id: [],
     hypotheses: [],
     allQuestions: []
   }),
@@ -85,16 +86,18 @@ export default {
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
-          console.log('No matching documents.');
+          console.log('No matching questions.');
           return;
         } 
         snapshot.forEach(doc => {
+          var q_id = doc.id
           let hypRef = db.collection('questions').doc(doc.id).collection('hypotheses').where('parent', '==', '').get().then(snapshot => {
             snapshot.forEach(doc => {
               let hyp = doc.data();
               hyp.id = doc.id;
               if(hyp.userId == firebase.auth().currentUser.uid){
                 this.hypotheses.push(hyp);
+                this.questions_id.push(q_id);
               }
             })
           }).catch(err => {
@@ -112,7 +115,11 @@ export default {
     },
     updateQuestion: function (question_id) {
       this.$router.push("/updateQuestion/" +question_id);
+    },
+    updateHypothesis: function (q_id, hyp_id) {
+      this.$router.push("/updateHypothesis/" + q_id + "/hypothesis/" + hyp_id);
     }
+
   }
 }
 </script>
