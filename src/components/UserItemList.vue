@@ -72,30 +72,6 @@ export default {
   }),
 
   created() {
-    // TODO (combine the below queries into one BIG QUERY?)
-
-    // Questions
-    let questionsRef = db.collection('questions')
-      .where('hidden', '==', false)
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          return;
-        } 
-        snapshot.forEach(doc => {
-          let question = doc.data();
-          question.id = doc.id;
-          if(question.userId == firebase.auth().currentUser.uid){
-            this.questions.push(question);
-          }
-        });
-      })
-      .catch(err => {
-        console.log('Error getting documents', err);
-      });
-    
-    // Hypotheses
     let qRef = db.collection('questions')
       .where('hidden', '==', false)
       .get()
@@ -105,49 +81,28 @@ export default {
           return;
         } 
         snapshot.forEach(doc => {
-          var q_id = doc.id
+          let question = doc.data();
+          question.id = doc.id;
+          if(question.userId == firebase.auth().currentUser.uid){
+            this.questions.push(question);
+          }
           let hypRef = db.collection('questions').doc(doc.id).collection('hypotheses').where('parent', '==', '').get().then(snapshot => {
             snapshot.forEach(doc => {
               let hyp = doc.data();
               hyp.id = doc.id;
               if(hyp.userId == firebase.auth().currentUser.uid){
                 this.hypotheses.push(hyp);
-                this.questions_id.push(q_id);
+                this.questions_id.push(question.id);
               }
-            })
-          }).catch(err => {
-            console.log("Error getting hypothesis", err);
-          })
-        });
-      }).catch(err => {
-        console.log('Error getting documents', err);
-      });
-
-    // Experiments
-    // This is ugly, probably firebase provides a clean way of getting the 
-    // parent collection of a given subcollection?
-    let qRef2 = db.collection('questions')
-      .where('hidden', '==', false)
-      .get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching questions.');
-          return;
-        } 
-        snapshot.forEach(doc => {
-          var q_id = doc.id
-          let hypRef2 = db.collection('questions').doc(doc.id).collection('hypotheses').where('parent', '==', '').get().then(snapshot => {
-            snapshot.forEach(doc => {
-              var h_id = doc.id
-              let expRef = db.collection('questions').doc(q_id).
+              let expRef = db.collection('questions').doc(question.id).
               collection('hypotheses').doc(doc.id).collection('experiments').get().then(snapshot => {
                 snapshot.forEach(doc => {
                   let exp = doc.data();
                   exp.id = doc.id;
                   if(exp.userId === firebase.auth().currentUser.uid) {
                     this.experiments.push(exp);
-                    this.questions_id_exp.push(q_id);
-                    this.hypotheses_id_exp.push(h_id);
+                    this.questions_id_exp.push(question.id);
+                    this.hypotheses_id_exp.push(hyp.id);
                   }
                 });
               }).catch(err => {
