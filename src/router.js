@@ -13,7 +13,6 @@ import UpdateQuestion from './components/UpdateQuestion'
 import UpdateHypothesis from './components/UpdateHypothesis'
 import UpdateExperiment from './components/UpdateExperiment'
 import UserItemList from './components/UserItemList'
-import UserItemList2 from './components/UserItemList2'
 
 Vue.use(Router)
 
@@ -87,11 +86,6 @@ const router = new Router({
             name: 'userItemList',
             component: UserItemList
         },
-        {
-            path: '/userItemList2',
-            name: 'userItemList2',
-            component: UserItemList2
-        }
     ]
 });
 
