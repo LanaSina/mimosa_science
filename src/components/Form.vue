@@ -96,18 +96,21 @@ export default {
 				title: '',
 				summary: '',
 				parent: '',
-				createdAt: ''
+				createdAt: '',
+				userId: '',
 			},
 			question_data: {
 				title: '',
 				summary: '',
 				hidden: false,
-				createdAt: ''
+				createdAt: '',
+				userId: '',
 			},
 			experiment_data: {
 				methods: '',
 				results: '',
-				createdAt: ''
+				createdAt: '',
+				userId: '',
 			},
 	}),
 	mounted: function() {
@@ -143,6 +146,7 @@ export default {
 				
 			} else {
 				this.question_data.createdAt = firestore.FieldValue.serverTimestamp();
+				this.question_data.userId = firebase.auth().currentUser.uid;
 				let add_question = db.collection('questions').add(this.question_data)
 					.then(ref => {
 						console.log('Added question with ID: ', ref.id);
@@ -150,6 +154,8 @@ export default {
 
 						//add hypothesis
 						if(this.hypothesis_data.title){
+							this.hypothesis_data.userId = firebase.auth().currentUser.uid;
+              				this.experiment_data.userId = firebase.auth().currentUser.uid;
 							this.hypothesis_data.createdAt = firestore.FieldValue.serverTimestamp();
 							this.experiment_data.createdAt = firestore.FieldValue.serverTimestamp();
 							this.addHypothesisToQuestion(q_id, this.hypothesis_data, this.experiment_data)

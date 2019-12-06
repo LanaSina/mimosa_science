@@ -16,6 +16,9 @@
               <div id="experiment" >
                 <h3>
                   {{ e.summary }} This is the title of the experiment
+                  <!-- <button v-if="show_up" class="btn      btn-outline-warning" @click="updateExperiment(e.id)">
+                    <i class="fa fa-edit"></i>
+                  </button> -->
                 </h3>
                 <p>
                   <span id="exp-subheader">Methods: </span>
@@ -36,6 +39,7 @@
 
 
 <script>
+import firebase from "firebase"
 import {db} from '../main';
 
 export default {
@@ -43,6 +47,8 @@ export default {
   props: ['question','hypothesis'],
   data: () => ({
     experiments: [],
+    show_update: [],
+    show_up: true
   }),
   created() {
     this.$bind(
@@ -53,20 +59,21 @@ export default {
         .doc(this.hypothesis.id)
         .collection('experiments')
       );
+  },
 
+  methods: {
+    updateExperiment: function (experiment_id) {
+      this.$router.push("/updateExperiment/" + this.question.id + "/hypothesis/" + this.hypothesis.id+ "/experiment/" + experiment_id)
+    }
   }
 }
 </script>
 
 <style>
 #exp-bg-block{
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background-color: #dae6f1;
+  background-color: white;
+  margin-right: -5vw;
+  padding-right: 5vw;
 }
 #experiment {
   padding-left: 30px;
@@ -80,17 +87,16 @@ export default {
   margin-bottom: 30px;
   display: inline-block;
   text-align: justify;
-  background-color: #dae6f1;
 }
 #experiment-list-header {
-  color: white;
+  color: #e6e6e6;
   font-family: 'Courier New', serif;
   font-size: 1.5em;
   padding-top: 10px;
 }
 #experiment-number {
   font-family: 'Impact';
-  color: white;
+  color: #e6e6e6;
   font-size: 4em;
   font-weight: bold;
   text-align: right;
