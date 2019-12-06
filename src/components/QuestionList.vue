@@ -51,6 +51,7 @@ export default {
       let user = firebase.auth().currentUser;
       questionsRef = questionsRef.where('hidden', '==', false)
         .where('userId', '==', user.uid)
+        .orderBy('createdAt', 'desc')
         .get()
         .then(snapshot => {
           if (snapshot.empty) {
@@ -71,7 +72,9 @@ export default {
           console.log('Error getting documents', err);
         });
     } else {
-      questionsRef = questionsRef.where('hidden', '==', false).get()
+      questionsRef = questionsRef.where('hidden', '==', false)
+        .orderBy('createdAt', 'desc')
+        .get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('No matching documents.');
