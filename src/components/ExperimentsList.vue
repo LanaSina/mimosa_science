@@ -15,7 +15,7 @@
             <b-col>
               <div id="experiment" >
                 <h3>
-                  {{ e.summary }} This is the title of the experiment
+                  {{ e.title }}
                   <!-- <button v-if="show_up" class="btn      btn-outline-warning" @click="updateExperiment(e.id)">
                     <i class="fa fa-edit"></i>
                   </button> -->
