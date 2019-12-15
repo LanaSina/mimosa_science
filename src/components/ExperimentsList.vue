@@ -21,11 +21,11 @@
                   </button> -->
                 </h3>
                 <p>
-                  <span id="exp-subheader">Methods: </span>
+                  <span id="exp-subheader">Methods: </span><br/>
                   <span v-html="e.methods"> </span>
                 </p>  
                 <p>
-                  <span id="exp-subheader">Results: </span>
+                  <span id="exp-subheader">Results: </span><br/>
                   <span v-html="e.results"> </span>
                 </p>
               </div>
