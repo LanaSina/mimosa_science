@@ -136,10 +136,12 @@ export default {
 					//the hyp also exists
 					//add experiment
 					if(this.experiment_data.methods){
+						this.experiment_data.userId = firebase.auth().currentUser.uid;
 						this.experiment_data.createdAt = firestore.FieldValue.serverTimestamp();
 						this.addExperimentToHypothesis(this.question.id, this.hypothesis.id, this.experiment_data);
 					}
 				} else if(this.hypothesis_data.title) {
+					this.experiment_data.userId = firebase.auth().currentUser.uid;
 					this.hypothesis_data.createdAt = firestore.FieldValue.serverTimestamp();
 					this.addHypothesisToQuestion(this.question.id, this.hypothesis_data, this.experiment_data)
 				}
