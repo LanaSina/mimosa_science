@@ -73,7 +73,7 @@ export default {
 
   created() {
     let qRef = db.collection('questions')
-      .where('hidden', '==', false)
+      //.where('hidden', '==', false)
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
