@@ -1,0 +1,34 @@
+[debug] [2019-12-15T07:56:50.156Z] ----------------------------------------------------------------------
+[debug] [2019-12-15T07:56:50.158Z] Command:       /Users/lana/.nvm/versions/node/v9.2.0/bin/node /Users/lana/.nvm/versions/node/v9.2.0/bin/firebase deploy
+[debug] [2019-12-15T07:56:50.158Z] CLI Version:   7.2.2
+[debug] [2019-12-15T07:56:50.159Z] Platform:      darwin
+[debug] [2019-12-15T07:56:50.159Z] Node Version:  v9.2.0
+[debug] [2019-12-15T07:56:50.159Z] Time:          Sun Dec 15 2019 16:56:50 GMT+0900 (JST)
+[debug] [2019-12-15T07:56:50.159Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-12-15T07:56:50.168Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-15T07:56:50.168Z] > authorizing via signed-in user
+[debug] [2019-12-15T07:56:50.168Z] [iam] checking project mimoza-441ee for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-12-15T07:56:50.170Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/mimoza-441ee:testIamPermissions  
+
+[debug] [2019-12-15T07:56:50.978Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-15T07:56:50.982Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/mimoza-441ee  
+ 
+[debug] [2019-12-15T07:56:51.587Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'mimoza-441ee'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-12-15T07:56:51.593Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/mimoza-441ee/versions  
+
+[debug] [2019-12-15T07:56:53.203Z] <<< HTTP RESPONSE 200
+[info] i  hosting[mimoza-441ee]: beginning deploy...
+[info] i  hosting[mimoza-441ee]: found 8 files in dist
+[debug] [2019-12-15T07:56:53.213Z] [hosting] hash cache [ZGlzdA] load error: lines is not defined
+[debug] [2019-12-15T07:56:53.701Z] [hosting] hash cache [ZGlzdA] stored for 8 files
+[debug] [2019-12-15T07:56:53.701Z] [hosting][hash queue][FINAL]
+[debug] [2019-12-15T07:56:53.701Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/mimoza-441ee/versions/a1c3133cafcacce2:populateFiles  
+ <request body omitted>
+[debug] [2019-12-15T07:56:55.251Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-15T07:56:55.255Z] [hosting][populate queue][FINAL]
+[debug] [2019-12-15T07:56:55.255Z] [hosting] uploads queued: 3

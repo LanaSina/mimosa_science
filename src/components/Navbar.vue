@@ -9,8 +9,8 @@
 				<template v-if="user.loggedIn">
 					<b-navbar-nav>
 						<b-nav-item to="/question/new"> New Question & Hypothesis </b-nav-item>
-						<!--  <b-nav-item to="/">Questions</b-nav-item>
-						<b-nav-item to="/">Hypotheses</b-nav-item> -->
+						<b-nav-item to="/userItemList">My items</b-nav-item>
+						<!-- <b-nav-item to="/">Hypotheses</b-nav-item> -->
 					</b-navbar-nav>
 
 					<!-- Right aligned nav items -->

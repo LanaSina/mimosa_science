@@ -5,8 +5,11 @@
         <div id="question-title">
           <h1>
             <router-link :to="{ name: 'question', params: {id: q.id} }">
-              {{ q.title }}
-            </router-link>
+              {{ q.title }} 
+            </router-link> 
+            <button v-if="showMyItems" class="btn btn-warning" @click="updateQuestion(q.id)" id="updateButton">
+              <i class="fa fa-edit"></i>
+            </button>
           </h1>
         </div>
       </div>
@@ -17,38 +20,82 @@
 </template>
 
 <script>
-
+import firebase from "firebase"
+import { mapGetters } from "vuex"
 import {db} from '../main';
 import HypothesesList from '@/components/HypothesesList.vue'
 
 export default {
   name: 'app',
+  props: {
+    showMyItems: {
+      type: Boolean
+    }
+  },
+
   components: {
     HypothesesList
   },
   data: () => ({
     questions: [],
+    show_update: []
   }),
   firestore: {
 
    },
   created(){
-    let questionsRef = db.collection('questions');
-    questionsRef = questionsRef.where('hidden', '==', false).get()
-      .then(snapshot => {
-        if (snapshot.empty) {
-          console.log('No matching documents.');
-          return;
-        } 
-        snapshot.forEach(doc => {
-          let question = doc.data();
-          question.id = doc.id;
-          this.questions.push(question)
+    var questionsRef = db.collection('questions');
+    
+    //console.log(user.uid);
+    if (this.showMyItems) {
+      let user = firebase.auth().currentUser;
+      questionsRef = questionsRef.where('hidden', '==', false)
+        .where('userId', '==', user.uid)
+        .orderBy('createdAt', 'desc')
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          } 
+          snapshot.forEach(doc => {
+            let question = doc.data();
+            question.id = doc.id;
+            this.questions.push(question);
+            if (user) {
+              this.show_update.push(user.uid == question.userId);
+            }
+
+          });
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
         });
-      })
-      .catch(err => {
-        console.log('Error getting documents', err);
-      });
+    } else {
+      questionsRef = questionsRef.where('hidden', '==', false)
+        .orderBy('createdAt', 'desc')
+        .get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('No matching documents.');
+            return;
+          } 
+          snapshot.forEach(doc => {
+            let question = doc.data();
+            question.id = doc.id;
+            this.questions.push(question);
+          });
+        })
+        .catch(err => {
+          console.log('Error getting documents', err);
+        });
+    }
+  },
+
+  methods: {
+    updateQuestion: function (question_id) {
+      this.$router.push("/updateQuestion/" +question_id);
+    }
   }
 }
 
@@ -75,6 +122,10 @@ h1 a:link, h1 a:visited, h1 a:hover, h1 a:active  {
   font-size: 0.9em;
   color: white;
   background-size : cover;
-  display: inline-block;
+  /* display: inline-block; */
 }
+
+/* #updateButton {
+  display: inline-block;
+} */
 </style>

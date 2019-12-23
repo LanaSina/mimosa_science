@@ -15,14 +15,17 @@
             <b-col>
               <div id="experiment" >
                 <h3>
-                  {{ e.summary }} This is the title of the experiment
+                  {{ e.title }}
+                  <!-- <button v-if="show_up" class="btn      btn-outline-warning" @click="updateExperiment(e.id)">
+                    <i class="fa fa-edit"></i>
+                  </button> -->
                 </h3>
                 <p>
-                  <span id="exp-subheader">Methods: </span>
+                  <span id="exp-subheader">Methods: </span><br/>
                   <span v-html="e.methods"> </span>
                 </p>  
                 <p>
-                  <span id="exp-subheader">Results: </span>
+                  <span id="exp-subheader">Results: </span><br/>
                   <span v-html="e.results"> </span>
                 </p>
               </div>
@@ -36,6 +39,7 @@
 
 
 <script>
+import firebase from "firebase"
 import {db} from '../main';
 
 export default {
@@ -43,6 +47,8 @@ export default {
   props: ['question','hypothesis'],
   data: () => ({
     experiments: [],
+    show_update: [],
+    show_up: true
   }),
   created() {
     this.$bind(
@@ -53,7 +59,12 @@ export default {
         .doc(this.hypothesis.id)
         .collection('experiments')
       );
+  },
 
+  methods: {
+    updateExperiment: function (experiment_id) {
+      this.$router.push("/updateExperiment/" + this.question.id + "/hypothesis/" + this.hypothesis.id+ "/experiment/" + experiment_id)
+    }
   }
 }
 </script>
