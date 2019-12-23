@@ -5,14 +5,41 @@
         <router-link :to="{ name: 'hypothesis', params: {h_id: h.id, q_id:question.id} }">
           Hypothesis: {{ h.title }}
         </router-link>
-        <!-- <button v-if="show_update[index]" class="btn btn-outline-warning" @click="updateHypothesis(question.id, h.id)">
-              <i class="fa fa-edit"></i>
-            </button> -->
       </h2>
       <p id="context" v-html="h.summary"> </p>
       <p class="text">
-        <b-button variant="info" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
+        <!-- <b-button variant="info" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
+        <a :href="changeShowSub(index)" class="link">
+            Show sub-hypotheses >
+        </a> -->
+        <a href="" @click="changeShowSub(index)"> Show sub-hypotheses > </a>
       </p>
+      <div>
+        <!-- <b-button v-b-toggle.collapse-1 variant="primary"> Show/Hide sub-hypotheses </b-button> -->
+        <b-button 
+          :v-b-toggle="'c-'+index" class="m-1"
+          @click="changeShowSub(index)">
+          Show/Hide sub-hypotheses </b-button>
+        <b-collapse id="c-0" class="m-1" :visible="show_sub[index]">
+          <b-card>
+            <p class="card-text">Collapse contents Here</p>
+            <div v-if="sub_contents[index].length">
+              Sub-hypotheses:
+            </div>
+            <div v-else>
+              No sub-hypotheses.
+              <br/>
+            </div>
+            <div id="sub_hypothesis" v-for="(sh, idx) in sub_contents[index]">
+              <router-link :to="{ name: 'hypothesis', params: {h_id: sh.id, q_id:question.id} }">
+                {{ sh.title }}
+              </router-link>
+            </div>
+          </b-card>
+      </b-collapse>
+      </div>
+
+      <!--
       <div v-if="show_sub[index]">
         <div v-if="sub_contents[index].length">
           Sub-hypotheses:
@@ -26,7 +53,8 @@
             {{ sh.title }}
           </router-link>
         </div>
-      </div>
+      </div> -->
+
       <ExperimentsList v-bind:question='question' v-bind:hypothesis='h'/>
     </template>
   </div>
