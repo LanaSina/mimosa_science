@@ -1,5 +1,5 @@
 <template>
-		<b-navbar toggleable="lg" type="dark" variant="primary">
+		<b-navbar toggleable="lg" class="navbar navbar-light bg-light">
 		<!-- <nav class="navbar navbar-custom"> -->
 			<b-navbar-brand to="/">Mimosa</b-navbar-brand>
 

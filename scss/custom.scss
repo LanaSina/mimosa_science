@@ -3,6 +3,9 @@
 @import '../node_modules/bootstrap-vue/src/index.scss';
 
 $theme-colors: (
-  "primary": #000000,
+  "primary": $gray-600,
+  "main-dark": #000080,
 );
+
+$dark-color: $gray-900;
 

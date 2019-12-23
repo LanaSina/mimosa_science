@@ -9,7 +9,7 @@
       <p id="context" v-html="h.summary"> </p>
       <div>
         <b-button 
-          :v-b-toggle="'c-'+index" variant="primary"
+          :v-b-toggle="'c-'+index" variant="light"
           @click="changeShowSub(index)">
           Show/Hide sub-hypotheses </b-button>
         <b-collapse id="c-0" class="m-1" :visible="show_sub[index]">
@@ -122,7 +122,7 @@ export default {
 h2 a:link, h2 a:visited, h2 a:hover, h2 a:active  {
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: bold;
-  color: #003399;
+  color: #0000e6;
   font-size: 0.65em;
 }
 </style>

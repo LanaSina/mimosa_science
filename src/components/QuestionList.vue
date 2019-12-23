@@ -109,7 +109,7 @@ export default {
   padding-right: 5vw;
 }
 #q-title-block{
-  background-color: #003399;
+  background-color: var(--main-dark);
   margin-left: -5vw;
   padding-left: 5vw;
   margin-right: -5vw;
