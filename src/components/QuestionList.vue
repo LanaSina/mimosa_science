@@ -105,16 +105,17 @@ export default {
 #q-bg-block{
   width: 100vw;
   position: relative;
-  background-color: #e6f2ff;
   padding-left: 5vw;
   padding-right: 5vw;
 }
 #q-title-block{
-  background-color: #003399;
+  background-color: var(--main-dark);
   margin-left: -5vw;
   padding-left: 5vw;
   margin-right: -5vw;
   padding-right: 5vw;
+  padding-top: 20px;
+  padding-bottom: 5px;
 }
 h1 a:link, h1 a:visited, h1 a:hover, h1 a:active  {
   font-family: 'Roboto', sans-serif;

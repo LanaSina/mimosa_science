@@ -7,7 +7,7 @@
       <template v-for="(e, index) in experiments">
         <b-container fluid>
           <b-row>
-            <b-col sm="1">
+            <b-col sm="0">
               <div id="experiment-number">
                 {{index+1}}
               </div>
@@ -76,14 +76,13 @@ export default {
   padding-right: 5vw;
 }
 #experiment {
-  padding-left: 30px;
+  padding-left: 5vw;
   padding-bottom: 10px;
   margin-bottom: 1em;
   margin-top: 0px;
   color: black;
 }
 #experiments {
-  padding-left: 30px;
   margin-bottom: 30px;
   display: inline-block;
   text-align: justify;
@@ -101,7 +100,7 @@ export default {
   font-weight: bold;
   text-align: right;
   margin-top: -0.3em;
-  margin-right: -0.5em
+  margin-right: -0.5em;
 }
 #experiment h3 {
   font-size: 1em;

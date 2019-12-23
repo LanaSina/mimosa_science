@@ -1,0 +1,11 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+// BootstrapVue and its default variables
+@import '../node_modules/bootstrap-vue/src/index.scss';
+
+$theme-colors: (
+  "primary": $gray-600,
+  "main-dark": #000080,
+);
+
+$dark-color: $gray-900;
+

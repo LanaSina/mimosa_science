@@ -5,27 +5,29 @@
         <router-link :to="{ name: 'hypothesis', params: {h_id: h.id, q_id:question.id} }">
           Hypothesis: {{ h.title }}
         </router-link>
-        <!-- <button v-if="show_update[index]" class="btn btn-outline-warning" @click="updateHypothesis(question.id, h.id)">
-              <i class="fa fa-edit"></i>
-            </button> -->
       </h2>
       <p id="context" v-html="h.summary"> </p>
-      <p class="text">
-        <b-button variant="info" @click="changeShowSub(index)">Show sub-hypotheses</b-button>
-      </p>
-      <div v-if="show_sub[index]">
-        <div v-if="sub_contents[index].length">
-          Sub-hypotheses:
-        </div>
-        <div v-else>
-          No sub-hypotheses.
-          <br/>
-        </div>
-        <div id="sub_hypothesis" v-for="(sh, idx) in sub_contents[index]">
-          <router-link :to="{ name: 'hypothesis', params: {h_id: sh.id, q_id:question.id} }">
-            {{ sh.title }}
-          </router-link>
-        </div>
+      <div>
+        <b-button 
+          :v-b-toggle="'c-'+index" variant="light"
+          @click="changeShowSub(index)">
+          Show/Hide sub-hypotheses </b-button>
+        <b-collapse id="c-0" class="m-1" :visible="show_sub[index]">
+          <b-card>
+            <div v-if="sub_contents[index].length">
+              Sub-hypotheses:
+            </div>
+            <div v-else>
+              No sub-hypotheses.
+              <br/>
+            </div>
+            <div id="sub_hypothesis" v-for="(sh, idx) in sub_contents[index]">
+              <router-link :to="{ name: 'hypothesis', params: {h_id: sh.id, q_id:question.id} }">
+                {{ sh.title }}
+              </router-link>
+            </div>
+          </b-card>
+      </b-collapse>
       </div>
       <ExperimentsList v-bind:question='question' v-bind:hypothesis='h'/>
     </template>
@@ -120,7 +122,7 @@ export default {
 h2 a:link, h2 a:visited, h2 a:hover, h2 a:active  {
   font-family: 'Roboto Condensed', sans-serif;
   font-weight: bold;
-  color: #003399;
+  color: #0000e6;
   font-size: 0.65em;
 }
 </style>
