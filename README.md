@@ -4,6 +4,7 @@
 ```
 npm install
 npm install --save firebase vuefire vuex
+npm install --save-dev node-sass sass-loader
 ```
 
 ### Compiles and hot-reloads for development

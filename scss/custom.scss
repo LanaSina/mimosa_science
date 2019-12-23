@@ -1,0 +1,8 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+// BootstrapVue and its default variables
+@import '../node_modules/bootstrap-vue/src/index.scss';
+
+$theme-colors: (
+  "primary": #000000,
+);
+
