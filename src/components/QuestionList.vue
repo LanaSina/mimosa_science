@@ -1,22 +1,33 @@
 <template>
-  <div id="q-bg-block">
-    <div v-for="(q, idx) in questions">
-      <div id="q-title-block">
-        <div id="question-title">
-          <h1>
-            <router-link :to="{ name: 'question', params: {id: q.id} }">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-6" v-for="(q, idx) in questions">
+        <div class="card">
+
+          <!-- Begin: rating -->
+          <div class="progress">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <!-- End rating -->
+          <b-card>
+            <b-card-title>
+              <h5><router-link :to="{ name: 'question', params: {id: q.id} }">
               {{ q.title }} 
-            </router-link> 
-            <button v-if="showMyItems" class="btn btn-warning" @click="updateQuestion(q.id)" id="updateButton">
-              <i class="fa fa-edit"></i>
-            </button>
-          </h1>
+            </router-link> </h5>
+            </b-card-title>
+            <b-card-text v-if="q.summary.length < 60">
+              {{q.summary}}
+            </b-card-text>
+            <b-card-text v-else>
+              {{q.summary.substring(0, 60)+ "..."}}
+            </b-card-text>
+            <span class="text-small">Last modified: 4 days</span>
+          </b-card>
+        </div>
         </div>
       </div>
-      <p id="context">{{ q.summary }}</p>
-      <HypothesesList v-bind:question='q'/>
     </div>
-  </div>
 </template>
 
 <script>
@@ -101,32 +112,3 @@ export default {
 
 </script>
 
-<style>
-#q-bg-block{
-  width: 100vw;
-  position: relative;
-  padding-left: 5vw;
-  padding-right: 5vw;
-}
-#q-title-block{
-  background-color: var(--main-dark);
-  margin-left: -5vw;
-  padding-left: 5vw;
-  margin-right: -5vw;
-  padding-right: 5vw;
-  padding-top: 20px;
-  padding-bottom: 5px;
-}
-h1 a:link, h1 a:visited, h1 a:hover, h1 a:active  {
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
-  font-size: 0.9em;
-  color: white;
-  background-size : cover;
-  /* display: inline-block; */
-}
-
-/* #updateButton {
-  display: inline-block;
-} */
-</style>
