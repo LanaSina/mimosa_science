@@ -17,7 +17,7 @@
 
 			<p v-if="hypothesis" v-html="hypothesis.summary"> </p>
 			<p>
-				<b-button block variant="primary" @click="changeShowSub()" >Show sub-hypotheses</b-button>
+				<b-button class="btn btn-light" @click="changeShowSub()" >Show/Hide sub-hypotheses</b-button>
 			</p>
 			<div v-if="show_sub">
 				<span v-if="sub_contents.length>0">
