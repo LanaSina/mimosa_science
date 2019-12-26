@@ -10,32 +10,33 @@
 			</b-breadcrumb-item>
 		</b-breadcrumb>
 
-		<h1 v-if="hypothesis">
-					Hypothesis: {{ hypothesis.title }}
-		</h1>
+		<div class="container">
+			<h1 v-if="hypothesis">
+						Hypothesis: {{ hypothesis.title }}
+			</h1>
 
-		<p v-if="hypothesis" v-html="hypothesis.summary"> </p>
-		<p>
-			<b-button block variant="primary" @click="changeShowSub()" >Show sub-hypotheses</b-button>
-		</p>
-		<div v-if="show_sub">
-			<span v-if="sub_contents.length>0">
-				Sub-hypotheses:
-			</span>
-			<span v-else>
-				No sub-hypotheses.
-			</span>
-			<div id="sub_hypothesis" v-for="(sh, idx) in sub_contents">
-				<router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:q_id} }">
-					{{ sh.title }}
-				</router-link>
+			<p v-if="hypothesis" v-html="hypothesis.summary"> </p>
+			<p>
+				<b-button block variant="primary" @click="changeShowSub()" >Show sub-hypotheses</b-button>
+			</p>
+			<div v-if="show_sub">
+				<span v-if="sub_contents.length>0">
+					Sub-hypotheses:
+				</span>
+				<span v-else>
+					No sub-hypotheses.
+				</span>
+				<div id="sub_hypothesis" v-for="(sh, idx) in sub_contents">
+					<router-link :to="{ name: 'hypothesis', params: {id: sh.id, q_id:q_id} }">
+						{{ sh.title }}
+					</router-link>
+				</div>
 			</div>
+
+			<ExperimentsList v-if="hypothesis && question" v-bind:question='question' v-bind:hypothesis='hypothesis'/>
+
+			<Form v-bind:question='question' v-bind:hypothesis='hypothesis'/>
 		</div>
-
-		<ExperimentsList v-if="hypothesis && question" v-bind:question='question' v-bind:hypothesis='hypothesis'/>
-
-		<Form v-bind:question='question' v-bind:hypothesis='hypothesis'/>
-
 	</div>
 </template>
 

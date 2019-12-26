@@ -1,9 +1,9 @@
 <template>
-	<div v-if="question && hypothesis && experiment" id="question">
+	<div v-if="question && hypothesis && experiment" id="question" class="container">
 		<b-container fluid>
 			<b-form @submit.prevent="onUpdate" @reset.prevent="onReset">
-				<b-form-group id="question_global" label="Question" label-cols-lg="3">
-
+				<!-- <b-form-group id="question_global" label="Question" label-cols-lg="3"> -->
+					<h4>Question</h4>
 					<b-form-group id="question_title_group" label="Question summary*:" label-for="question_title" label-cols-sm="3">
 
 						<b-form-textarea id="question_title" rows="2"
@@ -22,10 +22,10 @@
 
 					</b-form-group>
 
-				</b-form-group>
+				<!-- </b-form-group> -->
 
-				<b-form-group id="hypothesis_global" label="Hypothesis" label-cols-lg="3" v-if="hypothesis">
-
+				<!-- <b-form-group id="hypothesis_global" label="Hypothesis" label-cols-lg="3" v-if="hypothesis"> -->
+					<h4>Hypothesis</h4>
 					<b-form-group id="hypothesis_title_group" label="Hypothesis*:" label-for="hypothesis_title" label-cols-sm="3">
 
 						<b-form-textarea id="hypothesis_title" rows="2"
@@ -44,10 +44,10 @@
 
 					</b-form-group>
 
-				</b-form-group>
+				<!-- </b-form-group> -->
 
-				<b-form-group id="experiment_global" label="Experiment" label-cols-lg="3" >
-
+				<!-- <b-form-group id="experiment_global" label="Experiment" label-cols-lg="3" > -->
+					<h4>Experiment</h4>
 					<b-form-group id="methods" label="Methods:" label-for="experiment_methods"
 					label-cols-sm="3" description="Describe how you performed the experiment to test this hypothesis." 
 					>
@@ -60,7 +60,7 @@
 					<wysiwyg id="experiment_results" v-model='experiment.results'/>
 					</b-form-group>
 
-				</b-form-group>
+				<!-- </b-form-group> -->
 
 				<b-button type="submit" variant="primary">Update</b-button>
 				<b-button type="reset" variant="danger">Reset</b-button>

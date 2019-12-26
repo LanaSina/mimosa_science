@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <b-tabs content-class="mt-3">
       <!-- Start questions -->
       <b-tab title="Questions" active>
