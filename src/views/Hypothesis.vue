@@ -1,5 +1,15 @@
 <template>
 	<div class="home">
+		<b-breadcrumb class="bg-white">
+			<b-breadcrumb-item> 
+				<router-link to="/">Home</router-link> 
+			</b-breadcrumb-item>
+			<b-breadcrumb-item>
+				<router-link :to="{ name: 'question', params: {id: q_id} }" 		   v-if="question"> Question: {{ question.title }}
+				</router-link>
+			</b-breadcrumb-item>
+		</b-breadcrumb>
+
 		<h1 v-if="hypothesis">
 					Hypothesis: {{ hypothesis.title }}
 		</h1>
@@ -114,3 +124,4 @@ export default {
 	},
 }
 </script>
+
