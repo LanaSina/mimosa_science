@@ -21,6 +21,11 @@ import wysiwyg from "vue-wysiwyg";
 Vue.use(wysiwyg, {});
 import 'vue-wysiwyg/dist/vueWysiwyg.css';
 
+// Material Vue
+import VueMaterial from 'vue-material'
+import 'vue-material/dist/vue-material.min.css'
+Vue.use(VueMaterial)
+
 var firebaseConfig = {
   apiKey: "AIzaSyCTqX3P2jJL73c4PUowA2QY5DI-5n5fXh8",
   authDomain: "mimoza-441ee.firebaseapp.com",
