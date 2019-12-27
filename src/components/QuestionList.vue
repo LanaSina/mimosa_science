@@ -1,32 +1,38 @@
 <template>
   <div class="container">
     <div class="row">
+        <div class="col-lg-6" v-for="q in questionsPerPage" :key="q.id" id="allQuestions">
+          <div class="card">
 
-      <div class="col-lg-6" v-for="(q, idx) in questions">
-        <div class="card">
-
-          <!-- Begin: rating -->
-          <div class="progress">
-            <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            <!-- Begin: rating -->
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <!-- End rating -->
+            <b-card>
+              <b-card-title>
+                <h5><router-link :to="{ name: 'question', params: {id: q.id} }">
+                {{ q.title }} 
+              </router-link> </h5>
+              </b-card-title>
+              <b-card-text v-if="q.summary.length < 60">
+                {{q.summary}}
+              </b-card-text>
+              <b-card-text v-else>
+                {{q.summary.substring(0, 60)+ "..."}}
+              </b-card-text>
+              <span class="text-small">Last modified: 4 days</span>
+            </b-card>
           </div>
-          <!-- End rating -->
-          <b-card>
-            <b-card-title>
-              <h5><router-link :to="{ name: 'question', params: {id: q.id} }">
-              {{ q.title }} 
-            </router-link> </h5>
-            </b-card-title>
-            <b-card-text v-if="q.summary.length < 60">
-              {{q.summary}}
-            </b-card-text>
-            <b-card-text v-else>
-              {{q.summary.substring(0, 60)+ "..."}}
-            </b-card-text>
-            <span class="text-small">Last modified: 4 days</span>
-          </b-card>
-        </div>
-        </div>
+          </div>
       </div>
+      <!-- Pagination -->
+      <b-pagination
+          v-model="currentPage"
+          :total-rows="rows"
+          :per-page="perPage"
+          aria-controls="allQuestions"
+        ></b-pagination>
     </div>
 </template>
 
@@ -49,11 +55,29 @@ export default {
   },
   data: () => ({
     questions: [],
-    show_update: []
+    show_update: [],
+    perPage: 4,
+    currentPage: 1
   }),
   firestore: {
 
-   },
+  },
+
+  computed: {
+    questionsPerPage() {
+      // Return a sub-array containing `perPage` questions
+      return this.questions.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage
+      )
+    },
+
+    rows() {
+      // Return the total number of questions.
+      return this.questions.length
+    }
+  },
+
   created(){
     var questionsRef = db.collection('questions');
     
@@ -111,4 +135,5 @@ export default {
 }
 
 </script>
+
 
