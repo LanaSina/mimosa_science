@@ -6,7 +6,7 @@
 
             <!-- Begin: rating -->
             <div class="progress">
-              <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <!-- End rating -->
             <b-card>
@@ -21,7 +21,8 @@
               <b-card-text v-else>
                 {{q.summary.substring(0, 60)+ "..."}}
               </b-card-text>
-              <span class="text-small">Last modified: 4 days</span>
+              <!-- TODO( "Show the last update date instead of the creation date") -->
+              <small class="text-muted">Last modified: {{q.createdAt.toDate()}}</small>
             </b-card>
           </div>
           </div>
