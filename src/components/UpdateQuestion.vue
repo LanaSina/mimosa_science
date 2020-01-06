@@ -1,8 +1,9 @@
 <template>
-    <div v-if="question" id="question">
+    <div v-if="question" id="question" class="container">
         <b-container fluid>
             <b-form @submit.prevent="onUpdate" @reset.prevent="onReset">
-                <b-form-group id="question_global" label="Question" label-cols-lg="3">
+                <!-- <b-form-group id="question_global" label="Question" label-cols-lg="3"> -->
+                    <h4>Question</h4>
 
                     <b-form-group id="question_title_group" label="Question summary*:" label-for="question_title" label-cols-sm="3">
 
@@ -24,7 +25,7 @@
 
                     </b-form-group>
 
-                </b-form-group>
+                <!-- </b-form-group> -->
 
                 <b-button type="submit" variant="primary">Update</b-button>
                 <b-button type="reset" variant="danger">Reset</b-button>
