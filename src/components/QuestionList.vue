@@ -22,7 +22,7 @@
                 {{q.summary.substring(0, 60)+ "..."}}
               </b-card-text>
               <!-- TODO( "Show the last update date instead of the creation date") -->
-              <small class="text-muted">Last modified: {{q.createdAt.toDate()}}</small>
+              <small class="text-muted">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</small>
             </b-card>
           </div>
           </div>

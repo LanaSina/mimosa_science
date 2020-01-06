@@ -26,6 +26,8 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 Vue.use(VueMaterial)
 
+Vue.use(require('vue-moment'))
+
 var firebaseConfig = {
   apiKey: "AIzaSyCTqX3P2jJL73c4PUowA2QY5DI-5n5fXh8",
   authDomain: "mimoza-441ee.firebaseapp.com",
