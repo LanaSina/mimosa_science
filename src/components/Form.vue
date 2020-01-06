@@ -4,8 +4,8 @@
 
 		<b-form @submit="onSubmit" @reset="onReset" v-if="show && signed_in">
 
-			<b-form-group id="question_global" label="Question" label-cols-lg="3">
-
+			<!-- <b-form-group id="question_global" label="Question" > -->
+				<h4>Question</h4>
 				<b-form-group id="question_title_group" label="Question summary*:" label-for="question_title" label-cols-sm="3">
 
 					<b-form-input v-if='question' id="question_title" type="text" :disabled=true v-model='this.question.title'></b-form-input>
@@ -23,11 +23,11 @@
 
 				</b-form-group>
 
-			</b-form-group>
+			<!-- </b-form-group> -->
 
 
-			<b-form-group id="hypothesis-global" label="Hypothesis" label-cols-lg="3">
-
+			<!-- <b-form-group id="hypothesis-global" label="Hypothesis" > -->
+				<h4>Hypothesis</h4>
 				<b-form-group id="hypothesis_title_group" label="Hypothesis*:" label-for="hypothesis_title" label-cols-sm="3">
 
 					<b-form-input v-if='hypothesis' id='hypothesis_title' type="text" :disabled=true v-model='this.hypothesis.title'></b-form-input>
@@ -44,11 +44,11 @@
 
 				</b-form-group>
 
-			</b-form-group>
+			<!-- </b-form-group> -->
 
 
-			<b-form-group id="experiment_global" label="Experiment" label-cols-lg="3" >
-
+			<!-- <b-form-group id="experiment_global" label="Experiment" > -->
+				<h4>Experiment</h4>
 				<b-form-group id="methods" label="Methods:" label-for="experiment_methods"
 				 label-cols-sm="3" description="Describe how you performed the experiment to test this hypothesis." 
 				 >
@@ -61,7 +61,7 @@
 					 <wysiwyg id="experiment_results" v-model='experiment_data.results'/>
 				</b-form-group>
 
-			</b-form-group>
+			<!-- </b-form-group> -->
 
 				<b-button type="submit" variant="primary">Submit</b-button>
 				<b-button type="reset" variant="danger">Reset</b-button>

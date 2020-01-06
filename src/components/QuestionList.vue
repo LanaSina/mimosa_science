@@ -101,7 +101,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 #q-bg-block{
   width: 100vw;
   position: relative;
