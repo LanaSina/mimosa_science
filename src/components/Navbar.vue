@@ -30,7 +30,8 @@
 						<b-nav-item-dropdown right>
 						<!-- Using 'button-content' slot -->
 						<template v-slot:button-content>
-							<em class="fa fa-user">Profile</em>
+							<!-- <em class="fa fa-user">Profile</em> -->
+							<img alt="Avatar" src="../assets/logo.png" class="avatar" />
 						</template>
 						<b-dropdown-item to="/updateProfile">Update Profile</b-dropdown-item>
 						<b-dropdown-item to="/updateEmail">Update Email</b-dropdown-item>
