@@ -15,6 +15,28 @@
                   <h5>{{ q.title }} </h5>
                 </router-link>
               </div>
+              <!-- List of the most active users with their avatars??? -->
+              <ul class="avatars">
+
+							<li>
+								<a href="#" data-toggle="tooltip" title="Oury Diallo">
+									<img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+								</a>
+							</li>
+
+							<li>
+								<a href="#" data-toggle="tooltip" title="Lana Sinapayen">
+									<img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
+								</a>
+							</li>
+
+							<li>
+								<a href="#" data-toggle="tooltip" title="Unknown Unknowm">
+									<img alt="Unknown" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+								</a>
+							</li>
+
+						</ul>
               <div class="card-text" v-if="q.summary.length < 600">
                   {{q.summary}}
                 </div>
