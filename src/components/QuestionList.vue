@@ -135,7 +135,3 @@ export default {
 }
 
 </script>
-
-<style scoped>
-  @import '../assets/css/theme.css';
-</style>

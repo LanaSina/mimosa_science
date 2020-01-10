@@ -26,6 +26,8 @@ export default {
     @import '~bootstrap/scss/bootstrap.scss';
     @import '~bootstrap-vue/src/index.scss';
 
+    @import './assets/css/theme.css';
+
 
 </style>
 
