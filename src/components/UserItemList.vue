@@ -4,10 +4,10 @@
       <!-- Start questions -->
       <b-tab title="Questions" active>
         <div class="card" v-for="(q, idx) in questions">
-            <!-- Begin: rating -->
-            <div class="progress">
-              <div class="progress-bar bg-success" role="progressbar" style="width:80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
+          <!-- Begin: rating -->
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width:80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
             <!-- End rating -->
             <div class="card-body">
               <div class="card-title">
@@ -17,32 +17,50 @@
               </div>
               <!-- List of the most active users with their avatars??? -->
               <ul class="avatars">
+                <li>
+                  <a href="#" data-toggle="tooltip" title="Oury Diallo">
+                    <img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+                  </a>
+                </li>
+                <li>
+                  <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
+                    <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
+                  </a>
+                </li>
+                <li>
+                  <a href="#" data-toggle="tooltip" title="Unknown Unknowm">
+                    <img alt="Unknown" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+                  </a>
+                </li>
+                <li>
+                  <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
+                    <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
+                  </a>
+                </li>
+              </ul>
+              <!-- End list of avatars -->
 
-							<li>
-								<a href="#" data-toggle="tooltip" title="Oury Diallo">
-									<img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
-								</a>
-							</li>
-
-							<li>
-								<a href="#" data-toggle="tooltip" title="Lana Sinapayen">
-									<img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
-								</a>
-							</li>
-
-							<li>
-								<a href="#" data-toggle="tooltip" title="Unknown Unknowm">
-									<img alt="Unknown" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
-								</a>
-							</li>
-
-						</ul>
+              <!-- Card Optional menu -->
+              <div class="dropdown card-options">
+                <button class="btn-options" type="button" id="dropDownOptionalMenu" data-toggle="dropdown" aria-haspopup="true" >
+                  <i class="material-icons">more_vert</i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropDownOptionalMenu">
+                  <a class="dropdown-item" href="#">Edit</a>
+                  <a class="dropdown-item" href="#">Invite people</a>
+                  <a class="dropdown-item" href="#">Make public</a>
+                  <a class="dropdown-item" href="#">Share</a>
+                  <a class="dropdown-item" href="#">Archive</a>
+                </div>
+              </div>
+              <!-- End optional menu -->
+              
               <div class="card-text" v-if="q.summary.length < 600">
                   {{q.summary}}
-                </div>
-                <div class="card-text" v-else>
-                  {{q.summary.substring(0, 600)+ "..."}}
-                </div>
+              </div>
+              <div class="card-text" v-else>
+                {{q.summary.substring(0, 600)+ "..."}}
+              </div>
               <span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
             </div>
           </div>
@@ -56,7 +74,7 @@
             <b-button href="#" variant="warning" @click="updateQuestion(q.id)">Update</b-button>
           </b-card>
         </div> -->
-      </b-tab>
+        </b-tab>
       <!-- End questions -->
 
       <!-- Start Hypotheses -->
@@ -104,6 +122,7 @@ export default {
     ...mapGetters({
       user: "user"
     })
+
   },
 
   data: () => ({
