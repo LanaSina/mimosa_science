@@ -15,11 +15,11 @@
                 {{ q.title }} 
               </router-link> </h5>
               </b-card-title>
-              <b-card-text v-if="q.summary.length < 60">
+              <b-card-text v-if="q.summary.length < 500">
                 {{q.summary}}
               </b-card-text>
               <b-card-text v-else>
-                {{q.summary.substring(0, 60)+ "..."}}
+                {{q.summary.substring(0, 500)+ "..."}}
               </b-card-text>
               <!-- TODO( "Show the last update date instead of the creation date") -->
               <small class="text-muted">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</small>
