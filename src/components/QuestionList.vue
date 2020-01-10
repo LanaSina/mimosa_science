@@ -57,7 +57,7 @@ export default {
   data: () => ({
     questions: [],
     show_update: [],
-    perPage: 4,
+    perPage: 10,
     currentPage: 1
   }),
   firestore: {
