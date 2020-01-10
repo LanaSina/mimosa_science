@@ -9,21 +9,20 @@
               <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <!-- End rating -->
-            <b-card>
-              <b-card-title>
-                <h5><router-link :to="{ name: 'question', params: {id: q.id} }">
-                {{ q.title }} 
-              </router-link> </h5>
-              </b-card-title>
-              <b-card-text v-if="q.summary.length < 600">
+            <div class="card-body">
+						<div class="card-title">
+							<router-link :to="{ name: 'question', params: {id: q.id} }">
+								<h5>{{ q.title }} </h5>
+							</router-link>
+						</div>
+            <div class="card-text" v-if="q.summary.length < 600">
                 {{q.summary}}
-              </b-card-text>
-              <b-card-text v-else>
+              </div>
+              <div class="card-text" v-else>
                 {{q.summary.substring(0, 600)+ "..."}}
-              </b-card-text>
-              <!-- TODO( "Show the last update date instead of the creation date") -->
-              <small class="text-muted">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</small>
-            </b-card>
+              </div>
+						<span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+					</div>
           </div>
           <!-- </div> -->
       <!-- </div> -->
@@ -137,4 +136,6 @@ export default {
 
 </script>
 
-
+<style scoped>
+  @import '../assets/css/theme.css';
+</style>
