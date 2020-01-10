@@ -3,7 +3,29 @@
     <b-tabs content-class="mt-3">
       <!-- Start questions -->
       <b-tab title="Questions" active>
-        <div v-for="(q, idx) in questions">
+        <div class="card" v-for="(q, idx) in questions">
+            <!-- Begin: rating -->
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width:80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <!-- End rating -->
+            <div class="card-body">
+              <div class="card-title">
+                <router-link :to="{ name: 'question', params: {id: q.id} }">
+                  <h5>{{ q.title }} </h5>
+                </router-link>
+              </div>
+              <div class="card-text" v-if="q.summary.length < 600">
+                  {{q.summary}}
+                </div>
+                <div class="card-text" v-else>
+                  {{q.summary.substring(0, 600)+ "..."}}
+                </div>
+              <span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+            </div>
+          </div>
+
+        <!-- <div class="card" v-for="(q, idx) in questions">
           <b-card :title="q.title">
             <b-card-text>
               {{q.summary}}
@@ -11,7 +33,7 @@
             <b-button href="#" variant="primary" @click="readQuestion(q.id)">Read more</b-button>
             <b-button href="#" variant="warning" @click="updateQuestion(q.id)">Update</b-button>
           </b-card>
-        </div>
+        </div> -->
       </b-tab>
       <!-- End questions -->
 
