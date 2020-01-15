@@ -76,30 +76,75 @@
               
             </div>
           </div>
-
-        <!-- <div class="card" v-for="(q, idx) in questions">
-          <b-card :title="q.title">
-            <b-card-text>
-              {{q.summary}}
-            </b-card-text>
-            <b-button href="#" variant="primary" @click="readQuestion(q.id)">Read more</b-button>
-            <b-button href="#" variant="warning" @click="updateQuestion(q.id)">Update</b-button>
-          </b-card>
-        </div> -->
         </b-tab>
       <!-- End questions -->
 
       <!-- Start Hypotheses -->
       <b-tab title="Hypotheses">
-        <div v-for="(h, idx) in hypotheses">
-          <b-card :title="h.title">
-            <b-card-text>
-              {{h.summary}}
-            </b-card-text>
-            <b-button href="#" variant="primary" @click="readQuestion(questions_id[idx])">Read more</b-button>
-            <b-button href="#" variant="warning" @click="updateHypothesis(questions_id[idx], h.id)">Update</b-button>
-          </b-card>
-        </div>
+        <div class="card" v-for="(h, idx) in hypotheses">
+          <!-- Begin: rating -->
+          <!-- <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width:80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+          </div> -->
+            <!-- End rating -->
+          <div class="card-body">
+            <div class="card-title">
+              <router-link :to="{ name: 'question', params: {id: questions_id[idx]} }">
+                <h5>{{ h.title }} </h5>
+              </router-link>
+            </div>
+            <!-- List of the most active users with their avatars??? -->
+            <ul class="avatars">
+              <li>
+                <a href="#" data-toggle="tooltip" title="Oury Diallo">
+                  <img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+                </a>
+              </li>
+              <li>
+                <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
+                  <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
+                </a>
+              </li>
+              <li>
+                <a href="#" data-toggle="tooltip" title="Unknown Unknowm">
+                  <img alt="Unknown" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+                </a>
+              </li>
+              <li>
+                <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
+                  <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
+                </a>
+              </li>
+            </ul>
+            <!-- End list of avatars -->
+
+            <!-- Card Optional menu -->
+            <div class="card-options">
+              <b-button href="#" class="btn-options" @click="updateHypothesis(questions_id[idx], h.id)"><i class="btn-options material-icons">edit</i></b-button>
+            </div>
+            
+            <!-- End optional menu -->
+            
+            <div class="card-text" v-if="h.summary.length < 600">
+                {{h.summary}}
+            </div>
+            <div class="card-text" v-else>
+              {{h.summary.substring(0, 600)+ "..."}}
+            </div>
+            <div class="card-meta d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <i class="material-icons mr-1" title="Number of comments">comment</i>
+              <span class="text-small">120</span> <span>&nbsp;</span>
+              <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
+              <span class="text-small">1k</span><span>&nbsp;</span>
+              <i class="material-icons mr-1" title="Number of participants">group</i>
+              <span class="text-small">15</span><span>&nbsp;</span>
+            </div>
+            <span class="text-small">Last modified: {{h.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+          </div>
+              
+            </div>
+          </div>
       </b-tab>
       <!-- End Hypotheses -->
 
