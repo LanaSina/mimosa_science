@@ -61,7 +61,18 @@
               <div class="card-text" v-else>
                 {{q.summary.substring(0, 600)+ "..."}}
               </div>
-              <span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+              <div class="card-meta d-flex justify-content-between">
+							<div class="d-flex align-items-center">
+								<i class="material-icons mr-1" title="Number of comments">comment</i>
+								<span class="text-small">120</span> <span>&nbsp;</span>
+                <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
+								<span class="text-small">1k</span><span>&nbsp;</span>
+                <i class="material-icons mr-1" title="Number of participants">group</i>
+								<span class="text-small">15</span><span>&nbsp;</span>
+							</div>
+							<span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+						</div>
+              
             </div>
           </div>
 
