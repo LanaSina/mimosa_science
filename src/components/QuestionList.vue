@@ -39,8 +39,8 @@
                 </li>
               </ul>
               <!-- End list of avatars -->
-              <div class="card-options">
-                <button class="btn-options" type="button" id="" @click="AddToFavoriteQuestions()">
+              <div class="card-options" v-if="user.loggedIn">
+                <button class="btn-options" type="button" id="" @click="addToFavoriteQuestions(q.id, q.likes)">
                   <i class="material-icons">favorite</i>
                 </button>
               </div>
@@ -58,6 +58,8 @@
                   <span class="text-small">1k</span><span>&nbsp;</span>
                   <i class="material-icons mr-1" title="Number of participants">group</i>
                   <span class="text-small">15</span><span>&nbsp;</span>
+                  <i class="material-icons mr-1" title="Number of participants">favorite</i>
+                  <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
                 </div>
                 <span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
               </div>
@@ -103,6 +105,11 @@ export default {
   },
 
   computed: {
+		// map the state of this user
+		...mapGetters({
+			user: "user"
+		}),
+	
     questionsPerPage() {
       // Return a sub-array containing `perPage` questions
       return this.questions.slice(
@@ -169,7 +176,30 @@ export default {
   methods: {
     updateQuestion: function (question_id) {
       this.$router.push("/updateQuestion/" +question_id);
-    }
+    },
+
+    addToFavoriteQuestions: function (question_id, n_likes) {
+      let currentUser = firebase.auth().currentUser
+      let docId = `${currentUser.uid}_${question_id}`
+      db.collection('favorites').doc(docId).get().then(doc => {
+        if (doc.exists) {
+          console.log("You already liked this question")
+          return
+        }
+
+        db.collection('favorites').doc(docId).set({
+          questionId: question_id,
+          userId: currentUser.uid
+        }).then(() => {
+          // Update the number of likes of the question
+          db.collection('questions').doc(question_id).update({
+            likes: n_likes + 1
+          })
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    },
   }
 }
 
