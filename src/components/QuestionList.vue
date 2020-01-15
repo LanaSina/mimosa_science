@@ -10,19 +10,53 @@
             </div>
             <!-- End rating -->
             <div class="card-body">
-						<div class="card-title">
-							<router-link :to="{ name: 'question', params: {id: q.id} }">
-								<h5>{{ q.title }} </h5>
-							</router-link>
-						</div>
-            <div class="card-text" v-if="q.summary.length < 600">
-                {{q.summary}}
+              <div class="card-title">
+                <router-link :to="{ name: 'question', params: {id: q.id} }">
+                  <h5>{{ q.title }} </h5>
+                </router-link>
+              </div>
+              <!-- List of the most active users with their avatars??? -->
+              <ul class="avatars">
+                <li>
+                  <a href="#" data-toggle="tooltip" title="Oury Diallo">
+                    <img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+                  </a>
+                </li>
+                <li>
+                  <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
+                    <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
+                  </a>
+                </li>
+                <li>
+                  <a href="#" data-toggle="tooltip" title="Unknown Unknowm">
+                    <img alt="Unknown" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+                  </a>
+                </li>
+                <li>
+                  <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
+                    <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
+                  </a>
+                </li>
+              </ul>
+              <!-- End list of avatars -->
+              <div class="card-text" v-if="q.summary.length < 600">
+                  {{q.summary}}
               </div>
               <div class="card-text" v-else>
-                {{q.summary.substring(0, 600)+ "..."}}
+                  {{q.summary.substring(0, 600)+ "..."}}
               </div>
-						<span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
-					</div>
+              <div class="card-meta d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <i class="material-icons mr-1" title="Number of comments">comment</i>
+                  <span class="text-small">120</span> <span>&nbsp;</span>
+                  <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
+                  <span class="text-small">1k</span><span>&nbsp;</span>
+                  <i class="material-icons mr-1" title="Number of participants">group</i>
+                  <span class="text-small">15</span><span>&nbsp;</span>
+                </div>
+                <span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+              </div>
+            </div>
           </div>
           <!-- </div> -->
       <!-- </div> -->
