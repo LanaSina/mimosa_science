@@ -41,18 +41,19 @@
               <!-- End list of avatars -->
 
               <!-- Card Optional menu -->
-              <div class="dropdown card-options">
-                <button class="btn-options" type="button" id="dropDownOptionalMenu" data-toggle="dropdown" aria-haspopup="true" >
-                  <i class="material-icons">more_vert</i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropDownOptionalMenu">
-                  <a class="dropdown-item" href="#">Edit</a>
-                  <a class="dropdown-item" href="#">Invite people</a>
-                  <a class="dropdown-item" href="#">Make public</a>
-                  <a class="dropdown-item" href="#">Share</a>
-                  <a class="dropdown-item" href="#">Archive</a>
-                </div>
-              </div>
+              <b-navbar-nav class="ml-auto card-options">
+                <b-nav-item-dropdown right>
+                  <!-- Using 'button-content' slot -->
+                  <template v-slot:button-content>
+                    <i class="btn-options material-icons">more_vert</i>
+                  </template>
+                  <b-dropdown-item :to="{ name: 'updateQuestion', params: {id: q.id} }">Edit</b-dropdown-item>
+                  <b-dropdown-item to="#">Invite people</b-dropdown-item>
+                  <b-dropdown-item to="#">Make public</b-dropdown-item>
+                  <b-dropdown-item to="#">Share</b-dropdown-item>
+                  <b-dropdown-item to="#">Archive</b-dropdown-item>
+                </b-nav-item-dropdown>
+              </b-navbar-nav>
               <!-- End optional menu -->
               
               <div class="card-text" v-if="q.summary.length < 600">
