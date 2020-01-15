@@ -105,6 +105,7 @@ export default {
 				hidden: false,
 				createdAt: '',
 				userId: '',
+				likes: 0
 			},
 			experiment_data: {
 				methods: '',

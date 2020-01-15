@@ -12,7 +12,7 @@
             <div class="card-body">
               <div class="card-title">
                 <router-link :to="{ name: 'question', params: {id: q.id} }">
-                  <h5>{{ q.title }} </h5>
+                  <h5>{{ q.title }} <span v-if="checkFavoriteQuestion(q.id)">Exist</span> <span v-else>Doesn't exist</span></h5>
                 </router-link>
               </div>
               <!-- List of the most active users with their avatars??? -->
@@ -40,8 +40,9 @@
               </ul>
               <!-- End list of avatars -->
               <div class="card-options" v-if="user.loggedIn">
-                <button class="btn-options" type="button" id="" @click="addToFavoriteQuestions(q.id, q.likes)">
-                  <i class="material-icons">favorite</i>
+                <button class="btn-options" type="button">
+                  <i v-if="checkFavoriteQuestion(q.id)" class="material-icons red">favorite</i>
+                  <i v-else class="material-icons">favorite_border</i>
                 </button>
               </div>
               <div class="card-text" v-if="q.summary.length < 600">
@@ -200,7 +201,24 @@ export default {
         console.log(err)
       })
     },
+
+    checkFavoriteQuestion: function (question_id) {
+      db.collection('favorites')
+        .doc(`${firebase.auth().currentUser.uid}_${question_id}`)
+        .get().then( doc => {
+          if (doc.exists) {
+            return true
+          } 
+          return false
+        }).catch(err=> {
+          console.log(err)
+        })
+    }
   }
 }
 
 </script>
+
+<style scoped>
+.material-icons.red { color: rgb(190, 15, 15); }
+</style>
