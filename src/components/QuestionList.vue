@@ -39,6 +39,11 @@
                 </li>
               </ul>
               <!-- End list of avatars -->
+              <div class="card-options">
+                <button class="btn-options" type="button" id="" @click="AddToFavoriteQuestions()">
+                  <i class="material-icons">favorite</i>
+                </button>
+              </div>
               <div class="card-text" v-if="q.summary.length < 600">
                   {{q.summary}}
               </div>
