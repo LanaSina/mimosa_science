@@ -59,7 +59,7 @@
                   <span class="text-small">1k</span><span>&nbsp;</span>
                   <i class="material-icons mr-1" title="Number of participants">group</i>
                   <span class="text-small">15</span><span>&nbsp;</span>
-                  <i class="material-icons mr-1" title="Number of participants">favorite</i>
+                  <i class="material-icons mr-1" title="Number of likes">favorite</i>
                   <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
                 </div>
                 <span class="text-small">Last modified: {{q.createdAt | formatDate}}</span>

@@ -70,8 +70,10 @@
 								<span class="text-small">1k</span><span>&nbsp;</span>
                 <i class="material-icons mr-1" title="Number of participants">group</i>
 								<span class="text-small">15</span><span>&nbsp;</span>
+                <i class="material-icons mr-1" title="Number of likes">favorite</i>
+                <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
 							</div>
-							<span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+							<span class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
 						</div>
               
             </div>
@@ -140,7 +142,7 @@
               <i class="material-icons mr-1" title="Number of participants">group</i>
               <span class="text-small">15</span><span>&nbsp;</span>
             </div>
-            <span class="text-small">Last modified: {{h.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+            <span class="text-small">Last modified: {{h.createdAt | formatDate}}</span>
           </div>
               
             </div>
@@ -208,7 +210,7 @@
               <span class="text-small">15</span><span>&nbsp;</span>
             </div>
             <span class="text-small">Last modified: Yesterday</span>
-            <!-- <span class="text-small">Last modified: {{h.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span> -->
+            <!-- <span class="text-small">Last modified: {{h.createdAt | formatDate}}</span> -->
           </div>
               
             </div>
@@ -222,6 +224,7 @@
 <script>
 import firebase from "firebase"
 import { mapGetters } from "vuex"
+import moment from "moment"
 import { db } from '../main'
 export default {
   name: 'userItemList2',
@@ -242,8 +245,18 @@ export default {
     hypotheses_id_exp: [], // Id of hypotheses containing experiments of a user 
   }),
 
+  filters: {
+    formatDate(val) {
+      if (!val) {
+        return '-'
+      }
+      return moment(val.toDate()).fromNow()
+    }
+  },
+
   created() {
     let qRef = db.collection('questions')
+      .orderBy('createdAt', 'desc')
       //.where('hidden', '==', false)
       .get()
       .then(snapshot => {
