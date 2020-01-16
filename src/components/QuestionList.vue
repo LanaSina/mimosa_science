@@ -12,7 +12,7 @@
             <div class="card-body">
               <div class="card-title">
                 <router-link :to="{ name: 'question', params: {id: q.id} }">
-                  <h5>{{ q.title }} <span v-if="checkFavoriteQuestion(q.id)">Exist</span> <span v-else>Doesn't exist</span></h5>
+                  <h5>{{ q.title }}</h5>
                 </router-link>
               </div>
               <!-- List of the most active users with their avatars??? -->
@@ -62,7 +62,7 @@
                   <i class="material-icons mr-1" title="Number of participants">favorite</i>
                   <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
                 </div>
-                <span class="text-small">Last modified: {{q.createdAt.toDate() | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+                <span class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
               </div>
             </div>
           </div>
@@ -83,6 +83,7 @@ import firebase from "firebase"
 import { mapGetters } from "vuex"
 import {db} from '../main';
 import HypothesesList from '@/components/HypothesesList.vue'
+import moment from "moment";
 
 export default {
   name: 'app',
@@ -103,6 +104,15 @@ export default {
   }),
   firestore: {
 
+  },
+
+  filters: {
+    formatDate(val) {
+      if (!val) {
+        return '-'
+      }
+      return moment(val.toDate()).fromNow()
+    }
   },
 
   computed: {
