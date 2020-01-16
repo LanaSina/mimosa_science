@@ -44,6 +44,7 @@ export default {
     hypotheses: [],
     question:null,
     id : null,
+    n_views: null
   }),
   created() {
     this.id = this.$route.params['id']
@@ -57,6 +58,38 @@ export default {
       db.collection('questions')
         .doc(this.$route.params['id'])
         .collection('hypotheses'));
-  }
+  },
+  methods: {
+    // initializingViews: function () {
+    //   this.question.n_views = 0
+    //   db.collection('questions').doc(this.id).update({...this.question})
+    //     .then(function() {
+    //       console.log("set number of views to 0")
+    //     }).catch(err => {
+    //       console.log(err)
+    //     })
+    // },
+
+    incrementViews: function () {
+      //var n_views = 0
+      db.collection('questions').doc(this.id).get().then(doc => {
+        let n_views = doc.data().n_views
+        // console.log(doc.data().n_views)
+        db.collection('questions').doc(this.id).update({
+          n_views: n_views + 1
+        }).then(() => {
+
+        }).catch(err => {
+          console.log(err)
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  },
+
+  mounted() {
+  this.incrementViews()
+},
 }
 </script>
