@@ -148,6 +148,7 @@ export default {
 				}
 				
 			} else {
+				this.question.n_views = 0 // Initialize the number of views to 0
 				this.question_data.createdAt = firestore.FieldValue.serverTimestamp();
 				this.question_data.userId = firebase.auth().currentUser.uid;
 				let add_question = db.collection('questions').add(this.question_data)
