@@ -62,7 +62,8 @@
                   <i class="material-icons mr-1" title="Number of likes">favorite</i>
                   <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
                 </div>
-                <span class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
+                <span v-if="q.modifiedOn" class="text-small">Last modified: {{q.modifiedOn | formatDate}} </span>
+                <span v-else class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
               </div>
             </div>
           </div>
@@ -213,6 +214,7 @@ export default {
     },
 
     checkFavoriteQuestion: function (question_id) {
+      // TODO() This is not working yet. I'll come back to it later
       db.collection('favorites')
         .doc(`${firebase.auth().currentUser.uid}_${question_id}`)
         .get().then( doc => {

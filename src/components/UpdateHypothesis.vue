@@ -90,6 +90,7 @@ export default {
 
 		methods: {
 			onUpdate() {
+				this.hypothesis.modifiedOn = new Date()
 				db.collection('questions').doc(this.q_id)
 					.collection('hypotheses').doc(this.h_id)
 					.update({...this.hypothesis})

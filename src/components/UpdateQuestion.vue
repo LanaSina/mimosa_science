@@ -62,6 +62,7 @@ export default {
 
     methods: {
         onUpdate() {
+            this.question.modifiedOn = new Date()
             db.collection('questions').doc(this.id).update({...this.question})
             .then (function() {
                 console.log("Successfully updated the document")

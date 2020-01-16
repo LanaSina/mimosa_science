@@ -73,7 +73,8 @@
                 <i class="material-icons mr-1" title="Number of likes">favorite</i>
                 <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
 							</div>
-							<span class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
+							<span v-if="q.modifiedOn" class="text-small">Last modified: {{q.modifiedOn | formatDate}} </span>
+                <span v-else class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
 						</div>
               
             </div>
@@ -142,7 +143,8 @@
               <i class="material-icons mr-1" title="Number of participants">group</i>
               <span class="text-small">15</span><span>&nbsp;</span>
             </div>
-            <span class="text-small">Last modified: {{h.createdAt | formatDate}}</span>
+            <span v-if="h.modifiedOn" class="text-small">Last modified: {{h.modifiedOn | formatDate}} </span>
+            <span v-else class="text-small">Last modified: {{h.createdAt | formatDate}}</span>
           </div>
               
             </div>
@@ -209,7 +211,8 @@
               <i class="material-icons mr-1" title="Number of participants">group</i>
               <span class="text-small">15</span><span>&nbsp;</span>
             </div>
-            <span class="text-small">Last modified: Yesterday</span>
+            <span v-if="e.modifiedOn" class="text-small">Last modified: {{e.modifiedOn | formatDate}} </span>
+            <span v-else class="text-small">Last modified: Yesterday</span>
             <!-- <span class="text-small">Last modified: {{h.createdAt | formatDate}}</span> -->
           </div>
               
