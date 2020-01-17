@@ -89,7 +89,10 @@ export default {
   },
 
   mounted() {
-  this.incrementViews()
+    // Do not call when creating a new question
+    if (this.id != 'new') {
+      this.incrementViews()
+    }
 },
 }
 </script>

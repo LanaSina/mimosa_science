@@ -105,7 +105,8 @@ export default {
 				hidden: false,
 				createdAt: '',
 				userId: '',
-				likes: 0
+				likes: 0,
+				n_comments: 0,
 			},
 			experiment_data: {
 				methods: '',
@@ -148,13 +149,19 @@ export default {
 				}
 				
 			} else {
-				this.question.n_views = 0 // Initialize the number of views to 0
+				// this.question.n_views = 0 // Initialize the number of views to 0
+				// this.question.n_comments = 0 // Initialize the number of comments to 0 after creating a new question
 				this.question_data.createdAt = firestore.FieldValue.serverTimestamp();
 				this.question_data.userId = firebase.auth().currentUser.uid;
 				let add_question = db.collection('questions').add(this.question_data)
 					.then(ref => {
 						console.log('Added question with ID: ', ref.id);
 						let q_id = ref.id;
+
+						db.collection('questions').doc(q_id).set({
+							n_comments: 0,
+							n_views: 0
+						})
 
 						//add hypothesis
 						if(this.hypothesis_data.title){
@@ -173,8 +180,11 @@ export default {
 			let add_hypothesis = db.collection('questions').doc(q_id).collection('hypotheses').add(h_data)
 				.then(ref => {
 					console.log('Added hypothesis with ID: ', ref.id);
-					let h_id = ref.id;
 
+					// Increment the number of items of this question
+					this.incrementNumberOfComments(q_id);		
+
+					let h_id = ref.id;
 					//add experiment
 					if(e_data.methods){
 						this.addExperimentToHypothesis(q_id, h_id, e_data);
@@ -189,9 +199,28 @@ export default {
 										.collection('experiments').add(e_data)
 				.then(ref => {
 					console.log('Added experiment with ID: ', ref.id);
+					// Increment the number of items of this question
+					this.incrementNumberOfComments(q_id);
 					this.$router.push('/');
 				});
 		},
+
+		incrementNumberOfComments(question_id) {
+			db.collection('questions').doc(question_id).get().then(doc => {
+				let n_comments = doc.data().n_comments
+
+				db.collection('questions').doc(question_id).update({
+					n_comments: n_comments + 1
+				}).then(() => {
+
+				}).catch(err => {
+					console.log(err)
+				})
+			}).catch(err => {
+				console.log(err)
+			})
+		},
+
 		onReset(evt) {
 			evt.preventDefault()
 			// Reset form values
