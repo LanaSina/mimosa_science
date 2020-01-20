@@ -12,7 +12,7 @@
             <div class="card-body">
               <div class="card-title">
                 <router-link :to="{ name: 'question', params: {id: q.id} }">
-                  <h5>{{ q.title }}</h5>
+                  <h5>{{ `${q.title}`}}</h5>
                 </router-link>
               </div>
               <!-- List of the most active users with their avatars??? -->
@@ -40,9 +40,11 @@
               </ul>
               <!-- End list of avatars -->
               <div class="card-options" v-if="user.loggedIn">
-                <button class="btn-options" type="button">
-                  <i v-if="checkFavoriteQuestion(q.id)" class="material-icons red">favorite</i>
-                  <i v-else class="material-icons">favorite_border</i>
+                <button class="btn-options" type="button" v-if="checkFavoriteQuestion(q.id)">
+                  <i class="material-icons red">favorite</i>
+                </button>
+                <button class="btn-options" type="button" v-else @click="addToFavoriteQuestions(q.id, q.likes)">
+                  <i class="material-icons">favorite_border</i>
                 </button>
               </div>
               <div class="card-text" v-if="q.summary.length < 600">
@@ -101,7 +103,8 @@ export default {
     questions: [],
     show_update: [],
     perPage: 10,
-    currentPage: 1
+    currentPage: 1,
+    favorites: []
   }),
   firestore: {
 
@@ -183,6 +186,16 @@ export default {
           console.log('Error getting documents', err);
         });
     }
+
+    db.collection('favorites').get().then(snapshot => {
+      snapshot.forEach(doc => {
+        let fav = doc.data();
+        fav.id = doc.id;
+        this.favorites.push(fav.id);
+      });
+    }).catch(err => {
+
+    });
   },
 
   methods: {
@@ -191,6 +204,7 @@ export default {
     },
 
     addToFavoriteQuestions: function (question_id, n_likes) {
+      console.log("Button clicked")
       let currentUser = firebase.auth().currentUser
       let docId = `${currentUser.uid}_${question_id}`
       db.collection('favorites').doc(docId).get().then(doc => {
@@ -213,18 +227,8 @@ export default {
       })
     },
 
-    checkFavoriteQuestion: function (question_id) {
-      // TODO() This is not working yet. I'll come back to it later
-      db.collection('favorites')
-        .doc(`${firebase.auth().currentUser.uid}_${question_id}`)
-        .get().then( doc => {
-          if (doc.exists) {
-            return true
-          } 
-          return false
-        }).catch(err=> {
-          console.log(err)
-        })
+    checkFavoriteQuestion(question_id) {
+      return this.favorites.includes(`${firebase.auth().currentUser.uid}_${question_id}`);
     },
 
     getAverageVote: function () {
