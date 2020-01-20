@@ -40,7 +40,7 @@
               </ul>
               <!-- End list of avatars -->
               <div class="card-options" v-if="user.loggedIn">
-                <button class="btn-options" type="button" v-if="checkFavoriteQuestion(q.id)">
+                <button class="btn-options" type="button" v-if="checkFavoriteQuestion(q.id)" @click="removeFromFavoriteQuestions(q.id, q.likes)">
                   <i class="material-icons red">favorite</i>
                 </button>
                 <button class="btn-options" type="button" v-else @click="addToFavoriteQuestions(q.id, q.likes)">
@@ -204,7 +204,6 @@ export default {
     },
 
     addToFavoriteQuestions: function (question_id, n_likes) {
-      console.log("Button clicked")
       let currentUser = firebase.auth().currentUser
       let docId = `${currentUser.uid}_${question_id}`
       db.collection('favorites').doc(docId).get().then(doc => {
@@ -224,6 +223,15 @@ export default {
         })
       }).catch(err => {
         console.log(err)
+      })
+    },
+
+    removeFromFavoriteQuestions: function (question_id, n_likes) {
+      let currentUser = firebase.auth().currentUser
+      let docId = `${currentUser.uid}_${question_id}`
+      db.collection('favorites').doc(docId).delete();
+      db.collection('questions').doc(question_id).update({
+        likes: n_likes - 1
       })
     },
 
