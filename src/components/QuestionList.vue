@@ -6,7 +6,7 @@
 
             <!-- Begin: rating -->
             <div class="progress">
-              <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress-bar bg-success" role="progressbar" :style="`width: ${getAverageVote()}%`" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <!-- End rating -->
             <div class="card-body">
@@ -225,6 +225,10 @@ export default {
         }).catch(err=> {
           console.log(err)
         })
+    },
+
+    getAverageVote: function () {
+      return Math.floor(Math.random() * 100);
     }
   }
 }
