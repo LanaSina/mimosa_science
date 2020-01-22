@@ -149,18 +149,17 @@ export default {
 				}
 				
 			} else {
-				// this.question.n_views = 0 // Initialize the number of views to 0
-				// this.question.n_comments = 0 // Initialize the number of comments to 0 after creating a new question
 				this.question_data.createdAt = firestore.FieldValue.serverTimestamp();
 				this.question_data.userId = firebase.auth().currentUser.uid;
 				let add_question = db.collection('questions').add(this.question_data)
 					.then(ref => {
 						console.log('Added question with ID: ', ref.id);
 						let q_id = ref.id;
-
+						// Initialize the number of views, comments, and participants to 0 after creating a new question
 						db.collection('questions').doc(q_id).set({
 							n_comments: 0,
-							n_views: 0
+							n_views: 0,
+							n_participants: 0,
 						})
 
 						//add hypothesis
