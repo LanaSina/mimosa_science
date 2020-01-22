@@ -16,13 +16,13 @@
                 </router-link>
               </div>
               <!-- List of the most active users with their avatars??? -->
-              <ul class="avatars">
+              <ul class="avatars" v-for="p in getProfileParticipants(q.id)">
                 <li>
                   <a href="#" data-toggle="tooltip" title="Oury Diallo">
                     <img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
                   </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
                     <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
                   </a>
@@ -36,7 +36,7 @@
                   <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
                     <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
                   </a>
-                </li>
+                </li> -->
               </ul>
               <!-- End list of avatars -->
               <div class="card-options" v-if="user.loggedIn">
@@ -104,7 +104,8 @@ export default {
     show_update: [],
     perPage: 10,
     currentPage: 1,
-    favorites: []
+    favorites: [],
+    participants: []
   }),
   firestore: {
 
@@ -241,8 +242,27 @@ export default {
 
     getAverageVote: function () {
       return Math.floor(Math.random() * 100);
+    },
+
+     getProfileParticipants: function (question_id) {
+      var p = []
+      let currentUser = firebase.auth().currentUser
+      //let docId = `${currentUser.uid}_${this.id}`
+      db.collection('participants').get().then(snapshot => {
+        snapshot.forEach(doc => {
+          let participation = doc.data()
+          participation.id = doc.id
+          if (participation.questionId === question_id) {
+            // console.log(doc.id, '=>', participation)
+            p.push(participation.userId)
+          }
+        });
+      }).catch(err => {
+        console.log(err)
+      })
+      return p;
     }
-  }
+  },
 }
 
 </script>

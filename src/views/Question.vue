@@ -35,7 +35,9 @@
 import Form from '@/components/Form.vue'
 import {db} from '../main';
 import HypothesesList from '@/components/HypothesesList.vue'
-
+import { firestore } from 'firebase';
+const firebase = require('firebase/app');
+require('firebase/auth');
 
 export default {
   name: 'Question',
@@ -64,7 +66,7 @@ export default {
         .doc(this.$route.params['id'])
         .collection('hypotheses'));
   },
-  
+
   methods: {
     initializingParticipants: function () {
       this.question.n_participants = 1
@@ -88,6 +90,16 @@ export default {
         }).catch(err => {
           console.log(err)
         })
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getParticipants: function () {
+      let currentUser = firebase.auth().currentUser
+      let docId = `${currentUser.uid}_${this.id}`
+      db.collection('participants').doc(docId).get().then(doc => {
+        console.log(doc.id, '=>', doc.data())
       }).catch(err => {
         console.log(err)
       })
