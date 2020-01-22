@@ -60,7 +60,7 @@
                   <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
                   <span class="text-small">{{q.n_views}}</span><span>&nbsp;</span>
                   <i class="material-icons mr-1" title="Number of participants">group</i>
-                  <span class="text-small">{{Math.floor(Math.random() * 30)}}</span><span>&nbsp;</span>
+                  <span class="text-small">{{q.n_participants}}</span><span>&nbsp;</span>
                   <i class="material-icons mr-1" title="Number of likes">favorite</i>
                   <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
                 </div>

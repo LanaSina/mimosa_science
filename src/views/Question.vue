@@ -3,7 +3,10 @@
     <!-- <router-link to="/">Home</router-link> -->
 
     <div>
-
+        <!-- Initialize the statistics of a question -->
+        <!-- <button type="button" @click="initializingParticipants()">
+          <i class="material-icons">edit</i>
+        </button> -->
       <div v-if="question" id="question">
         <h1>
               Question: {{ question.title }}
@@ -35,17 +38,19 @@ import HypothesesList from '@/components/HypothesesList.vue'
 
 
 export default {
-  name: 'home',
+  name: 'Question',
   components: {
     Form,
     HypothesesList,
   },
+
   data: () => ({
     hypotheses: [],
     question:null,
     id : null,
     n_views: null
   }),
+
   created() {
     this.id = this.$route.params['id']
 
@@ -59,16 +64,17 @@ export default {
         .doc(this.$route.params['id'])
         .collection('hypotheses'));
   },
+  
   methods: {
-    // initializingViews: function () {
-    //   this.question.n_views = 0
-    //   db.collection('questions').doc(this.id).update({...this.question})
-    //     .then(function() {
-    //       console.log("set number of views to 0")
-    //     }).catch(err => {
-    //       console.log(err)
-    //     })
-    // },
+    initializingParticipants: function () {
+      this.question.n_participants = 1
+      db.collection('questions').doc(this.id).update({...this.question})
+        .then(function() {
+          console.log("set number of participants to 1")
+        }).catch(err => {
+          console.log(err)
+        })
+    },
 
     incrementViews: function () {
       //var n_views = 0
