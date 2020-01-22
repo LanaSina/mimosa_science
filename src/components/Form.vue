@@ -175,13 +175,15 @@ export default {
 					});
 			}    
 		},
+
 		addHypothesisToQuestion(q_id, h_data, e_data){
 			let add_hypothesis = db.collection('questions').doc(q_id).collection('hypotheses').add(h_data)
 				.then(ref => {
 					console.log('Added hypothesis with ID: ', ref.id);
 
 					// Increment the number of items of this question
-					this.incrementNumberOfComments(q_id);		
+					this.incrementNumberOfComments(q_id);	
+					this.addToParticipants(q_id);	
 
 					let h_id = ref.id;
 					//add experiment
@@ -192,6 +194,7 @@ export default {
 					}
 				});
 		},
+
 		addExperimentToHypothesis(q_id, h_id, e_data){
 			let add_experiment = db.collection('questions').doc(q_id)
 										.collection('hypotheses').doc(h_id)
@@ -200,6 +203,7 @@ export default {
 					console.log('Added experiment with ID: ', ref.id);
 					// Increment the number of items of this question
 					this.incrementNumberOfComments(q_id);
+					this.addToParticipants(q_id)
 					this.$router.push('/');
 				});
 		},
@@ -215,6 +219,43 @@ export default {
 				}).catch(err => {
 					console.log(err)
 				})
+			}).catch(err => {
+				console.log(err)
+			})
+		},
+
+		addToParticipants: function (question_id) {
+			let currentUser = firebase.auth().currentUser
+			let docId = `${currentUser.uid}_${question_id}`
+
+			db.collection('questions').doc(question_id).get().then(doc => {
+				let n_participants = doc.data().n_participants // Get the current number of participants
+
+				db.collection('participants').doc(docId).get().then(doc => {
+					// If the user already participated in the past, increment their participation counter
+					if (doc.exists) {
+						console.log("You already commented on this question");
+						db.collection('participants').doc(docId).update({
+							n_times: doc.data().n_times + 1
+						})
+						return;
+					}
+
+					// Add the user as a participant for the first time
+					db.collection('participants').doc(docId).set({
+						questionId: question_id,
+						userId: currentUser.uid,
+						n_times: 1
+					}).then(() => {
+						// Update the number of participants of the question
+						db.collection('questions').doc(question_id).update({
+							n_participants: n_participants + 1
+						})
+					})
+				}).catch(err => {
+					console.log(err)
+				})
+
 			}).catch(err => {
 				console.log(err)
 			})
