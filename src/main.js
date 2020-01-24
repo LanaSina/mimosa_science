@@ -2,9 +2,11 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from "./router";
 import store from './store';
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
+const firebase = require('firebase');
+require('firebase/functions');
 
-import 'firebase/firestore';
+require('firebase/firestore');
 
 import { firestorePlugin } from 'vuefire'
 
@@ -39,6 +41,8 @@ var firebaseConfig = {
 };
 
 export const db = firebase.initializeApp(firebaseConfig).firestore();
+
+var functions = firebase.functions();
 
 firebase.auth().onAuthStateChanged(user => {
   store.dispatch("fetchUser", user);

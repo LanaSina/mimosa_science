@@ -19,7 +19,7 @@
               <ul class="avatars" v-for="p in participants[idx][1]">
                 <li>
                   <!-- <a href="#" data-toggle="tooltip" :title="getParticipantName(p)"> -->
-                    <a data-toggle="tooltip" :title="p">
+                    <a data-toggle="tooltip" :title="getParticipantNameCF(p)">
                     <img alt="getParticipantName(p)" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
                   </a>
                 </li>
@@ -91,6 +91,7 @@ import { mapGetters } from "vuex"
 import {db} from '../main';
 import HypothesesList from '@/components/HypothesesList.vue'
 import moment from "moment";
+require('firebase/functions');
 
 export default {
   name: 'app',
@@ -284,12 +285,23 @@ export default {
         console.log(err)
       });
       return `${user_id}_${Math.random()}`
+    },
+
+    getParticipantNameCF: function (user_id) {
+      var name = '';
+      var getUserInfo = firebase.functions().httpsCallable('getUserInfo');
+      getUserInfo({uid:user_id}).then(function(result) {
+        console.log('Cloud function', result.data);
+        name = result.data[0];
+      });
+      return `${name}_${Math.random()}`;
     }
+
+
   },
 
   mounted () {
     console.log(this.participants)
-    firebase.auth().getUser();
   }
 }
 
