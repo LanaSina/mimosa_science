@@ -2,7 +2,7 @@
   <div class="container">
     <!-- <div class="row"> -->
         <!-- <div class="col-lg-6" v-for="q in questionsPerPage" :key="q.id" id="allQuestions"> -->
-          <div class="card" v-for="q in questionsPerPage" :key="q.id" id="allQuestions">
+          <div class="card" v-for="(q, idx) in questionsPerPage" :key="q.id" id="allQuestions">
 
             <!-- Begin: rating -->
             <div class="progress">
@@ -12,14 +12,15 @@
             <div class="card-body">
               <div class="card-title">
                 <router-link :to="{ name: 'question', params: {id: q.id} }">
-                  <h5>{{ `${q.title}`}}</h5>
+                  <h5>{{q.title}}</h5>
                 </router-link>
               </div>
               <!-- List of the most active users with their avatars??? -->
-              <ul class="avatars" v-for="p in getProfileParticipants(q.id)">
+              <ul class="avatars" v-for="p in participants[idx][1]">
                 <li>
-                  <a href="#" data-toggle="tooltip" title="Oury Diallo">
-                    <img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+                  <!-- <a href="#" data-toggle="tooltip" :title="getParticipantName(p)"> -->
+                    <a data-toggle="tooltip" :title="p">
+                    <img alt="getParticipantName(p)" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
                   </a>
                 </li>
                 <!-- <li>
@@ -181,6 +182,7 @@ export default {
             let question = doc.data();
             question.id = doc.id;
             this.questions.push(question);
+            this.participants.push([question.id, this.getProfileParticipants(question.id)]);
           });
         })
         .catch(err => {
@@ -261,8 +263,30 @@ export default {
         console.log(err)
       })
       return p;
+    },
+
+    getProfileParticipantsPerQuestion: function (q_id) {
+      let idx = this.participants.indexOf(q_id)
+      return this.participants[idx][1]
+    },
+
+    getParticipantName: function (user_id) {
+      db.collection('Users').doc(user_id).get().then(doc => {
+        if (doc.exists) {
+          let user = doc.data()
+          user.id = doc.id
+          console.log(user_id, '=>', user)
+        }
+      }).catch(err => {
+        console.log(err)
+      });
+      return `${user_id}_${Math.random()}`
     }
   },
+
+  mounted () {
+    console.log(this.participants)
+  }
 }
 
 </script>
