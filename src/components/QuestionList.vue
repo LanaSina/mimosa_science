@@ -289,6 +289,7 @@ export default {
 
   mounted () {
     console.log(this.participants)
+    firebase.auth().getUser();
   }
 }
 
