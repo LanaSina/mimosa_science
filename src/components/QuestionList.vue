@@ -41,6 +41,9 @@
               </ul>
               <!-- End list of avatars -->
               <div class="card-options" v-if="user.loggedIn">
+                <button class="btn-options" type="button"> 
+                  <i class="material-icons" title="Rate this question">rate_review</i>
+                </button>
                 <button class="btn-options" type="button" v-if="checkFavoriteQuestion(q.id)" @click="removeFromFavoriteQuestions(q.id, q.likes)">
                   <i class="material-icons red">favorite</i>
                 </button>
