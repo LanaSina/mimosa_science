@@ -3,7 +3,10 @@
     <!-- <router-link to="/">Home</router-link> -->
 
     <div>
-
+        <!-- Initialize the statistics of a question -->
+        <!-- <button type="button" @click="initializingParticipants()">
+          <i class="material-icons">edit</i>
+        </button> -->
       <div v-if="question" id="question">
         <h1>
               Question: {{ question.title }}
@@ -32,19 +35,24 @@
 import Form from '@/components/Form.vue'
 import {db} from '../main';
 import HypothesesList from '@/components/HypothesesList.vue'
-
+import { firestore } from 'firebase';
+const firebase = require('firebase/app');
+require('firebase/auth');
 
 export default {
-  name: 'home',
+  name: 'Question',
   components: {
     Form,
     HypothesesList,
   },
+
   data: () => ({
     hypotheses: [],
     question:null,
     id : null,
+    n_views: null
   }),
+
   created() {
     this.id = this.$route.params['id']
 
@@ -57,6 +65,52 @@ export default {
       db.collection('questions')
         .doc(this.$route.params['id'])
         .collection('hypotheses'));
-  }
+  },
+
+  methods: {
+    initializingParticipants: function () {
+      this.question.n_participants = 1
+      db.collection('questions').doc(this.id).update({...this.question})
+        .then(function() {
+          console.log("set number of participants to 1")
+        }).catch(err => {
+          console.log(err)
+        })
+    },
+
+    incrementViews: function () {
+      //var n_views = 0
+      db.collection('questions').doc(this.id).get().then(doc => {
+        let n_views = doc.data().n_views
+        // console.log(doc.data().n_views)
+        db.collection('questions').doc(this.id).update({
+          n_views: n_views + 1
+        }).then(() => {
+
+        }).catch(err => {
+          console.log(err)
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getParticipants: function () {
+      let currentUser = firebase.auth().currentUser
+      let docId = `${currentUser.uid}_${this.id}`
+      db.collection('participants').doc(docId).get().then(doc => {
+        console.log(doc.id, '=>', doc.data())
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  },
+
+  mounted() {
+    // Do not call when creating a new question
+    if (this.id != 'new') {
+      this.incrementViews()
+    }
+},
 }
 </script>

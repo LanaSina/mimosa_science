@@ -105,6 +105,8 @@ export default {
 				hidden: false,
 				createdAt: '',
 				userId: '',
+				likes: 0,
+				n_comments: 0,
 			},
 			experiment_data: {
 				methods: '',
@@ -153,6 +155,12 @@ export default {
 					.then(ref => {
 						console.log('Added question with ID: ', ref.id);
 						let q_id = ref.id;
+						// Initialize the number of views, comments, and participants to 0 after creating a new question
+						db.collection('questions').doc(q_id).set({
+							n_comments: 0,
+							n_views: 0,
+							n_participants: 0,
+						})
 
 						//add hypothesis
 						if(this.hypothesis_data.title){
@@ -167,12 +175,17 @@ export default {
 					});
 			}    
 		},
+
 		addHypothesisToQuestion(q_id, h_data, e_data){
 			let add_hypothesis = db.collection('questions').doc(q_id).collection('hypotheses').add(h_data)
 				.then(ref => {
 					console.log('Added hypothesis with ID: ', ref.id);
-					let h_id = ref.id;
 
+					// Increment the number of items of this question
+					this.incrementNumberOfComments(q_id);	
+					this.addToParticipants(q_id);	
+
+					let h_id = ref.id;
 					//add experiment
 					if(e_data.methods){
 						this.addExperimentToHypothesis(q_id, h_id, e_data);
@@ -181,15 +194,73 @@ export default {
 					}
 				});
 		},
+
 		addExperimentToHypothesis(q_id, h_id, e_data){
 			let add_experiment = db.collection('questions').doc(q_id)
 										.collection('hypotheses').doc(h_id)
 										.collection('experiments').add(e_data)
 				.then(ref => {
 					console.log('Added experiment with ID: ', ref.id);
+					// Increment the number of items of this question
+					this.incrementNumberOfComments(q_id);
+					this.addToParticipants(q_id)
 					this.$router.push('/');
 				});
 		},
+
+		incrementNumberOfComments(question_id) {
+			db.collection('questions').doc(question_id).get().then(doc => {
+				let n_comments = doc.data().n_comments
+
+				db.collection('questions').doc(question_id).update({
+					n_comments: n_comments + 1
+				}).then(() => {
+
+				}).catch(err => {
+					console.log(err)
+				})
+			}).catch(err => {
+				console.log(err)
+			})
+		},
+
+		addToParticipants: function (question_id) {
+			let currentUser = firebase.auth().currentUser
+			let docId = `${currentUser.uid}_${question_id}`
+
+			db.collection('questions').doc(question_id).get().then(doc => {
+				let n_participants = doc.data().n_participants // Get the current number of participants
+
+				db.collection('participants').doc(docId).get().then(doc => {
+					// If the user already participated in the past, increment their participation counter
+					if (doc.exists) {
+						console.log("You already commented on this question");
+						db.collection('participants').doc(docId).update({
+							n_times: doc.data().n_times + 1
+						})
+						return;
+					}
+
+					// Add the user as a participant for the first time
+					db.collection('participants').doc(docId).set({
+						questionId: question_id,
+						userId: currentUser.uid,
+						n_times: 1
+					}).then(() => {
+						// Update the number of participants of the question
+						db.collection('questions').doc(question_id).update({
+							n_participants: n_participants + 1
+						})
+					})
+				}).catch(err => {
+					console.log(err)
+				})
+
+			}).catch(err => {
+				console.log(err)
+			})
+		},
+
 		onReset(evt) {
 			evt.preventDefault()
 			// Reset form values

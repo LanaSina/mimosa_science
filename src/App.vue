@@ -20,11 +20,13 @@ export default {
     
     // Import custom SASS variable overrides, or alternatively
     // define your variable overrides here instead
-    @import 'scss/custom.scss';
+    // @import 'scss/custom.scss';
 
     // Import Bootstrap and BootstrapVue source SCSS files
-    @import '~bootstrap/scss/bootstrap.scss';
-    @import '~bootstrap-vue/src/index.scss';
+    // @import '~bootstrap/scss/bootstrap.scss';
+    // @import '~bootstrap-vue/src/index.scss';
+
+    @import './assets/css/theme.css';
 
 
 </style>

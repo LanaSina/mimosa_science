@@ -3,9 +3,11 @@
 ## Project setup
 ```
 npm install
-npm install --save firebase vuefire vuex
+npm install --save firebase vuefire vuex vue-material vue-moment
 npm install --save-dev node-sass sass-loader
 ```
+
+Following the steps from https://firebase.google.com/docs/functions/get-started if you want to add or modifiy the cloud functions.
 
 ### Compiles and hot-reloads for development
 ```

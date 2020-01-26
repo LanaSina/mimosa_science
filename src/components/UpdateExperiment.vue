@@ -116,6 +116,7 @@ export default {
 
 	methods: {
 		onUpdate() {
+			this.experiment.modifiedOn = new Date()
 			db.collection('questions').doc(this.q_id)
 				.collection('hypotheses').doc(this.h_id)
 				.collection('experiments').doc(this.e_id)
