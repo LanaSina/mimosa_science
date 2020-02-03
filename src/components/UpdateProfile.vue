@@ -23,6 +23,15 @@
                                     >
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Avatar*</label>
+                                <div class="col-md-6" v-if="user">
+                                    <input placeholder="Your photo url"
+                                        class="form-control"
+                                        v-model="form.photoUrl">
+                                </div>
+                            </div>
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">Update</button>
@@ -51,7 +60,8 @@ export default {
     data() {
         return {
             form: {
-                name: ""
+                name: "",
+                photoUrl: ""
             },
             error: null
         };
@@ -59,12 +69,16 @@ export default {
 
     created() {
         this.form.name = firebase.auth().currentUser.displayName;
+        this.form.photoUrl = firebase.auth().currentUser.photoUrl;
     },
     
     methods: {
         submit() {
             var user = firebase.auth().currentUser;
-            user.updateProfile({displayName: this.form.name}).then(data => {
+            user.updateProfile({
+                displayName: this.form.name,
+                photoURL: this.form.photoUrl
+            }).then(data => {
                 // Update successful
                 this.$router.push({name: 'home'});
             }).catch(err => {
