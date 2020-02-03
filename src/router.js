@@ -6,7 +6,7 @@ import Logout from './views/Logout'
 import Register from './views/Register'
 import Question from './views/Question'
 import Hypothesis from './views/Hypothesis'
-//import UpdateProfile from './components/UpdateProfile'
+import UpdateProfile from './components/UpdateProfile'
 import UpdatePassword from './components/UpdatePassword'
 import UpdateEmail from './components/UpdateEmail'
 import UpdateQuestion from './components/UpdateQuestion'
@@ -25,46 +25,55 @@ const router = new Router({
             name: 'home',
             component: Home
         },
+
         {
             path: '/login',
             name: 'login',
             component: Login
         },
+
         {
             path: '/logout',
             name: 'logout',
             component: Logout
         },
+
         {
             path: '/register',
             name: 'register',
             component: Register
         },
+
         {
             path: '/question/:id',
             name: 'question',
             component: Question
         },
+
         {
             path: '/question/:q_id/hypothesis/:h_id',
             name: 'hypothesis',
             component: Hypothesis
         },
-        // {
-        //     path: '/updateProfile',
-        //     name: '/updateProfile',
-        //     component: UpdateProfile
-        // },
+
+        {
+            path: '/updateProfile',
+            name: 'updateProfile',
+            component: UpdateProfile
+        },
+
         {
             path: '/updatePassword',
             name: '/updatePassword',
             component: UpdatePassword
         },
+
         {
             path: '/updateEmail',
-            name: '/updateEmail',
+            name: 'updateEmail',
             component: UpdateEmail
         },
+
         {
             path: '/updateQuestion/:id',
             name: 'updateQuestion',
@@ -76,11 +85,13 @@ const router = new Router({
             name: 'updateHypothesis',
             component: UpdateHypothesis
         },
+
         {
             path: '/updateExperiment/:q_id/hypothesis/:h_id/experiment/:e_id',
             name: 'updateExperiment',
             component: UpdateExperiment
         },
+        
         {
             path: '/userItemList',
             name: 'userItemList',
