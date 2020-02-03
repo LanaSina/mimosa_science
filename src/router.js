@@ -13,6 +13,7 @@ import UpdateQuestion from './components/UpdateQuestion'
 import UpdateHypothesis from './components/UpdateHypothesis'
 import UpdateExperiment from './components/UpdateExperiment'
 import UserItemList from './components/UserItemList'
+import Profile from './components/Profile'
 
 Vue.use(Router)
 
@@ -63,6 +64,12 @@ const router = new Router({
         },
 
         {
+            path: '/profile',
+            name: 'profile',
+            component: Profile
+        },
+
+        {
             path: '/updatePassword',
             name: '/updatePassword',
             component: UpdatePassword
@@ -91,7 +98,7 @@ const router = new Router({
             name: 'updateExperiment',
             component: UpdateExperiment
         },
-        
+
         {
             path: '/userItemList',
             name: 'userItemList',

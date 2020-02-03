@@ -33,9 +33,9 @@
 							<!-- <em class="fa fa-user">Profile</em> -->
 							<img alt="Avatar" src="../assets/images/user-avatar.png" class="avatar" />
 						</template>
-						<b-dropdown-item to="/updateProfile">Update Profile</b-dropdown-item>
-						<b-dropdown-item to="/updateEmail">Update Email</b-dropdown-item>
-						<b-dropdown-item to="/updatePassword">Update Password</b-dropdown-item>
+						<b-dropdown-item to="/profile">Profile</b-dropdown-item>
+						<!-- <b-dropdown-item to="/updateEmail">Update Email</b-dropdown-item>
+						<b-dropdown-item to="/updatePassword">Update Password</b-dropdown-item> -->
 						<b-dropdown-item to="/logout">Sign Out</b-dropdown-item>
 						</b-nav-item-dropdown>
 					</b-navbar-nav>

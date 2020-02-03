@@ -47,6 +47,7 @@ export default {
             user: "user"
         })
     },
+    
     data() {
         return {
             form: {
