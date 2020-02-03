@@ -19,7 +19,8 @@
               <ul class="avatars" v-for="p in participants[idx][1]">
                 <li>
                   <!-- <a href="#" data-toggle="tooltip" :title="getParticipantName(p)"> -->
-                    <a data-toggle="tooltip" :title="getParticipantNameCF(p)">
+                    <!-- <span> {{getParticipants(p)}}</span> -->
+                    <a data-toggle="tooltip" :title="getParticipantName(p)">
                     <img alt="getParticipantName(p)" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
                   </a>
                 </li>
@@ -110,7 +111,9 @@ export default {
     perPage: 10,
     currentPage: 1,
     favorites: [],
-    participants: []
+    participants: [],
+    name: '',
+    photoUrl: ''
   }),
   firestore: {
 
@@ -274,27 +277,44 @@ export default {
       return this.participants[idx][1]
     },
 
-    getParticipantName: function (user_id) {
-      db.collection('Users').doc(user_id).get().then(doc => {
-        if (doc.exists) {
-          let user = doc.data()
-          user.id = doc.id
-          console.log(user_id, '=>', user)
-        }
-      }).catch(err => {
-        console.log(err)
-      });
-      return `${user_id}_${Math.random()}`
+    // getParticipantName: function (user_id) {
+    //   db.collection('Users').doc(user_id).get().then(doc => {
+    //     if (doc.exists) {
+    //       let user = doc.data()
+    //       user.id = doc.id
+    //       console.log(user_id, '=>', user)
+    //     }
+    //   }).catch(err => {
+    //     console.log(err)
+    //   });
+    //   return `${user_id}_${Math.random()}`
+    // },
+
+    getParticipantNameCF: async function (user_id) {
+      //var name = '';
+      var getUserInfo = firebase.functions().httpsCallable('getUserInfo');
+      // getUserInfo({uid:user_id}).then(function(result) {
+      //   console.log('Cloud function', result.data);
+      //   name = result.data[0];
+      //   console.log('name', '=>', name)
+      // });
+      var result = await getUserInfo({uid:user_id});
+      //console.log(name);
+      return result.data;
     },
 
-    getParticipantNameCF: function (user_id) {
-      var name = '';
-      var getUserInfo = firebase.functions().httpsCallable('getUserInfo');
-      getUserInfo({uid:user_id}).then(function(result) {
-        console.log('Cloud function', result.data);
-        name = result.data[0];
+    getParticipantName: function (user_id) {
+      this.getParticipantNameCF(user_id).then((data) => {
+        this.name = data[0];
       });
-      return `${name}_${Math.random()}`;
+      return `${this.name}_${Math.random()}`;
+    },
+
+    getParticipantAvatar: function (user_id) {
+      this.getParticipantNameCF(user_id).then((data) => {
+        this.photoUrl = data[1];
+      });
+      return `${this.photoUrl}_${Math.random()}`;
     }
 
 
