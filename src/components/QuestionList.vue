@@ -24,30 +24,13 @@
                 </router-link>
               </div>
               <!-- List of the most active users with their avatars??? -->
-              <ul class="avatars" v-for="p in participants[idx][1]">
+              <!-- <ul class="avatars" v-for="p in participants[idx][1]">
                 <li>
-                  <!-- <a href="#" data-toggle="tooltip" :title="getParticipantName(p)"> -->
-                    <!-- <span> {{getParticipants(p)}}</span> -->
                     <a data-toggle="tooltip" :title="getParticipantName(p)">
                     <img alt="getParticipantName(p)" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
                   </a>
                 </li>
-                <!-- <li>
-                  <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
-                    <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
-                  </a>
-                </li>
-                <li>
-                  <a href="#" data-toggle="tooltip" title="Unknown Unknowm">
-                    <img alt="Unknown" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
-                  </a>
-                </li>
-                <li>
-                  <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
-                    <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
-                  </a>
-                </li> -->
-              </ul>
+              </ul> -->
               <!-- End list of avatars -->
               <div class="card-options" v-if="user.loggedIn">
                 <button class="btn-options" type="button"> 
