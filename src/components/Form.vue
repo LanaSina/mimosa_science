@@ -161,8 +161,10 @@ export default {
 				let add_question = db.collection('questions').add(this.question_data)
 					.then(ref => {
 						console.log('Added question with ID: ', ref.id);
-						this.$refs.uploader.uploadImage()
 						let q_id = ref.id;
+
+						this.$refs.uploader.uploadImage(q_id) // Save the image
+
 						// Initialize the number of views, comments, and participants to 0 after creating a new question
 						db.collection('questions').doc(q_id).set({
 							n_comments: 0,

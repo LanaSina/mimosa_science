@@ -31,7 +31,7 @@
             console.log(this.file.type)
         },
 
-        uploadImage() {
+        uploadImage(name) {
             var storageRef = firebase.storage().ref();
             // File or Blob named abcd.jpg
             var file = this.file
@@ -42,7 +42,7 @@
             };
 
             // Upload file and metadata to the object 'images/abcd.jpg'
-            var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+            var uploadTask = storageRef.child('images/' + name).put(file, metadata);
             // Listen for state changes, errors, and completion of the upload.
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
             function(snapshot) {
