@@ -1,5 +1,13 @@
 <template>
   <div class="container">
+    <div class="row content-list-head">
+      <div class="col-auto">
+        <h3>Questions</h3>
+        <button class="btn btn-round">
+          <i class="material-icons">add</i>
+        </button>
+      </div>
+    </div>
     <!-- <div class="row"> -->
         <!-- <div class="col-lg-6" v-for="q in questionsPerPage" :key="q.id" id="allQuestions"> -->
           <div class="card" v-for="(q, idx) in questionsPerPage" :key="q.id" id="allQuestions">
