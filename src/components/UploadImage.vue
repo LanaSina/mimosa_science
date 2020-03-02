@@ -8,14 +8,17 @@
       drop-placeholder="Drop file here..."
       accept=".jpg, .png"
     ></b-form-file>
-    <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
-    <b-button @click="uploadImage">Submit</b-button>
+    <div class="mt-2"></div>
+    <!-- <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
+    <b-button @click="uploadImage">Submit</b-button> -->
   </div>
 </template>
 
 <script>
     import firebase from "firebase"
-  export default {
+    export default {
+    name: 'UploadImage',
+
     data() {
       return {
         file: null
