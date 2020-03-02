@@ -43,12 +43,16 @@
                   <i class="material-icons">favorite_border</i>
                 </button>
               </div>
-              <div class="card-text" v-if="q.summary.length < 600">
-                  {{q.summary}}
-              </div>
-              <div class="card-text" v-else>
-                  {{q.summary.substring(0, 600)+ "..."}}
-              </div>
+              <b-card img-src="https://placekitten.com/120/120" img-alt="Card image" img-left class="mb-3">
+                <b-card-text>
+                  <div v-if="q.summary.length < 600">
+                    {{q.summary}}
+                  </div>
+                  <div v-else>
+                    {{q.summary.substring(0, 600)+ "..."}}
+                  </div>
+                </b-card-text>
+              </b-card>
               <div class="card-meta d-flex justify-content-between">
                 <div class="d-flex align-items-center">
                   <i class="material-icons mr-1" title="Number of comments">comment</i>
