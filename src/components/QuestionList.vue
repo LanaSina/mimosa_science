@@ -3,9 +3,9 @@
     <div class="row content-list-head">
       <div class="col-auto">
         <h3>Questions</h3>
-        <button class="btn btn-round">
+        <b-nav-item class="btn btn-round" to="/question/new">
           <i class="material-icons">add</i>
-        </button>
+        </b-nav-item>
       </div>
     </div>
     <!-- <div class="row"> -->
