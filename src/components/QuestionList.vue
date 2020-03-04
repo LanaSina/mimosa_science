@@ -109,7 +109,7 @@ export default {
     participants: [],
     name: '',
     photoUrl: '',
-    img: null
+    img: "https://placekitten.com/120/120"
   }),
   firestore: {
 
@@ -318,11 +318,9 @@ export default {
       var imgRef = storageRef.child('images/' + q_id);
       // Get the download URL
       imgRef.getDownloadURL().then(function(url) {
-        this.img = url
-        // console.log('Image', this.img)
+        console.log('Image', url)
       }).catch(function(error) {
-        this.img = "https://placekitten.com/120/120";
-        // console.log(error)
+        console.log(error)
       });
     }
 
@@ -331,7 +329,7 @@ export default {
 
   mounted () {
     console.log(this.participants)
-    console.log(this.images)
+    console.log(this.getImageQuestion('mr4ltAB1oy71SNs6ymkH'))
   }
 }
 
