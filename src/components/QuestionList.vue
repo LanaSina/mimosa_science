@@ -43,7 +43,7 @@
                   <i class="material-icons">favorite_border</i>
                 </button>
               </div>
-              <b-card img-src="https://placekitten.com/120/120" img-alt="Card image" img-left class="mb-3">
+              <b-card :img-src="img" img-alt="Card image" img-left class="mb-3">
                 <b-card-text>
                   <div v-if="q.summary.length < 600">
                     {{q.summary}}
@@ -108,7 +108,8 @@ export default {
     favorites: [],
     participants: [],
     name: '',
-    photoUrl: ''
+    photoUrl: '',
+    img: null
   }),
   firestore: {
 
@@ -310,6 +311,19 @@ export default {
         this.photoUrl = data[1];
       });
       return `${this.photoUrl}_${Math.random()}`;
+    },
+
+    getImageQuestion: function(q_id) {
+      var storageRef = firebase.storage().ref();
+      var imgRef = storageRef.child('images/' + q_id);
+      // Get the download URL
+      imgRef.getDownloadURL().then(function(url) {
+        this.img = url
+        // console.log('Image', this.img)
+      }).catch(function(error) {
+        this.img = "https://placekitten.com/120/120";
+        // console.log(error)
+      });
     }
 
 
@@ -317,6 +331,7 @@ export default {
 
   mounted () {
     console.log(this.participants)
+    console.log(this.images)
   }
 }
 
