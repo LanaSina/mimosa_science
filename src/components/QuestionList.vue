@@ -329,7 +329,7 @@ export default {
 
   mounted () {
     console.log(this.participants)
-    console.log(this.getImageQuestion('mr4ltAB1oy71SNs6ymkH'))
+    this.getImageQuestion('mr4ltAB1oy71SNs6ymkH')
   }
 }
 
