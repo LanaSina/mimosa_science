@@ -30,6 +30,10 @@ Vue.use(VueMaterial)
 
 Vue.use(require('vue-moment'))
 
+// Vue Social Sharing
+var SocialSharing = require('vue-social-sharing');
+Vue.use(SocialSharing);
+
 var firebaseConfig = {
   apiKey: "AIzaSyCTqX3P2jJL73c4PUowA2QY5DI-5n5fXh8",
   authDomain: "mimoza-441ee.firebaseapp.com",
