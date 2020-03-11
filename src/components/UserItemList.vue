@@ -17,7 +17,22 @@
                   <img class="card-img" :src="q.img" alt="Card image">
                   <div class="card-img-overlay">
                     <!-- <h5 class="card-title">Card title</h5> -->
-                    <p class="card-text">TEXT</p>
+                    <b-button v-b-modal="q.id">Update banner</b-button>
+                    <b-modal 
+                      :id="q.id" 
+                      title="Update the banner"
+                      @ok="handleOk"
+                    >
+                        <!-- <b-form-file v-model="file" class="mt-3" plain></b-form-file> -->
+                        <!-- <UploadImage ref="reuploader"/> -->
+                        <b-form-file
+                          v-model="file"
+                          :state="Boolean(file)"
+                          placeholder="Choose a file or drop it here..."
+                          drop-placeholder="Drop file here..."
+                          accept=".jpg, .png"
+                        ></b-form-file>
+                    </b-modal>
                   </div>
                 </div>
               </div>
@@ -174,6 +189,7 @@ import firebase from "firebase"
 import { mapGetters } from "vuex"
 import moment from "moment"
 import { db } from '../main'
+// import UploadImage from '@/components/UploadImage.vue'
 export default {
   name: 'userItemList2',
 
@@ -184,7 +200,12 @@ export default {
 
   },
 
+  // components: {
+  //   UploadImage
+  // },
+
   data: () => ({
+    file: null,
     questions: [],
     hypotheses: [],
     experiments: [],
@@ -262,6 +283,74 @@ export default {
     },
     updateExperiment: function (q_id, hyp_id, e_id) {
       this.$router.push("/updateExperiment/" + q_id + "/hypothesis/" + hyp_id + '/experiment/' + e_id) ;
+    },
+
+    uploadImage(name) {
+        var storageRef = firebase.storage().ref();
+        // File or Blob named abcd.jpg
+        var file = this.file
+
+        // Create the file metadata
+        var metadata = {
+        contentType: file.type
+        };
+
+        // Upload file and metadata to the object 'images/abcd.jpg'
+        var uploadTask = storageRef.child('images/' + name).put(file, metadata);
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        function(snapshot) {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+        }, function(error) {
+
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+            case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+
+            case 'storage/canceled':
+            // User canceled the upload
+            break;
+
+            case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+        }, function() {
+            // Upload completed successfully, now we can get the download URL
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL){
+                db.collection('questions').doc(name).update({
+                    img: downloadURL
+                }).then(() => {
+
+                }).catch(err => {
+                    console.log(err)
+                })
+                console.log('File available at', downloadURL);
+            });
+        });
+    },
+
+    handleOk(bvModalEvt) {
+      bvModalEvt.preventDefault()
+
+      this.uploadImage('mr4ltAB1oy71SNs6ymkH') // Save the image
+
+      this.$nextTick(() => {
+        this.$bvModal.hide('mr4ltAB1oy71SNs6ymkH')
+      })
     }
 
   }
