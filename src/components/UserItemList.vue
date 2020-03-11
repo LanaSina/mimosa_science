@@ -167,7 +167,7 @@
               </router-link>
             </div>
             <!-- List of the most active users with their avatars??? -->
-            <ul class="avatars">
+            <!-- <ul class="avatars">
               <li>
                 <a href="#" data-toggle="tooltip" title="Oury Diallo">
                   <img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
@@ -188,7 +188,7 @@
                   <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
                 </a>
               </li>
-            </ul>
+            </ul> -->
             <!-- End list of avatars -->
 
             <!-- Card Optional menu -->
