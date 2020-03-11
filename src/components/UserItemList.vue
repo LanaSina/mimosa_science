@@ -11,8 +11,15 @@
             <!-- End rating -->
 
             <div class="row no-gutters"> 
-              <div class="col-md-4" v-if="q.img">
-                <b-img :src="q.img" fluid></b-img>
+              <div v-if="q.img">
+                <!-- <b-img :src="q.img" fluid></b-img> -->
+                <div class="card bg-dark text-white">
+                  <img class="card-img" :src="q.img" alt="Card image">
+                  <div class="card-img-overlay">
+                    <!-- <h5 class="card-title">Card title</h5> -->
+                    <p class="card-text">TEXT</p>
+                  </div>
+                </div>
               </div>
 
               <div class="col-md-4" v-else>
