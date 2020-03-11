@@ -43,7 +43,7 @@
                   <i class="material-icons">favorite_border</i>
                 </button>
               </div>
-              <b-card :img-src="img" img-alt="Card image" img-left class="mb-3">
+              <b-card :img-src="q.img" img-alt="Card image" img-left class="mb-2">
                 <b-card-text>
                   <div v-if="q.summary.length < 600">
                     {{q.summary}}
@@ -318,7 +318,8 @@ export default {
       var imgRef = storageRef.child('images/' + q_id);
       // Get the download URL
       imgRef.getDownloadURL().then(function(url) {
-        console.log('Image', url)
+        var img = url
+        console.log('Image', img)
       }).catch(function(error) {
         console.log(error)
       });

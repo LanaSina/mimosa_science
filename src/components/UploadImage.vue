@@ -16,6 +16,8 @@
 
 <script>
     import firebase from "firebase"
+    import {db} from '../main'
+    
     export default {
     name: 'UploadImage',
 
@@ -77,6 +79,13 @@
             }, function() {
                 // Upload completed successfully, now we can get the download URL
                 uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL){
+                    db.collection('questions').doc(name).update({
+                        img: downloadURL
+                    }).then(() => {
+
+                    }).catch(err => {
+                        console.log(err)
+                    })
                     console.log('File available at', downloadURL);
                 });
             });
