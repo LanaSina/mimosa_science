@@ -49,19 +49,19 @@
                   {{q.summary.substring(0, 600)+ "..."}}
                 </div>
                 <div class="card-meta d-flex justify-content-between">
-                <div class="d-flex align-items-center">
-                  <i class="material-icons mr-1" title="Number of comments">comment</i>
-                  <span class="text-small">120</span> <span>&nbsp;</span>
-                  <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
-                  <span class="text-small">{{q.n_views}}</span><span>&nbsp;</span>
-                  <i class="material-icons mr-1" title="Number of participants">group</i>
-                  <span class="text-small">15</span><span>&nbsp;</span>
-                  <i class="material-icons mr-1" title="Number of likes">favorite</i>
-                  <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
-                </div>
-                <span v-if="q.modifiedOn" class="text-small">Last modified: {{q.modifiedOn | formatDate}} </span>
+                  <div class="d-flex align-items-center">
+                    <i class="material-icons mr-1" title="Number of comments">comment</i>
+                    <span class="text-small">{{q.n_comments}}</span> <span>&nbsp;</span>
+                    <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
+                    <span class="text-small">{{q.n_views}}</span><span>&nbsp;</span>
+                    <i class="material-icons mr-1" title="Number of participants">group</i>
+                    <span class="text-small">{{q.n_participants}}</span><span>&nbsp;</span>
+                    <i class="material-icons mr-1" title="Number of likes">favorite</i>
+                    <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
+                  </div>
+                  <span v-if="q.modifiedOn" class="text-small">Last modified: {{q.modifiedOn | formatDate}} </span>
                   <span v-else class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
-              </div>
+                </div>
             </div>
           </div>
         </div>
