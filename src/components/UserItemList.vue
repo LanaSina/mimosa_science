@@ -189,7 +189,6 @@ import firebase from "firebase"
 import { mapGetters } from "vuex"
 import moment from "moment"
 import { db } from '../main'
-// import UploadImage from '@/components/UploadImage.vue'
 export default {
   name: 'userItemList2',
 
@@ -199,10 +198,6 @@ export default {
     })
 
   },
-
-  // components: {
-  //   UploadImage
-  // },
 
   data: () => ({
     file: null,
