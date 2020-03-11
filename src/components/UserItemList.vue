@@ -9,52 +9,62 @@
             <div class="progress-bar bg-success" role="progressbar" style="width:80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
             <!-- End rating -->
-            <div class="card-body">
-              <div class="card-title">
-                <router-link :to="{ name: 'question', params: {id: q.id} }">
-                  <h5>{{ q.title }} </h5>
-                </router-link>
+
+            <div class="row no-gutters"> 
+              <div class="col-md-4" v-if="q.img">
+                <b-img :src="q.img" fluid></b-img>
               </div>
-              
-              <!-- Card Optional menu -->
-              <b-navbar-nav class="ml-auto card-options">
-                <b-nav-item-dropdown right>
-                  <!-- Using 'button-content' slot -->
-                  <template v-slot:button-content>
-                    <i class="btn-options material-icons">more_vert</i>
-                  </template>
-                  <b-dropdown-item :to="{ name: 'updateQuestion', params: {id: q.id} }">Edit</b-dropdown-item>
-                  <b-dropdown-item to="#">Invite people</b-dropdown-item>
-                  <b-dropdown-item to="#">Make public</b-dropdown-item>
-                  <b-dropdown-item to="#">Share</b-dropdown-item>
-                  <b-dropdown-item to="#">Archive</b-dropdown-item>
-                </b-nav-item-dropdown>
-              </b-navbar-nav>
-              <!-- End optional menu -->
-              
-              <div class="card-text" v-if="q.summary.length < 600">
-                  {{q.summary}}
+
+              <div class="col-md-4" v-else>
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg>
               </div>
-              <div class="card-text" v-else>
-                {{q.summary.substring(0, 600)+ "..."}}
+
+              <div class="card-body">
+                <div class="card-title">
+                  <router-link :to="{ name: 'question', params: {id: q.id} }">
+                    <h5>{{ q.title }} </h5>
+                  </router-link>
+                </div>
+                
+                <!-- Card Optional menu -->
+                <b-navbar-nav class="ml-auto card-options">
+                  <b-nav-item-dropdown right>
+                    <!-- Using 'button-content' slot -->
+                    <template v-slot:button-content>
+                      <i class="btn-options material-icons">more_vert</i>
+                    </template>
+                    <b-dropdown-item :to="{ name: 'updateQuestion', params: {id: q.id} }">Edit</b-dropdown-item>
+                    <b-dropdown-item to="#">Invite people</b-dropdown-item>
+                    <b-dropdown-item to="#">Make public</b-dropdown-item>
+                    <b-dropdown-item to="#">Share</b-dropdown-item>
+                    <b-dropdown-item to="#">Archive</b-dropdown-item>
+                  </b-nav-item-dropdown>
+                </b-navbar-nav>
+                <!-- End optional menu -->
+                
+                <div class="card-text" v-if="q.summary.length < 600">
+                    {{q.summary}}
+                </div>
+                <div class="card-text" v-else>
+                  {{q.summary.substring(0, 600)+ "..."}}
+                </div>
+                <div class="card-meta d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <i class="material-icons mr-1" title="Number of comments">comment</i>
+                  <span class="text-small">120</span> <span>&nbsp;</span>
+                  <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
+                  <span class="text-small">{{q.n_views}}</span><span>&nbsp;</span>
+                  <i class="material-icons mr-1" title="Number of participants">group</i>
+                  <span class="text-small">15</span><span>&nbsp;</span>
+                  <i class="material-icons mr-1" title="Number of likes">favorite</i>
+                  <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
+                </div>
+                <span v-if="q.modifiedOn" class="text-small">Last modified: {{q.modifiedOn | formatDate}} </span>
+                  <span v-else class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
               </div>
-              <div class="card-meta d-flex justify-content-between">
-							<div class="d-flex align-items-center">
-								<i class="material-icons mr-1" title="Number of comments">comment</i>
-								<span class="text-small">120</span> <span>&nbsp;</span>
-                <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
-								<span class="text-small">{{q.n_views}}</span><span>&nbsp;</span>
-                <i class="material-icons mr-1" title="Number of participants">group</i>
-								<span class="text-small">15</span><span>&nbsp;</span>
-                <i class="material-icons mr-1" title="Number of likes">favorite</i>
-                <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
-							</div>
-							<span v-if="q.modifiedOn" class="text-small">Last modified: {{q.modifiedOn | formatDate}} </span>
-                <span v-else class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
-						</div>
-              
             </div>
           </div>
+        </div>
         </b-tab>
       <!-- End questions -->
 

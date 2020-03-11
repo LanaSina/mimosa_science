@@ -52,7 +52,7 @@
                     <i class="material-icons">favorite_border</i>
                   </button>
                 </div>
-                <div class="card-title">
+                <div class="card-text">
                   <div v-if="q.summary.length < 600">
                       {{q.summary}}
                     </div>
