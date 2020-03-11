@@ -3,7 +3,8 @@
 ## Project setup
 ```
 npm install
-npm install --save firebase vuefire vuex vue-material vue-moment
+npm install --save firebase vuefire vuex vue-material vue-moment vue-social-sharing  
+
 npm install --save-dev node-sass sass-loader
 ```
 
