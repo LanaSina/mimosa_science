@@ -96,31 +96,7 @@
                 <h5>{{ h.title }} </h5>
               </router-link>
             </div>
-            <!-- List of the most active users with their avatars??? -->
-            <ul class="avatars">
-              <li>
-                <a href="#" data-toggle="tooltip" title="Oury Diallo">
-                  <img alt="Oury" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
-                </a>
-              </li>
-              <li>
-                <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
-                  <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
-                </a>
-              </li>
-              <li>
-                <a href="#" data-toggle="tooltip" title="Unknown Unknowm">
-                  <img alt="Unknown" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
-                </a>
-              </li>
-              <li>
-                <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
-                  <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
-                </a>
-              </li>
-            </ul>
-            <!-- End list of avatars -->
-
+            
             <!-- Card Optional menu -->
             <div class="card-options">
               <b-button href="#" class="btn-options" @click="updateHypothesis(questions_id[idx], h.id)"><i class="btn-options material-icons">edit</i></b-button>
