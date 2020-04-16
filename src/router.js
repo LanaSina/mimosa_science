@@ -14,6 +14,8 @@ import UpdateHypothesis from './components/UpdateHypothesis'
 import UpdateExperiment from './components/UpdateExperiment'
 import UserItemList from './components/UserItemList'
 import Profile from './components/Profile'
+import UploadImage from './components/UploadImage'
+import About from './views/About'
 
 Vue.use(Router)
 
@@ -104,6 +106,18 @@ const router = new Router({
             name: 'userItemList',
             component: UserItemList
         },
+
+        {
+            path: '/uploadImage',
+            name: 'uploadImage',
+            component: UploadImage
+        },
+
+        {
+            path: '/about',
+            name: 'about',
+            component: About
+        }
     ]
 });
 

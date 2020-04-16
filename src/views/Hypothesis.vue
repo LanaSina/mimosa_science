@@ -34,8 +34,18 @@
 			</div>
 
 			<ExperimentsList v-if="hypothesis && question" v-bind:question='question' v-bind:hypothesis='hypothesis'/>
+			
+			<b-button v-b-modal="'my-modal'">Add your hypothesis (Modal)</b-button>
 
-			<Form v-bind:question='question' v-bind:hypothesis='hypothesis'/>
+			<b-modal id="my-modal" size="xl" title="Add your hypothesis">
+				<Form v-bind:question='question' v-bind:hypothesis='hypothesis'/>
+			</b-modal>
+			
+			<br/><b-button v-b-toggle.collapse>Add your hypothesis (Toggle Collapse)</b-button>
+
+			<b-collapse id="collapse">
+				<Form v-bind:question='question' v-bind:hypothesis='hypothesis'/>
+			</b-collapse>
 		</div>
 	</div>
 </template>

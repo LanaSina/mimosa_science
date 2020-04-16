@@ -6,11 +6,11 @@
 
 			<!-- <b-form-group id="question_global" label="Question" > -->
 				<h4>Question</h4>
+				<UploadImage ref="uploader" v-if='!question'/>
 				<b-form-group id="question_title_group" label="Question summary*:" label-for="question_title" label-cols-sm="3">
 
 					<b-form-input v-if='question' id="question_title" type="text" :disabled=true v-model='this.question.title'></b-form-input>
 					<b-form-input v-else id="question_title" type="text" placeholder="required" v-model='question_data.title' required></b-form-input>
-
 				</b-form-group>
 
 				<b-form-group id="question_title" label="Details:"
@@ -22,6 +22,7 @@
 					<b-form-input v-else id="f_question_summary" type="text" v-model='question_data.summary'></b-form-input>
 
 				</b-form-group>
+
 
 			<!-- </b-form-group> -->
 
@@ -74,6 +75,7 @@
 
 <script>
 import {db} from '../main';
+import UploadImage from '@/components/UploadImage.vue'
 import { firestore } from 'firebase';
 const firebase = require('firebase/app');
 require('firebase/auth');
@@ -88,6 +90,11 @@ export default {
 				type: Object
 		},
 	},
+
+	components: {
+		UploadImage
+	},
+
 	data: () => ({
 			signed_in: false,
 			//not quite sure why but this var is recommended in the doc
@@ -155,6 +162,9 @@ export default {
 					.then(ref => {
 						console.log('Added question with ID: ', ref.id);
 						let q_id = ref.id;
+
+						this.$refs.uploader.uploadImage(q_id) // Save the image
+
 						// Initialize the number of views, comments, and participants to 0 after creating a new question
 						db.collection('questions').doc(q_id).set({
 							n_comments: 0,

@@ -1,5 +1,13 @@
 <template>
   <div class="container">
+    <div class="row content-list-head">
+      <div class="col-auto">
+        <h3>Questions</h3>
+        <b-nav-item class="btn btn-round" to="/question/new">
+          <i class="material-icons">add</i>
+        </b-nav-item>
+      </div>
+    </div>
     <!-- <div class="row"> -->
         <!-- <div class="col-lg-6" v-for="q in questionsPerPage" :key="q.id" id="allQuestions"> -->
           <div class="card" v-for="(q, idx) in questionsPerPage" :key="q.id" id="allQuestions">
@@ -9,68 +17,73 @@
               <div class="progress-bar bg-success" role="progressbar" :style="`width: ${getAverageVote()}%`" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <!-- End rating -->
-            <div class="card-body">
-              <div class="card-title">
-                <router-link :to="{ name: 'question', params: {id: q.id} }">
-                  <h5>{{q.title}}</h5>
-                </router-link>
+            <div class="row no-gutters"> 
+              <div class="col-md-4" v-if="q.img">
+                <b-img :src="q.img" fluid></b-img>
               </div>
-              <!-- List of the most active users with their avatars??? -->
-              <ul class="avatars" v-for="p in participants[idx][1]">
-                <li>
-                  <!-- <a href="#" data-toggle="tooltip" :title="getParticipantName(p)"> -->
-                    <!-- <span> {{getParticipants(p)}}</span> -->
-                    <a data-toggle="tooltip" :title="getParticipantName(p)">
-                    <img alt="getParticipantName(p)" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
-                  </a>
-                </li>
-                <!-- <li>
-                  <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
-                    <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
-                  </a>
-                </li>
-                <li>
-                  <a href="#" data-toggle="tooltip" title="Unknown Unknowm">
-                    <img alt="Unknown" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
-                  </a>
-                </li>
-                <li>
-                  <a href="#" data-toggle="tooltip" title="Lana Sinapayen">
-                    <img alt="Lana" class="avatar filter-by-alt" src="../assets/logo.png" data-filter-by="alt">
-                  </a>
-                </li> -->
-              </ul>
-              <!-- End list of avatars -->
-              <div class="card-options" v-if="user.loggedIn">
-                <button class="btn-options" type="button"> 
-                  <i class="material-icons" title="Rate this question">rate_review</i>
-                </button>
-                <button class="btn-options" type="button" v-if="checkFavoriteQuestion(q.id)" @click="removeFromFavoriteQuestions(q.id, q.likes)">
-                  <i class="material-icons red">favorite</i>
-                </button>
-                <button class="btn-options" type="button" v-else @click="addToFavoriteQuestions(q.id, q.likes)">
-                  <i class="material-icons">favorite_border</i>
-                </button>
+
+              <div class="col-md-4" v-else>
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg>
+
               </div>
-              <div class="card-text" v-if="q.summary.length < 600">
-                  {{q.summary}}
-              </div>
-              <div class="card-text" v-else>
-                  {{q.summary.substring(0, 600)+ "..."}}
-              </div>
-              <div class="card-meta d-flex justify-content-between">
-                <div class="d-flex align-items-center">
-                  <i class="material-icons mr-1" title="Number of comments">comment</i>
-                  <span class="text-small">{{q.n_comments}}</span> <span>&nbsp;</span>
-                  <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
-                  <span class="text-small">{{q.n_views}}</span><span>&nbsp;</span>
-                  <i class="material-icons mr-1" title="Number of participants">group</i>
-                  <span class="text-small">{{q.n_participants}}</span><span>&nbsp;</span>
-                  <i class="material-icons mr-1" title="Number of likes">favorite</i>
-                  <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
+              <div class="card-body">
+                <div class="card-title">
+                  <router-link :to="{ name: 'question', params: {id: q.id} }">
+                    <h5>{{q.title}}</h5>
+                  </router-link>
                 </div>
-                <span v-if="q.modifiedOn" class="text-small">Last modified: {{q.modifiedOn | formatDate}} </span>
-                <span v-else class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
+                <!-- List of the most active users with their avatars??? -->
+                <!-- <ul class="avatars" v-for="p in participants[idx][1]">
+                  <li>
+                      <a data-toggle="tooltip" :title="getParticipantName(p)">
+                      <img alt="getParticipantName(p)" class="avatar filter-by-alt" src="../assets/images/user-avatar.png" data-filter-by="alt">
+                    </a>
+                  </li>
+                </ul> -->
+                <!-- End list of avatars -->
+                <div class="card-options" v-if="user.loggedIn">
+                  <button class="btn-options" type="button"> 
+                    <i class="material-icons" title="Rate this question">rate_review</i>
+                  </button>
+                  <button class="btn-options" type="button" v-if="checkFavoriteQuestion(q.id)" @click="removeFromFavoriteQuestions(q.id, q.likes)">
+                    <i class="material-icons red">favorite</i>
+                  </button>
+                  <button class="btn-options" type="button" v-else @click="addToFavoriteQuestions(q.id, q.likes)">
+                    <i class="material-icons">favorite_border</i>
+                  </button>
+                </div>
+                <div class="card-text">
+                  <div v-if="q.summary.length < 600">
+                      {{q.summary}}
+                    </div>
+                    <div v-else>
+                      {{q.summary.substring(0, 600)+ "..."}}
+                    </div>
+                </div>
+                <!-- <b-card :img-src="q.img" img-alt="Card image" img-left class="mb-3">
+                  <b-card-text>
+                    <div v-if="q.summary.length < 600">
+                      {{q.summary}}
+                    </div>
+                    <div v-else>
+                      {{q.summary.substring(0, 600)+ "..."}}
+                    </div>
+                  </b-card-text>
+                </b-card> -->
+                <div class="card-meta d-flex justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <i class="material-icons mr-1" title="Number of comments">comment</i>
+                    <span class="text-small">{{q.n_comments}}</span> <span>&nbsp;</span>
+                    <i class="material-icons mr-1" title="Number of views">remove_red_eye</i>
+                    <span class="text-small">{{q.n_views}}</span><span>&nbsp;</span>
+                    <i class="material-icons mr-1" title="Number of participants">group</i>
+                    <span class="text-small">{{q.n_participants}}</span><span>&nbsp;</span>
+                    <i class="material-icons mr-1" title="Number of likes">favorite</i>
+                    <span class="text-small">{{q.likes}}</span><span>&nbsp;</span>
+                  </div>
+                  <span v-if="q.modifiedOn" class="text-small">Last modified: {{q.modifiedOn | formatDate}} </span>
+                  <span v-else class="text-small">Last modified: {{q.createdAt | formatDate}}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -113,7 +126,8 @@ export default {
     favorites: [],
     participants: [],
     name: '',
-    photoUrl: ''
+    photoUrl: '',
+    img: "https://placekitten.com/120/120"
   }),
   firestore: {
 
@@ -315,6 +329,18 @@ export default {
         this.photoUrl = data[1];
       });
       return `${this.photoUrl}_${Math.random()}`;
+    },
+
+    getImageQuestion: function(q_id) {
+      var storageRef = firebase.storage().ref();
+      var imgRef = storageRef.child('images/' + q_id);
+      // Get the download URL
+      imgRef.getDownloadURL().then(function(url) {
+        var img = url
+        console.log('Image', img)
+      }).catch(function(error) {
+        console.log(error)
+      });
     }
 
 
@@ -322,6 +348,7 @@ export default {
 
   mounted () {
     console.log(this.participants)
+    this.getImageQuestion('mr4ltAB1oy71SNs6ymkH')
   }
 }
 

@@ -14,10 +14,19 @@
         <p>{{ question.summary }}</p>
         <HypothesesList v-bind:question='question'/>
 
-        <h2> Add your proposed hypothesis here: </h2>
-        <br/>
+        <!-- <h2> Add your proposed hypothesis here: </h2>
+        <br/> -->
+        <b-button v-b-modal="'my-modal'">Add your hypothesis (Modal)</b-button>
 
+        <b-modal id="my-modal" size="xl" title="Add your hypothesis">
         <Form v-bind:question='question'/>
+        </b-modal>
+        
+        <br/><b-button v-b-toggle.collapse>Add your hypothesis (Toggle Collapse)</b-button>
+
+        <b-collapse id="collapse">
+          <Form v-bind:question='question'/>
+        </b-collapse>
 
       </div>
 
