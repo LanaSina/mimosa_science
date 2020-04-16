@@ -10,7 +10,7 @@
 					<b-navbar-nav>
 						<b-nav-item to="/question/new"> New Question & Hypothesis </b-nav-item>
 						<b-nav-item to="/userItemList">My items</b-nav-item>
-						<b-nav-item to="/about">About</b-nav-item>
+						<b-nav-item to="/About">About</b-nav-item>
 					</b-navbar-nav>
 
 					<!-- Right aligned nav items -->
