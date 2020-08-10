@@ -26,6 +26,7 @@ import 'vue-wysiwyg/dist/vueWysiwyg.css';
 // Material Vue
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
+import './quasar'
 Vue.use(VueMaterial)
 
 Vue.use(require('vue-moment'))
