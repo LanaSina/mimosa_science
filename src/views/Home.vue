@@ -8,6 +8,7 @@
 
     <router-link :to="{ name: 'logout'}">Logout</router-link> -->
 
+    <HomeGrid/>
     <QuestionList />
   </div>
 </template>
@@ -15,11 +16,19 @@
 <script>
 // @ is an alias to /src
 import QuestionList from '@/components/QuestionList.vue'
+import HomeGrid from '@/components/HomeGrid.vue'
 
 export default {
   name: 'home',
   components: {
-    QuestionList
+    QuestionList,
+    HomeGrid
   }
 }
 </script>
+
+<style  scoped>
+div {
+  font-size: 11pt;
+}
+</style>

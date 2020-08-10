@@ -35,14 +35,15 @@ var SocialSharing = require('vue-social-sharing');
 Vue.use(SocialSharing);
 
 var firebaseConfig = {
-  apiKey: "AIzaSyCTqX3P2jJL73c4PUowA2QY5DI-5n5fXh8",
-  authDomain: "mimoza-441ee.firebaseapp.com",
-  databaseURL: "https://mimoza-441ee.firebaseio.com",
-  projectId: "mimoza-441ee",
-  storageBucket: "mimoza-441ee.appspot.com",
-  messagingSenderId: "196202057966",
-  appId: "1:196202057966:web:23c4aad31b992fa2"
-};
+    apiKey: "AIzaSyDxGoDcpzPUHAWOC3B2rb0k1Zdf6QPS1_w",
+    authDomain: "mimosa-97ad6.firebaseapp.com",
+    databaseURL: "https://mimosa-97ad6.firebaseio.com",
+    projectId: "mimosa-97ad6",
+    storageBucket: "mimosa-97ad6.appspot.com",
+    messagingSenderId: "324532774780",
+    appId: "1:324532774780:web:fa02235fdc310eb94c66f9",
+    measurementId: "G-SKN6GVFW3B"
+  };
 
 export const db = firebase.initializeApp(firebaseConfig).firestore();
 
