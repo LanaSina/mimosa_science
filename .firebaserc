@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "mimosa-97ad6"
+    "default": "mimosa-97ad6",
+    "staging": "mimosa-97ad6"
   }
 }

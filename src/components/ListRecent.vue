@@ -19,10 +19,11 @@
               <q-item-label caption lines="3">{{q.summary}}</q-item-label>
             </q-item-section>
 
-            <q-item-section side top>
+            <q-item-section thumbnail>
+              <img v-if="q.img" :src="q.img">
               <q-item-label caption>
-               <span v-if="q.modifiedOn" class="text-small">{{q.modifiedOn | formatDate}} </span>
-                    <span v-else class="text-small">{{q.createdAt | formatDate}}</span>
+                <span v-if="q.modifiedOn" class="text-small">{{q.modifiedOn | formatDate}} </span>
+                <span v-else class="text-small">{{q.createdAt | formatDate}}</span>
               </q-item-label>
             </q-item-section>
         </q-item>

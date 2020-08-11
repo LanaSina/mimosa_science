@@ -9,7 +9,7 @@
     <router-link :to="{ name: 'logout'}">Logout</router-link> -->
 
     <HomeGrid/>
-    <QuestionList />
+    <!-- <QuestionList /> -->
   </div>
 </template>
 
