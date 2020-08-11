@@ -8,8 +8,17 @@ const functions = require('firebase-functions');
 // });
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
-const admin = require('firebase-admin');
-admin.initializeApp();
+// const admin = require('firebase-admin');
+// admin.initializeApp();
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://mimosa-97ad6.firebaseio.com"
+});
 
 
 exports.getUserInfo = functions.https.onCall((data, context) => {

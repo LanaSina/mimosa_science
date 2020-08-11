@@ -5,7 +5,7 @@
 npm install
 npm install --save firebase vuefire vuex vue-material vue-moment vue-social-sharing  
 
-npm install --save-dev node-sass sass-loader
+npm install --save-dev node-sass sass-loader quasar
 ```
 
 Following the steps from https://firebase.google.com/docs/functions/get-started if you want to add or modifiy the cloud functions.
