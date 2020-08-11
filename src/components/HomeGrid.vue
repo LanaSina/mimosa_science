@@ -1,14 +1,19 @@
 <template>
-    <div class="q-pa-md row items-center">
-      <div class="col">
-        <HypothesesUpdates/>
-      </div>
+    <div class="q-pa-md">
+      <div class="row" >
 
-      <div class="col">
-        <ListRecent/>
-      </div>
-      <div class="col">
-        <Form/>
+        <div class="col">
+          <HypothesesUpdates/>
+        </div>
+
+        <div class="col">
+          <ListRecent/>
+        </div>
+
+        <div class="col">
+          <Form/>
+        </div>
+
       </div>
     </div>
 </template>

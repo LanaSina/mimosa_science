@@ -1,36 +1,35 @@
 <template>
-    <q-list bordered padding>
-      <q-item-label overline class="text-center">Your Feed</q-item-label>
 
-      <div class="card" v-for="(q, idx) in questionsPerPage" :key="q.id" id="allQuestions">
-        <q-item>
-          <q-item-section top avatar>
-           <q-avatar rounded color="primary" text-color="white">H</q-avatar>
-          </q-item-section>
+    <q-list bordered separator>
+      <!-- <q-item-label overline class="text-center">Your Feed</q-item-label> -->
+      <q-item-label header>Feed</q-item-label>
+      <q-separator/>
 
-          <q-item-section>
-            <q-item-label lines="3">
-              <router-link :to="{ name: 'question', params: {id: q.id} }">
-                {{q.title}}
-              </router-link>
-            </q-item-label>
+      <q-item v-for="(q, idx) in questionsPerPage" :key="q.id" id="allQuestions" class="q-my-sm" :to="{ name: 'question', params: {id: q.id} }">
+      <!-- <div class="card" v-for="(q, idx) in questionsPerPage" :key="q.id" id="allQuestions"> -->
+            <q-item-section top avatar>
+             <q-avatar rounded color="primary" text-color="white">H</q-avatar>
+            </q-item-section>
 
-            <q-item-label caption lines="3">{{q.summary}}</q-item-label>
-          </q-item-section>
+            <q-item-section>
+              <q-item-label lines="3">
+                  {{q.title}}
+              </q-item-label>
 
-          <q-item-section side top>
-            <q-item-label caption>
-             <span v-if="q.modifiedOn" class="text-small">{{q.modifiedOn | formatDate}} </span>
-                  <span v-else class="text-small">{{q.createdAt | formatDate}}</span>
-            </q-item-label>
-            <!-- <q-icon name="pie_chart" color="green" /> -->
-          </q-item-section>
+              <q-item-label caption lines="3">{{q.summary}}</q-item-label>
+            </q-item-section>
+
+            <q-item-section side top>
+              <q-item-label caption>
+               <span v-if="q.modifiedOn" class="text-small">{{q.modifiedOn | formatDate}} </span>
+                    <span v-else class="text-small">{{q.createdAt | formatDate}}</span>
+              </q-item-label>
+            </q-item-section>
         </q-item>
-
-      </div>
     
     </q-list>
-    
+
+
 </template>
 
 <script>
