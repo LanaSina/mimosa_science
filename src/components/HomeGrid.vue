@@ -2,15 +2,15 @@
     <div class="q-pa-md">
       <div class="row" >
 
-        <div class="col">
+        <div class="col-sm-12 col-md-4">
           <HypothesesUpdates/>
         </div>
 
-        <div class="col">
+        <div class="col-sm-12 col-md-4">
           <ListRecent/>
         </div>
 
-        <div class="col">
+        <div class="col-sm-12 col-md-4">
           <Form/>
         </div>
 
