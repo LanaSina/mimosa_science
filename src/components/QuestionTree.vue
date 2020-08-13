@@ -11,6 +11,7 @@
         <div class="q-pa-md">
           <q-tree
             :nodes="hypotheses"
+            default-expand-all
             node-key="summary"
             label-key="title"
             children-key="experiments"
@@ -26,8 +27,11 @@
       </template>
 
       <template v-slot:after>
-        <div>{{ selected }}</div>
+<!--         be sure to sanitize it either on render or server side (or both).
+ -->        
+        <div v-html="selected"></div>
       </template>
+
     </q-splitter>
 
   </div>
@@ -46,7 +50,7 @@
     data () {
       return {
         hypotheses: [],
-        selected: 0,
+        selected: "Select an item.",//this.question.summary,
         splitterModel: 50,
       }
     },
@@ -68,6 +72,8 @@
             hyp.id = doc.id;
             hyp.index = this.hypotheses.length
             hyp.avatar = "https://cdn.quasar.dev/img/boy-avatar.png"
+            hyp.title = "Hypothesis: " + hyp.title
+            // hyp.img = "<q-avatar color='primary' text-color='white'>LS</q-avatar>"
             hyp.experiments = []
             this.hypotheses.push(hyp);
             // get experiments for this hypothesis
@@ -81,7 +87,10 @@
                   return;
                 } 
                 snapshot.forEach(epx_doc => {
-                  hyp.experiments.push(epx_doc.data());
+                  let exp_data = epx_doc.data()
+                  exp_data.avatar = "https://cdn.quasar.dev/img/boy-avatar.png"
+                  exp_data.title = "Experiment: " + exp_data.title
+                  hyp.experiments.push(exp_data);
                 });
               })
               .catch(err => {
@@ -93,7 +102,6 @@
         .catch(err => {
           console.log('Error getting documents', err);
         });
-
   },
   }
 

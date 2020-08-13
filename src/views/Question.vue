@@ -2,7 +2,6 @@
   <div class="q-pa-md">
     <div class="q-pa-md q-gutter-sm">
 
-
       <q-card class="my-card">
         <q-item>
           <q-item-section avatar>
@@ -17,36 +16,41 @@
           </q-item-section>
         </q-item>
 
-        <q-card-section horizontal>
-          <q-parallax
+        <!-- <div :v-if="question">  -->
 
-            src="https://cdn.quasar.dev/img/parallax2.jpg"
-            :height="200"
-          />
+          <q-card-section horizontal>
 
-          <q-card-actions vertical class="justify-around q-px-md">
-            <q-btn flat round color="red" icon="favorite_outline"></q-btn>
-            <q-btn flat round color="accent" icon="star_outline"></q-btn>
-            <q-btn flat round color="primary" icon="share"></q-btn>
-            <q-btn flat round color="secondary" icon="add"></q-btn>
-          </q-card-actions>
-        </q-card-section>
-        
-        
-        <q-card-section>
-          <div class="row no-wrap items-center">
-            <div class="col text-h6 ellipsis">
+            <q-card-actions vertical class="justify-around q-px-md">
+              <q-btn flat round color="red" icon="favorite_outline"></q-btn>
+              <q-btn flat round color="accent" icon="star_outline"></q-btn>
+              <q-btn flat round color="primary" icon="share"></q-btn>
+              <q-btn flat round color="secondary" icon="add"></q-btn>
+            </q-card-actions>
+
+              <q-img :v-if="question.img"
+                :src="question.img"
+                spinner-color="white"
+                style="height: 200px"
+              />
+
+          </q-card-section>
+          
+          <q-card-section>
+
+            <div class="row text-h6">
               Question: {{ question.title }}
             </div>
-        
 
-            <div class="col-auto text-grey text-caption q-pt-md row no-wrap items-center">
-              <!-- {{ question.summary }} -->
+            <div class="row">
+            {{ question.summary }}
             </div>
-          </div>
-          <q-rating size="18px" v-model="stars" :max="5" color="primary"></q-rating>
-          <span class="text-caption text-grey q-ml-sm">{{stars}} (551)</span>
-        </q-card-section>
+
+            <q-rating size="18px" v-model="stars" :max="5" color="primary"></q-rating>
+            <span class="text-caption text-grey q-ml-sm">{{stars}} (551)</span>
+
+          </q-card-section>
+
+        <!-- </div> -->
 
         <q-card-section class="q-pt-none">
           <div class="">
