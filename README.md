@@ -1,6 +1,10 @@
-# mimosa
+# Mimosa Science
 
-## Project setup
+A science sharing and collaboration platform
+
+## Development (community)
+
+### Project setup
 ```
 npm install
 npm install --save firebase vuefire vuex vue-material vue-moment vue-social-sharing  
@@ -33,7 +37,10 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-## Push to production
+
+## Development (main team)
+
+### Push to production
 
 ```
 npm run build
@@ -42,10 +49,9 @@ firebase login
 firebase deploy
 ```
 
-## Modify database
+### Modify database
 
-https://console.firebase.google.com/u/0/project/mimoza-441ee/database
+Log in to firebase
 
-## External modules documentation
+### External modules documentation
 
-Wysiwg https://github.com/chmln/vue-wysiwyg
