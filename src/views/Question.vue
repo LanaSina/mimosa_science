@@ -1,38 +1,67 @@
 <template>
-  <div class="container">
-    <!-- <router-link to="/">Home</router-link> -->
+  <div class="q-pa-md">
+    <div class="q-pa-md q-gutter-sm">
 
-    <div>
-        <!-- Initialize the statistics of a question -->
-        <!-- <button type="button" @click="initializingParticipants()">
-          <i class="material-icons">edit</i>
-        </button> -->
-      <div v-if="question" id="question">
-        <h1>
+      <q-card class="my-card">
+        <q-item>
+          <q-item-section avatar>
+            <q-avatar color="primary" text-color="white">LS</q-avatar>
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Lana Sinapayen </q-item-label>
+            <q-item-label caption>
+              Last modified: 2 months ago
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <!-- <div :v-if="question">  -->
+
+          <q-card-section horizontal>
+
+            <q-card-actions vertical class="justify-around q-px-md">
+              <q-btn flat round color="red" icon="favorite_outline"></q-btn>
+              <q-btn flat round color="accent" icon="star_outline"></q-btn>
+              <q-btn flat round color="primary" icon="share"></q-btn>
+              <q-btn flat round color="secondary" icon="add"></q-btn>
+            </q-card-actions>
+
+              <q-img :v-if="question.img"
+                :src="question.img"
+                spinner-color="white"
+                style="height: 200px"
+              />
+
+          </q-card-section>
+          
+          <q-card-section>
+
+            <div class="row text-h6">
               Question: {{ question.title }}
-        </h1>
-        <p>{{ question.summary }}</p>
-        <HypothesesList v-bind:question='question'/>
+            </div>
 
-        <!-- <h2> Add your proposed hypothesis here: </h2>
-        <br/> -->
-        <b-button v-b-modal="'my-modal'">Add your hypothesis (Modal)</b-button>
+            <div class="row">
+            {{ question.summary }}
+            </div>
 
-        <b-modal id="my-modal" size="xl" title="Add your hypothesis">
-        <Form v-bind:question='question'/>
-        </b-modal>
-        
-        <br/><b-button v-b-toggle.collapse>Add your hypothesis (Toggle Collapse)</b-button>
+            <q-rating size="18px" v-model="stars" :max="5" color="primary"></q-rating>
+            <span class="text-caption text-grey q-ml-sm">{{stars}} (551)</span>
 
-        <b-collapse id="collapse">
-          <Form v-bind:question='question'/>
-        </b-collapse>
+          </q-card-section>
 
-      </div>
+        <!-- </div> -->
 
-      <div v-else>
-        <Form/>
-      </div>
+        <q-card-section class="q-pt-none">
+          <div class="">
+            {{lorem}}
+          </div>
+          
+        </q-card-section>
+     
+      </q-card>
+
+      <QuestionTree v-bind:question='question'/>
 
     </div>
     
@@ -43,7 +72,7 @@
 <script>
 import Form from '@/components/Form.vue'
 import {db} from '../main';
-import HypothesesList from '@/components/HypothesesList.vue'
+import QuestionTree from '@/components/QuestionTree.vue'
 import { firestore } from 'firebase';
 const firebase = require('firebase/app');
 require('firebase/auth');
@@ -52,14 +81,13 @@ export default {
   name: 'Question',
   components: {
     Form,
-    HypothesesList,
+    QuestionTree,
   },
 
   data: () => ({
-    hypotheses: [],
     question:null,
     id : null,
-    n_views: null
+    n_views: null,
   }),
 
   created() {
