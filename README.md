@@ -1,6 +1,9 @@
 # Mimosa Science
 
-A science sharing and collaboration platform
+A science sharing and collaboration platform 
+https://mimosa-97ad6.web.app/
+
+Status: in test
 
 ## Development (community)
 
